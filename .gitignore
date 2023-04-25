@@ -1,0 +1,66 @@
+# Compiled Object files
+*.obj
+*.o
+*.a
+*.dll
+*.exe
+*.lib
+*.so
+
+# Compiled Bytecode
+*.class
+
+# Compiled binary data
+*.bin
+*.sqlite
+*.sqlite3
+*.log
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+
+# Compiled build output
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Hilt generated files
+/generated/
+
+# IntelliJ IDEA files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Gradle files
+.gradle/
+buildSrc/.gradle/
+buildSrc/.idea/
+
+# Jetpack Compose generated files
+/*/build/
+/*/out/
+/.gradle/
+/.idea/
+
+# Mac files
+.DS_Store
+
+# Windows files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Kotlin files
+*.kt~
+
+# Crashlytics files
+com_crashlytics_export_strings.xml
+crashlytics-build.properties
