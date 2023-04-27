@@ -2,14 +2,15 @@
 
 package com.aloarte.shopwise.presentation.compose.list
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -108,7 +111,8 @@ fun GridContent() {
             code = "TSHIRT",
             name = "Cabify T-shirt",
             price = 20.0
-        ), ProductBo(
+        ),
+        ProductBo(
             type = ProductType.Mug,
             code = "MUG",
             name = "Cabify Coffee Mug",
@@ -125,7 +129,7 @@ fun GridContent() {
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
 
-        ) {
+    ) {
         items(products.size) {
             ProductItem(products[it])
         }
@@ -134,8 +138,14 @@ fun GridContent() {
 
 @Composable
 fun ProductItem(product: ProductBo) {
-    Column(verticalArrangement = Arrangement.Center , horizontalAlignment = Alignment.CenterHorizontally) {
+
+    var liked by remember { mutableStateOf(false) }
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Card(
+            onClick = { },
             modifier = Modifier
                 .height(200.dp)
                 .width(150.dp),
@@ -157,10 +167,14 @@ fun ProductItem(product: ProductBo) {
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Box(Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
+        ) {
             Column(Modifier.align(Alignment.CenterStart)) {
                 Text(
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.ExtraLight,
                     text = product.name
@@ -174,14 +188,30 @@ fun ProductItem(product: ProductBo) {
                 )
 
             }
-            Image(
-                modifier = Modifier
-                    .height(20.dp)
-                    .width(20.dp)
-                    .align(Alignment.CenterEnd),
-                painter = painterResource(id = R.drawable.ic_like),
-                contentDescription = "Product image"
-            )
+            Column(
+                Modifier
+                    .border(
+                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .align(Alignment.CenterEnd)
+                    .height(35.dp)
+                    .width(35.dp)
+                    .padding(5.25.dp)
+                    .clickable { liked = !liked },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    colorFilter = ColorFilter.tint(if (liked) Color.Red else Color.Black),
+                    modifier = Modifier
+                        .height(20.dp)
+                        .width(20.dp),
+                    painter = painterResource(id = if (liked) R.drawable.ic_like_filled else R.drawable.ic_like),
+                    contentDescription = "Like icon"
+                )
+            }
+
         }
     }
 
