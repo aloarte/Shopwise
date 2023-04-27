@@ -14,8 +14,6 @@ class MainViewModel @Inject constructor(private val repository: ShopwiseProducts
     fun fetchItems() {
         viewModelScope.launch {
             val data = repository.fetchProducts()
-            Log.d("ALRALR","data :$data")
-
         }
     }
 }
