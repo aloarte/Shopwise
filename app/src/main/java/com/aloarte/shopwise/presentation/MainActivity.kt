@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.aloarte.shopwise.presentation.MainViewModel
+import com.aloarte.shopwise.presentation.compose.navigation.NavigationComponent
 import com.aloarte.shopwise.presentation.ui.theme.ShopwiseTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    NavigationComponent()
                 }
             }
         }
