@@ -7,7 +7,10 @@ import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.domain.ProductBo
 import javax.inject.Inject
 
-class ShopwiseProductsDatasourceImpl @Inject constructor(private val api: ProductsApi, private val parser: DataParser) :
+class ShopwiseProductsDatasourceImpl @Inject constructor(
+    private val api: ProductsApi,
+    private val parser: DataParser
+) :
     ShopwiseProductsDatasource {
     override suspend fun fetchProducts(): ApiResult<List<ProductBo>> {
         return try {
