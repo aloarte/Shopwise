@@ -1,6 +1,20 @@
 package com.aloarte.shopwise
 
 
+import com.aloarte.shopwise.TestData.DISCOUNTED_TSHIRT_ALT_PRICE
+import com.aloarte.shopwise.TestData.DISCOUNTED_TSHIRT_PRICE
+import com.aloarte.shopwise.TestData.MUG_ALT_PRICE
+import com.aloarte.shopwise.TestData.MUG_PRICE
+import com.aloarte.shopwise.TestData.TSHIRT_ALT_PRICE
+import com.aloarte.shopwise.TestData.TSHIRT_PRICE
+import com.aloarte.shopwise.TestData.VOUCHER_ALT_PRICE
+import com.aloarte.shopwise.TestData.VOUCHER_PRICE
+import com.aloarte.shopwise.TestData.alternativeMug
+import com.aloarte.shopwise.TestData.alternativeTshirt
+import com.aloarte.shopwise.TestData.alternativeVoucher
+import com.aloarte.shopwise.TestData.mug
+import com.aloarte.shopwise.TestData.tshirt
+import com.aloarte.shopwise.TestData.voucher
 import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.domain.ShoppingCart
@@ -10,60 +24,6 @@ import org.junit.Before
 import org.junit.Test
 
 class ShoppingCartTest {
-
-    private val VOUCHER_PRICE = 5.0
-    private val TSHIRT_PRICE = 20.0
-    private val DISCOUNTED_TSHIRT_PRICE = 19.0
-    private val MUG_PRICE = 7.5
-
-    private val VOUCHER_ALT_PRICE = 6.0
-    private val TSHIRT_ALT_PRICE = 25.0
-    private val DISCOUNTED_TSHIRT_ALT_PRICE = 20.0
-    private val MUG_ALT_PRICE = 5.5
-
-
-
-    private val voucher = ProductBo(
-        type = ProductType.Voucher,
-        code = "VOUCHER",
-        name = "Cabify Voucher",
-        price = VOUCHER_PRICE
-    )
-
-    private val tshirt = ProductBo(
-        type = ProductType.Tshirt,
-        code = "TSHIRT",
-        name = "Cabify T-Shirt",
-        price = TSHIRT_PRICE
-    )
-
-    private val mug = ProductBo(
-        type = ProductType.Mug,
-        code = "MUG",
-        name = "Cabify Coffee Mug",
-        price = MUG_PRICE
-    )
-
-    private val alternativeVoucher = ProductBo(
-        type = ProductType.Voucher,
-        code = "VOUCHER",
-        name = "Cabify Voucher",
-        price = VOUCHER_ALT_PRICE
-    )
-
-    private val alternativeTshirt = ProductBo(
-        type = ProductType.Tshirt,
-        code = "TSHIRT",
-        name = "Cabify T-Shirt",
-        price = TSHIRT_ALT_PRICE
-    )
-
-    private val alternativeMug = ProductBo(
-        type = ProductType.Mug,
-        code = "MUG",
-        name = "Cabify Coffee Mug",
-        price = MUG_ALT_PRICE
-    )
 
 
     private lateinit var regularCart: ShoppingCart
