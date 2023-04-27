@@ -1,4 +1,4 @@
-package com.aloarte.shopwise
+package com.aloarte.shopwise.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.aloarte.shopwise.presentation.MainViewModel
-import com.aloarte.shopwise.ui.theme.ShopwiseTheme
+import com.aloarte.shopwise.presentation.ui.theme.ShopwiseTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

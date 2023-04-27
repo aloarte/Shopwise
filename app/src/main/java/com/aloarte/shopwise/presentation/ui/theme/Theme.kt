@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.ui.theme
+package com.aloarte.shopwise.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
