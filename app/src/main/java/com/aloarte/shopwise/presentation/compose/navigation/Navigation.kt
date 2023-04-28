@@ -21,7 +21,6 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
         composable(route = Screen.ListScreen.route) {
             ListScreen(
-                navController = navController,
                 state = state,
                 onEventTriggered = {
                     when(it){

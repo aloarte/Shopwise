@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,12 +17,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,14 +43,20 @@ import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.domain.ProductType
-import com.aloarte.shopwise.presentation.compose.AddProductDialog
-import com.aloarte.shopwise.presentation.compose.TitleText
+import com.aloarte.shopwise.presentation.compose.commons.AddProductDialog
+import com.aloarte.shopwise.presentation.compose.commons.TitleText
 import com.aloarte.shopwise.presentation.ui.theme.MugBackground
 import com.aloarte.shopwise.presentation.ui.theme.TshirtBackground
 import com.aloarte.shopwise.presentation.ui.theme.VoucherBackground
 
+
 @Composable
-fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo, Int) -> Unit) {
+fun GridContent(
+    products: List<ProductBo>,
+    enableCheckout: Boolean,
+    onItemClicked: (ProductBo, Int) -> Unit,
+    onGoToCheckout: () -> Unit
+) {
     TitleText(stringResource(id = R.string.list_products_title))
 
     LazyVerticalGrid(
@@ -61,8 +70,42 @@ fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo, Int) -> Un
         items(products.size) {
             ProductItem(products[it], onItemClicked = onItemClicked)
         }
+        item(span =  { GridItemSpan(2) }) {
+            Spacer(modifier = Modifier.height(10.dp))
+            if (enableCheckout) {
+                CheckoutRow(onGoToCheckout)
+            }
+        }
     }
 }
+
+@Composable
+fun CheckoutRow(onButtonClicked: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        OutlinedButton(
+            modifier = Modifier
+                .fillMaxWidth(),
+            border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+            shape = RoundedCornerShape(10.dp),
+            onClick = onButtonClicked
+        ) {
+
+            Text(
+                color = Color.Black,
+                fontSize = 14.sp,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.ExtraLight,
+                text = stringResource(id = R.string.list_checkout_btn)
+            )
+        }
+    }
+}
+
 
 @Composable
 fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
@@ -77,7 +120,6 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
         }
     }
 
-
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -85,7 +127,7 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
         Card(
             onClick = { },
             modifier = Modifier
-                .height(200.dp)
+                .height(180.dp)
                 .width(150.dp),
             colors = CardDefaults.cardColors(containerColor = getProductBackground(product.type))
         ) {

@@ -1,13 +1,11 @@
 package com.aloarte.shopwise.presentation.compose.list
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,12 +18,10 @@ import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
-import com.aloarte.shopwise.presentation.compose.navigation.Screen
 import java.util.Locale
 
 @Composable
-fun ListScreen(navController: NavController, state: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    val scrollState = rememberScrollState()
+fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     var searchText by remember { mutableStateOf("") }
     var filterType by remember { mutableStateOf(ProductType.Unknown) }
     val products = state.productList.filter {
@@ -35,10 +31,11 @@ fun ListScreen(navController: NavController, state: UiState, onEventTriggered: (
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxHeight()
             .padding(vertical = 15.dp, horizontal = 15.dp)
-            .scrollable(state = scrollState, orientation = Orientation.Vertical)
     ) {
-        IconsRow(state.cartSize){
+        Spacer(modifier = Modifier.height(10.dp))
+        IconsRow(state.cartSize) {
             onEventTriggered.invoke(UiEvent.GoCheckout)
 
         }
@@ -51,14 +48,16 @@ fun ListScreen(navController: NavController, state: UiState, onEventTriggered: (
             filterType = it
             searchText = ""
         }
+
         Spacer(modifier = Modifier.height(10.dp))
-        GridContent(products) { product, quantity ->
-            onEventTriggered.invoke(UiEvent.AddProduct(product, quantity))
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-        CheckoutRow {
-            navController.navigate(Screen.PaymentScreen.route)
-        }
+        GridContent(
+            enableCheckout = state.cartSize>0,
+            products = products,
+            onItemClicked = { product, quantity ->
+                onEventTriggered.invoke(UiEvent.AddProduct(product, quantity))
+            },
+            onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCheckout) })
+
     }
 }
 

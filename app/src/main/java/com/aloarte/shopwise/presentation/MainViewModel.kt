@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(private val repository: ShopwiseProducts
             val data = repository.fetchProducts()
             _state.update {
                 it.copy(
-                    productList = data
+                    productList = data+data
                 )
             }
         }

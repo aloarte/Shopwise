@@ -43,7 +43,7 @@ fun IconsRow(cartSize: Int, onGoToCheckout:()->Unit) {
                 imageVector = Icons.Default.Info,
                 contentDescription = stringResource(id = R.string.img_desc_info_icon)
             )
-
+            
             CartIcon(
                 cartSize, Modifier
                     .align(Alignment.CenterEnd)
