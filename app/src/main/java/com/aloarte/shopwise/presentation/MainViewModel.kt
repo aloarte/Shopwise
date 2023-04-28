@@ -1,6 +1,5 @@
 package com.aloarte.shopwise.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aloarte.shopwise.domain.ProductBo
@@ -31,7 +30,7 @@ class MainViewModel @Inject constructor(private val repository: ShopwiseProducts
         }
     }
 
-    fun addItemToCart(product: ProductBo, quantity: Int = 1) {
+    fun addItemToCart(product: ProductBo, quantity: Int) {
         _state.value.cart.addItem(product, quantity)
         _state.update {
             with(_state.value.cart){

@@ -40,13 +40,14 @@ import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.presentation.compose.AddProductDialog
 import com.aloarte.shopwise.presentation.compose.TitleText
 import com.aloarte.shopwise.presentation.ui.theme.MugBackground
 import com.aloarte.shopwise.presentation.ui.theme.TshirtBackground
 import com.aloarte.shopwise.presentation.ui.theme.VoucherBackground
 
 @Composable
-fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo,Int) -> Unit) {
+fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo, Int) -> Unit) {
     TitleText(stringResource(id = R.string.list_products_title))
 
     LazyVerticalGrid(
@@ -58,15 +59,25 @@ fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo,Int) -> Uni
 
     ) {
         items(products.size) {
-            ProductItem(products[it],onItemClicked=onItemClicked)
+            ProductItem(products[it], onItemClicked = onItemClicked)
         }
     }
 }
 
 @Composable
-fun ProductItem(product: ProductBo, onItemClicked: (ProductBo,Int) -> Unit) {
+fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
+    var showDialog by remember { mutableStateOf(false) }
 
-    var liked by remember { mutableStateOf(false) }
+    if (showDialog) {
+        AddProductDialog { quantity ->
+            quantity?.let {
+                onItemClicked.invoke(product, quantity)
+            }
+            showDialog = false
+        }
+    }
+
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -126,19 +137,19 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo,Int) -> Unit) {
                     .width(35.dp)
                     .padding(5.25.dp)
                     .clickable {
-                        liked = !liked
-                        onItemClicked(product,1)
+                        showDialog = true
                     },
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+
                 Image(
-                    colorFilter = ColorFilter.tint(if (liked) Color.Red else Color.Black),
+                    colorFilter = ColorFilter.tint(Color.Black),
                     modifier = Modifier
                         .height(20.dp)
                         .width(20.dp),
-                    painter = painterResource(id = if (liked) R.drawable.ic_like_filled else R.drawable.ic_like),
-                    contentDescription = stringResource(id = R.string.img_desc_like_icon)
+                    painter = painterResource(id = R.drawable.ic_add_product),
+                    contentDescription = stringResource(id = R.string.img_desc_add_icon)
                 )
             }
         }

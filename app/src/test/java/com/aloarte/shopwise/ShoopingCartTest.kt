@@ -1,7 +1,5 @@
 package com.aloarte.shopwise
 
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.domain.ShoppingCart
 import com.aloarte.shopwise.domain.ShoppingCartParams
 import com.aloarte.shopwise.utils.TestData.DISCOUNTED_TSHIRT_ALT_PRICE
@@ -19,11 +17,11 @@ import com.aloarte.shopwise.utils.TestData.mug
 import com.aloarte.shopwise.utils.TestData.tshirt
 import com.aloarte.shopwise.utils.TestData.voucher
 import junit.framework.TestCase.assertEquals
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
 class ShoppingCartTest {
-
 
     private lateinit var regularCart: ShoppingCart
 
@@ -60,7 +58,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun  `test regular shopping cart only vouchers`() {
+    fun `test regular shopping cart only vouchers`() {
         regularCart.addItem(voucher, 1)
         assertEquals(5.0, regularCart.checkout())
         regularCart.addItem(voucher, 5)
@@ -70,9 +68,9 @@ class ShoppingCartTest {
 
     @Test
     fun `test regular shopping cart only tshirts`() {
-        regularCart.addItem(tshirt,1)
+        regularCart.addItem(tshirt, 1)
         assertEquals(20.0, regularCart.checkout())
-        regularCart.addItem(tshirt,2)
+        regularCart.addItem(tshirt, 2)
         //3 item in total, the price get a discount for every tshirt = 3*19
         assertEquals(57.0, regularCart.checkout())
 
@@ -80,7 +78,7 @@ class ShoppingCartTest {
 
     @Test
     fun `test regular shopping cart only mugs`() {
-        regularCart.addItem(mug,6)
+        regularCart.addItem(mug, 6)
         //6 * 7.5 = 45
         assertEquals(45.0, regularCart.checkout())
     }
@@ -118,6 +116,14 @@ class ShoppingCartTest {
         //Total 5 tshirts = 5*20 , Total 7 vouchers = 6*6, 5 mugs = 5*5.5
         // 100 + 36 + 27.5 = 163.5
         assertEquals(163.5, alternativeCart.checkout())
+    }
+
+    @Test
+    fun `test get products number`() {
+        regularCart.addItem(mug, 1)
+        regularCart.addItem(tshirt, 2)
+        regularCart.addItem(voucher, 3)
+        Assert.assertEquals(6, regularCart.productsNumber())
     }
 
 

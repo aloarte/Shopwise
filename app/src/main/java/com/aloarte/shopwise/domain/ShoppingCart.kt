@@ -27,9 +27,16 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return vouchersPrice + tshirtsPrice + nonDiscountedItemsPrice
     }
 
-    fun productsNumber() = products.size
+    fun productsNumber(): Int {
+        var itemNumber = 0
+        for ((_, value) in products) {
+            itemNumber += value
+        }
+        return itemNumber
+    }
 
-    private fun getVouchersPrice(voucherCount: Int, voucherPrice: Double) =  (voucherCount - (voucherCount / cartParams.voucherDiscountThreshold)) * voucherPrice
+    private fun getVouchersPrice(voucherCount: Int, voucherPrice: Double) =
+        (voucherCount - (voucherCount / cartParams.voucherDiscountThreshold)) * voucherPrice
 
     private fun getTshirtsPrice(tshirtCount: Int, shirtsPrice: Double) = when {
         tshirtCount >= cartParams.tshirtDiscountThreshold -> tshirtCount * cartParams.discountedTshirtPrice

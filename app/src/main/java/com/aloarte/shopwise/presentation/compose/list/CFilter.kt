@@ -73,7 +73,7 @@ fun Chip(
             .width(75.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(10.dp),
-        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
+        color = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
     ) {
         Row(modifier = Modifier
             .toggleable(
