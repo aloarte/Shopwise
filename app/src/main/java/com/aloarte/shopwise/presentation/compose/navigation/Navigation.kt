@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.aloarte.shopwise.presentation.UiEvent
+import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.cart.CartScreen
 import com.aloarte.shopwise.presentation.compose.detail.DetailScreen
 import com.aloarte.shopwise.presentation.compose.list.ListScreen
@@ -13,12 +15,12 @@ import com.aloarte.shopwise.presentation.compose.payment.PaymentScreen
 import com.aloarte.shopwise.presentation.compose.result.ResultScreen
 
 @Composable
-fun NavigationComponent() {
+fun NavigationComponent(state:UiState,onEventTriggered:(UiEvent)->Unit) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
 
         composable(route = Screen.ListScreen.route) {
-            ListScreen(navController = navController)
+            ListScreen(navController = navController, state = state, onEventTriggered=onEventTriggered)
         }
         composable(
             route = Screen.DetailScreen.route + "/{productType}",

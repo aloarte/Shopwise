@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -71,7 +72,7 @@ fun Chip(
             .height(40.dp)
             .width(75.dp)
             .padding(4.dp),
-        shape = MaterialTheme.shapes.medium,
+        shape = RoundedCornerShape(10.dp),
         color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     ) {
         Row(modifier = Modifier

@@ -46,7 +46,7 @@ import com.aloarte.shopwise.presentation.ui.theme.TshirtBackground
 import com.aloarte.shopwise.presentation.ui.theme.VoucherBackground
 
 @Composable
-fun GridContent(products: List<ProductBo>) {
+fun GridContent(products: List<ProductBo>, onItemClicked: (ProductBo,Int) -> Unit) {
     TitleText(stringResource(id = R.string.list_products_title))
 
     LazyVerticalGrid(
@@ -58,13 +58,13 @@ fun GridContent(products: List<ProductBo>) {
 
     ) {
         items(products.size) {
-            ProductItem(products[it])
+            ProductItem(products[it],onItemClicked=onItemClicked)
         }
     }
 }
 
 @Composable
-fun ProductItem(product: ProductBo) {
+fun ProductItem(product: ProductBo, onItemClicked: (ProductBo,Int) -> Unit) {
 
     var liked by remember { mutableStateOf(false) }
     Column(
@@ -125,7 +125,10 @@ fun ProductItem(product: ProductBo) {
                     .height(35.dp)
                     .width(35.dp)
                     .padding(5.25.dp)
-                    .clickable { liked = !liked },
+                    .clickable {
+                        liked = !liked
+                        onItemClicked(product,1)
+                    },
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
