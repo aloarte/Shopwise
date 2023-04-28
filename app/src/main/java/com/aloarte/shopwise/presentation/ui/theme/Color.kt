@@ -11,6 +11,19 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 
-val VoucherBackground = Color(0xFFE1F5FE)
-val TshirtBackground = Color(0xFFF1F8E9)
-val MugBackground = Color(0xFFFFF3E0)
+
+val TealLight = Color(0xFFA7FFEB)
+val TealMedium = Color(0xFF1DE9B6)
+val TealDark = Color(0xFF00BFA5)
+
+
+
+val OrangeLight = Color(0xFFFFECB3)
+val OrangeMedium = Color(0xFFFFE57F)
+val OrangeDark = Color(0xFFFFD740)
+
+
+
+val VoucherBackground = OrangeMedium
+val TshirtBackground = OrangeDark
+val MugBackground = OrangeLight
