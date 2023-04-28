@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Shopwise</string>
-</resources>
+
+    <!-- List screen -->
+    <string name="list_products_title">PRODUCTS</string>
+    <string name="list_checkout_btn">CHECKOUT</string>
+    <string name="list_chip_all">All</string>
+    <string name="list_search_hint">"Search for any product name"</string>
+    <string name="list_add_amount_btn">ADD</string>
+    <string name="list_add_amount_title">Amount of items</string>
+
+
+    <!-- Image descriptions -->
+    <string name="img_desc_product">Product image</string>
+    <string name="img_desc_add_icon">Add icon</string>
+    <string name="img_desc_search_icon">Search icon</string>
+    <string name="img_desc_cart_icon">Cart icon</string>
+    <string name="img_desc_info_icon">Info icon</string>
+    <string name="img_desc_modify_quantity_icon">Modify quantity icon</string>
+
+
+</resources> 

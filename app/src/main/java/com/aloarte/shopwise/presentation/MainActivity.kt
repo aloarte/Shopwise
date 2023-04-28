@@ -1,4 +1,4 @@
-package com.aloarte.shopwise
+package com.aloarte.shopwise.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,12 +7,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.aloarte.shopwise.presentation.MainViewModel
-import com.aloarte.shopwise.ui.theme.ShopwiseTheme
+import com.aloarte.shopwise.presentation.compose.navigation.NavigationComponent
+import com.aloarte.shopwise.presentation.ui.theme.ShopwiseTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,13 +22,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val state = viewModel.state.collectAsState().value
             ShopwiseTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    NavigationComponent(state) { event ->
+                        when (event) {
+                            is UiEvent.AddProduct -> {
+                                viewModel.addItemToCart(event.product, event.quantity)
+                            }
+
+                            UiEvent.GoCheckout -> {
+
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -39,23 +47,5 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.fetchItems()
-    }
-}
-
-
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ShopwiseTheme {
-        Greeting("Android")
     }
 }

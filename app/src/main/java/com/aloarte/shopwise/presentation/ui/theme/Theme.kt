@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.ui.theme
+package com.aloarte.shopwise.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -22,9 +22,9 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = TealDark,
+    secondary =TealLight ,
+    tertiary = TealDark
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
