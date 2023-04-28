@@ -38,7 +38,10 @@ fun ListScreen(navController: NavController, state: UiState, onEventTriggered: (
             .padding(vertical = 15.dp, horizontal = 15.dp)
             .scrollable(state = scrollState, orientation = Orientation.Vertical)
     ) {
-        IconsRow()
+        IconsRow(state.cartSize){
+            onEventTriggered.invoke(UiEvent.GoCheckout)
+
+        }
         Spacer(modifier = Modifier.height(10.dp))
         SearchRow {
             searchText = it

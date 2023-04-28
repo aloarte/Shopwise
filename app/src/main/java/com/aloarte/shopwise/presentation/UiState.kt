@@ -20,5 +20,6 @@ data class UiState(
         )
     ),
     val productList: List<ProductBo> = emptyList(),
-    val cartValue: Double = 0.0
+    val cartValue: Double = 0.0,
+    val cartSize:Int=0
 )

@@ -11,6 +11,8 @@
     <string name="img_desc_product">Product image</string>
     <string name="img_desc_like_icon">Like icon</string>
     <string name="img_desc_search_icon">"Search icon"</string>
+    <string name="img_desc_cart_icon">"Cart icon"</string>
+    <string name="img_desc_info_icon">"Info icon"</string>
 
 
 </resources> 

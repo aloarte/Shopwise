@@ -34,10 +34,14 @@ class MainViewModel @Inject constructor(private val repository: ShopwiseProducts
     fun addItemToCart(product: ProductBo, quantity: Int = 1) {
         _state.value.cart.addItem(product, quantity)
         _state.update {
-            it.copy(
-                cart = _state.value.cart,
-                cartValue = _state.value.cart.checkout()
-            )
+            with(_state.value.cart){
+                it.copy(
+                    cart = this,
+                    cartValue = checkout(),
+                    cartSize = productsNumber()
+                )
+            }
+
         }
     }
 

@@ -33,6 +33,10 @@ class MainActivity : ComponentActivity() {
                             is UiEvent.AddProduct -> {
                                 viewModel.addItemToCart(event.product, event.quantity)
                             }
+
+                            UiEvent.GoCheckout -> {
+
+                            }
                         }
                     }
                 }

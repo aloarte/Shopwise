@@ -15,12 +15,22 @@ import com.aloarte.shopwise.presentation.compose.payment.PaymentScreen
 import com.aloarte.shopwise.presentation.compose.result.ResultScreen
 
 @Composable
-fun NavigationComponent(state:UiState,onEventTriggered:(UiEvent)->Unit) {
+fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
 
         composable(route = Screen.ListScreen.route) {
-            ListScreen(navController = navController, state = state, onEventTriggered=onEventTriggered)
+            ListScreen(
+                navController = navController,
+                state = state,
+                onEventTriggered = {
+                    when(it){
+                        UiEvent.GoCheckout -> navController.navigate(Screen.PaymentScreen.route)
+                        else -> onEventTriggered.invoke(it)
+                    }
+
+                }
+            )
         }
         composable(
             route = Screen.DetailScreen.route + "/{productType}",
@@ -30,7 +40,7 @@ fun NavigationComponent(state:UiState,onEventTriggered:(UiEvent)->Unit) {
                     defaultValue = "UNKNOWN"
                     nullable = true
                 })
-        ) { entry->
+        ) { entry ->
             DetailScreen(productType = entry.arguments?.getString("productType"))
 
         }
