@@ -42,20 +42,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.presentation.compose.commons.AddProductDialog
 import com.aloarte.shopwise.presentation.compose.commons.TitleText
-import com.aloarte.shopwise.presentation.ui.theme.MugBackground
-import com.aloarte.shopwise.presentation.ui.theme.TshirtBackground
-import com.aloarte.shopwise.presentation.ui.theme.VoucherBackground
+import com.aloarte.shopwise.presentation.getProductBackground
+import com.aloarte.shopwise.presentation.getProductImage
 
 
 @Composable
 fun GridContent(
     products: List<ProductBo>,
     enableCheckout: Boolean,
-    onItemClicked: (ProductBo, Int) -> Unit,
-    onGoToCheckout: () -> Unit
+    onAddToCart: (ProductBo, Int) -> Unit,
+    onItemClicked: (String) -> Unit,
+    onGoToCheckout: () -> Unit,
 ) {
     TitleText(stringResource(id = R.string.list_products_title))
 
@@ -68,9 +67,9 @@ fun GridContent(
 
     ) {
         items(products.size) {
-            ProductItem(products[it], onItemClicked = onItemClicked)
+            ProductItem(products[it], onAddToCart = onAddToCart, onItemClicked = onItemClicked)
         }
-        item(span =  { GridItemSpan(2) }) {
+        item(span = { GridItemSpan(2) }) {
             Spacer(modifier = Modifier.height(10.dp))
             if (enableCheckout) {
                 CheckoutRow(onGoToCheckout)
@@ -108,13 +107,16 @@ fun CheckoutRow(onButtonClicked: () -> Unit) {
 
 
 @Composable
-fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
+fun ProductItem(
+    product: ProductBo, onAddToCart: (ProductBo, Int) -> Unit,
+    onItemClicked: (String) -> Unit
+) {
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         AddProductDialog { quantity ->
             quantity?.let {
-                onItemClicked.invoke(product, quantity)
+                onAddToCart.invoke(product, quantity)
             }
             showDialog = false
         }
@@ -125,11 +127,11 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
-            onClick = { },
+            onClick = { onItemClicked.invoke(product.code) },
             modifier = Modifier
                 .height(180.dp)
                 .width(150.dp),
-            colors = CardDefaults.cardColors(containerColor = getProductBackground(product.type))
+            colors = CardDefaults.cardColors(containerColor = product.type.getProductBackground())
         ) {
             Box(
                 modifier = Modifier
@@ -141,7 +143,7 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
                     modifier = Modifier
                         .height(100.dp)
                         .width(100.dp),
-                    painter = painterResource(id = getProductImage(product.type)),
+                    painter = painterResource(id = product.type.getProductImage()),
                     contentDescription = stringResource(id = R.string.img_desc_product)
                 )
             }
@@ -196,19 +198,4 @@ fun ProductItem(product: ProductBo, onItemClicked: (ProductBo, Int) -> Unit) {
             }
         }
     }
-}
-
-
-fun getProductImage(productType: ProductType) = when (productType) {
-    ProductType.Voucher -> R.drawable.ic_voucher
-    ProductType.Tshirt -> R.drawable.ic_tshirt
-    ProductType.Mug -> R.drawable.ic_mug
-    else -> R.drawable.ic_voucher
-}
-
-fun getProductBackground(productType: ProductType) = when (productType) {
-    ProductType.Voucher -> VoucherBackground
-    ProductType.Tshirt -> TshirtBackground
-    ProductType.Mug -> MugBackground
-    else -> MugBackground
 }

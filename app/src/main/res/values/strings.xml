@@ -17,6 +17,7 @@
     <string name="img_desc_cart_icon">Cart icon</string>
     <string name="img_desc_info_icon">Info icon</string>
     <string name="img_desc_modify_quantity_icon">Modify quantity icon</string>
+    <string name="img_desc_detail_image">Detail image</string>
 
 
 </resources> 

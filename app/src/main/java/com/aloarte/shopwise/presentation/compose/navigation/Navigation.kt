@@ -22,10 +22,14 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         composable(route = Screen.ListScreen.route) {
             ListScreen(
                 state = state,
-                onEventTriggered = {
-                    when(it){
+                onEventTriggered = {event->
+                    when (event) {
                         UiEvent.GoCheckout -> navController.navigate(Screen.PaymentScreen.route)
-                        else -> onEventTriggered.invoke(it)
+                        is UiEvent.OpenDetail -> navController.navigate(
+                            route = Screen.DetailScreen.withArgs(event.productCode)
+                        )
+
+                        else -> onEventTriggered.invoke(event)
                     }
 
                 }
@@ -40,7 +44,11 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
                     nullable = true
                 })
         ) { entry ->
-            DetailScreen(productType = entry.arguments?.getString("productType"))
+            DetailScreen(
+                productType = entry.arguments?.getString("productType"),
+                state = state,
+                onEventTriggered = onEventTriggered
+            )
 
         }
         composable(route = Screen.CartScreen.route) {

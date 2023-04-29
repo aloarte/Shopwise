@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
                             UiEvent.GoCheckout -> {
 
                             }
+
+                            is UiEvent.OpenDetail -> {
+                            }
                         }
                     }
                 }

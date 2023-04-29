@@ -13,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
@@ -53,9 +52,10 @@ fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         GridContent(
             enableCheckout = state.cartSize>0,
             products = products,
-            onItemClicked = { product, quantity ->
+            onAddToCart = { product, quantity ->
                 onEventTriggered.invoke(UiEvent.AddProduct(product, quantity))
             },
+            onItemClicked = { onEventTriggered .invoke(UiEvent.OpenDetail(it))},
             onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCheckout) })
 
     }
