@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 
 class ProductsDescriptionsDatasourceImpl @Inject constructor(): ProductsDescriptionsDatasource {
-    override suspend fun retrieveDescriptions(productCode: List<String>): List<Pair<String, String>> {
+    override fun retrieveDescriptions(productCode: List<String>): List<Pair<String, String>> {
         return listOf(
             Pair(
                 "VOUCHER",
