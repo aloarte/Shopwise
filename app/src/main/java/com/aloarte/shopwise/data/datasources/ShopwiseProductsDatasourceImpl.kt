@@ -3,6 +3,7 @@ package com.aloarte.shopwise.data.datasources
 import com.aloarte.shopwise.data.Constants
 import com.aloarte.shopwise.data.ProductsApi
 import com.aloarte.shopwise.data.dto.ApiResult
+import com.aloarte.shopwise.data.dto.ProductDto
 import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.domain.ProductBo
 import javax.inject.Inject
@@ -12,13 +13,13 @@ class ShopwiseProductsDatasourceImpl @Inject constructor(
     private val parser: DataParser
 ) :
     ShopwiseProductsDatasource {
-    override suspend fun fetchProducts(): ApiResult<List<ProductBo>> {
+    override suspend fun fetchProducts(): ApiResult<List<ProductDto>> {
         return try {
             val apiResponse = api.fetchProductsJson()
             if (apiResponse.code() == Constants.API_SUCCESS_CODE) {
                 val productsResponse = parser.parseResponse(apiResponse.body())
                 productsResponse.products?.let { products ->
-                    ApiResult.Success(parser.transformList(products))
+                    ApiResult.Success(products)
 
                 } ?: run {
                     ApiResult.Error(

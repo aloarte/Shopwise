@@ -1,6 +1,8 @@
 package com.aloarte.shopwise.di
 
 
+import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasource
+import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasourceImpl
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
 import com.aloarte.shopwise.data.repositories.ShopwiseProductsRepositoryImpl
@@ -15,6 +17,10 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class DataSourceModule {
     @Binds
     abstract fun bindShopwiseProductsDatasource(impl: ShopwiseProductsDatasourceImpl): ShopwiseProductsDatasource
+
+    @Binds
+    abstract fun bindProductsDescriptionDatasource(impl: ProductsDescriptionsDatasourceImpl): ProductsDescriptionsDatasource
+
     @Binds
     abstract fun bindShopwiseProductsRepository(impl: ShopwiseProductsRepositoryImpl): ShopwiseProductsRepository
 }

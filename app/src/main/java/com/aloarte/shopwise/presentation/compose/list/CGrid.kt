@@ -2,6 +2,7 @@
 
 package com.aloarte.shopwise.presentation.compose.list
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -72,18 +73,22 @@ fun GridContent(
         item(span = { GridItemSpan(2) }) {
             Spacer(modifier = Modifier.height(10.dp))
             if (enableCheckout) {
-                CheckoutRow(onGoToCheckout)
+                CheckoutRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    buttonText = R.string.list_checkout_btn,
+                    onButtonClicked = onGoToCheckout
+                )
             }
         }
     }
 }
 
 @Composable
-fun CheckoutRow(onButtonClicked: () -> Unit) {
+fun CheckoutRow(modifier: Modifier = Modifier,@StringRes buttonText:Int, onButtonClicked: () -> Unit) {
     Row(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 10.dp),
+        modifier = modifier,
         horizontalArrangement = Arrangement.Center
     ) {
         OutlinedButton(
@@ -99,7 +104,7 @@ fun CheckoutRow(onButtonClicked: () -> Unit) {
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
-                text = stringResource(id = R.string.list_checkout_btn)
+                text = stringResource(id = buttonText)
             )
         }
     }
@@ -168,7 +173,6 @@ fun ProductItem(
                     fontWeight = FontWeight.ExtraLight,
                     text = "${product.price} €"
                 )
-
             }
             Column(
                 Modifier
