@@ -1,4 +1,4 @@
-package com.aloarte.shopwise
+package com.aloarte.shopwise.domain
 
 import com.aloarte.shopwise.domain.ShoppingCart
 import com.aloarte.shopwise.domain.ShoppingCartParams

@@ -1,7 +1,8 @@
-package com.aloarte.shopwise
+package com.aloarte.shopwise.data
 
 import com.aloarte.shopwise.data.ProductsResponse
 import com.aloarte.shopwise.data.parser.DataParser
+import com.aloarte.shopwise.utils.TestData.descriptionsPairList
 import com.aloarte.shopwise.utils.TestData.mug
 import com.aloarte.shopwise.utils.TestData.mugDto
 import com.aloarte.shopwise.utils.TestData.productsJson
@@ -52,7 +53,7 @@ class DataParserTest {
 
     @Test
     fun `test transform list success`() {
-        val boList = dataParser.transformList(listOf(voucherDto, tshirtDto, mugDto))
+        val boList = dataParser.transformList(listOf(voucherDto, tshirtDto, mugDto), descriptionsPairList)
 
         Assert.assertEquals(listOf(voucher, tshirt, mug), boList)
     }

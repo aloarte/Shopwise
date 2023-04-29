@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -29,12 +30,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.aloarte.shopwise.R
+import com.aloarte.shopwise.presentation.UiConstants.MAX_ITEMS_TO_ADD
 import com.aloarte.shopwise.presentation.compose.ModifyType
 
 @Composable
 fun AddProductDialog(onDismiss: (Int?) -> Unit) {
     var quantity by remember { mutableStateOf(0) }
-    var enableAdd by remember { mutableStateOf(false) }
+    var enableAddProducts by remember { mutableStateOf(false) }
+    var enableAdd by remember { mutableStateOf(true) }
     Dialog(
         onDismissRequest = { onDismiss.invoke(null) },
         content = {
@@ -60,12 +63,13 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        ModifyQuantityIcon(enabled = enableAdd, type = ModifyType.Remove) {
+                        ModifyQuantityIcon(enabled = enableAddProducts, type = ModifyType.Remove) {
                             //Disable the button if the quantity came from 1 to 0
                             if (quantity == 1) {
-                                enableAdd = false
+                                enableAddProducts = false
                                 quantity = 0
                             } else if (quantity > 0) {
+                                if (quantity <= MAX_ITEMS_TO_ADD) enableAdd = true
                                 quantity -= 1
                             }
 
@@ -79,17 +83,19 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                             fontWeight = FontWeight.ExtraLight,
                             text = quantity.toString()
                         )
-                        ModifyQuantityIcon(type = ModifyType.Add) {
+                        ModifyQuantityIcon(enabled = enableAdd,type = ModifyType.Add) {
                             quantity += 1
-                            enableAdd = true
+                            if (quantity == MAX_ITEMS_TO_ADD) enableAdd = false
+                            enableAddProducts = true
                         }
 
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                     OutlinedButton(
-                        enabled = enableAdd,
+                        enabled = enableAddProducts,
                         modifier = Modifier.fillMaxWidth(),
-                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+                        colors = ButtonDefaults.buttonColors(disabledContainerColor =Color.LightGray, containerColor = Color.Transparent),
+                        border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else Color.LightGray),
                         shape = RoundedCornerShape(10.dp),
                         onClick = { onDismiss.invoke(quantity) }
                     ) {

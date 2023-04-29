@@ -7,9 +7,17 @@ import com.aloarte.shopwise.domain.ProductType
 object TestData {
 
     const val VOUCHER_PRICE = 5.0
+    const val VOUCHER_CODE = "VOUCHER"
+    const val VOUCHER_DESCR = "A voucher for a Cabify trip.\n" +
+            "Get a 3x2 discount offer to save some money in your future trips."
     const val TSHIRT_PRICE = 20.0
+    const val TSHIRT_CODE = "TSHIRT"
+    const val TSHIRT_DESCR = "A Cabify T-shirt with their fantastic design.\n" +
+            "Buy 3 or more to enjoy of a price discount on all of the selected units."
     const val DISCOUNTED_TSHIRT_PRICE = 19.0
     const val MUG_PRICE = 7.5
+    const val MUG_CODE = "MUG"
+    const val MUG_DESCR = "A simple mug to start you day with high energy."
     const val VOUCHER_ALT_PRICE = 6.0
     const val TSHIRT_ALT_PRICE = 25.0
     const val DISCOUNTED_TSHIRT_ALT_PRICE = 20.0
@@ -37,21 +45,25 @@ object TestData {
         type = ProductType.Voucher,
         code = "VOUCHER",
         name = "Cabify Voucher",
-        price = VOUCHER_PRICE
+        price = VOUCHER_PRICE,
+        description = VOUCHER_DESCR
     )
 
     val tshirt = ProductBo(
         type = ProductType.Tshirt,
         code = "TSHIRT",
         name = "Cabify T-Shirt",
-        price = TSHIRT_PRICE
+        price = TSHIRT_PRICE,
+        description = TSHIRT_DESCR
+
     )
 
     val mug = ProductBo(
         type = ProductType.Mug,
         code = "MUG",
         name = "Cabify Coffee Mug",
-        price = MUG_PRICE
+        price = MUG_PRICE,
+        description = MUG_DESCR
     )
 
     val alternativeVoucher = ProductBo(
@@ -94,5 +106,17 @@ object TestData {
             "    }\n" +
             "  ]\n" +
             "}"
+
+    val codeItemsList = listOf(
+        VOUCHER_CODE,
+        TSHIRT_CODE,
+        MUG_CODE
+    )
+
+    val descriptionsPairList = listOf(
+        Pair(VOUCHER_CODE, VOUCHER_DESCR),
+        Pair(TSHIRT_CODE, TSHIRT_DESCR),
+        Pair(MUG_CODE, MUG_DESCR)
+    )
 
 }

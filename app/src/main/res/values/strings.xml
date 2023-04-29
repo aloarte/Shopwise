@@ -10,6 +10,9 @@
     <string name="list_add_amount_title">Amount of items</string>
 
 
+    <string name="detail_add_cart_btn">ADD TO CART</string>
+
+
     <!-- Image descriptions -->
     <string name="img_desc_product">Product image</string>
     <string name="img_desc_add_icon">Add icon</string>
@@ -17,6 +20,9 @@
     <string name="img_desc_cart_icon">Cart icon</string>
     <string name="img_desc_info_icon">Info icon</string>
     <string name="img_desc_modify_quantity_icon">Modify quantity icon</string>
+    <string name="img_desc_detail_image">Detail image</string>
+    <string name="img_desc_exit_detail_icon">Exit to list screen icon</string>
+
 
 
 </resources> 

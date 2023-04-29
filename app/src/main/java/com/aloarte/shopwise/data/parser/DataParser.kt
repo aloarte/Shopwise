@@ -19,9 +19,12 @@ class DataParser @Inject constructor(private val gson: Gson) {
         ProductsResponse(null)
     }
 
-    fun transformList(dtoList: List<ProductDto>) = dtoList.map(::transform)
+    fun transformList(dtoList: List<ProductDto>, descriptions: List<Pair<String, String>>) =
+        dtoList.map { dto ->
+            transform(dto, descriptions.find { it.first == dto.code }?.second)
+        }
 
-    private fun transform(dto: ProductDto) = ProductBo(
+    private fun transform(dto: ProductDto, description: String?) = ProductBo(
         type = when (dto.code) {
             "VOUCHER" -> ProductType.Voucher
             "TSHIRT" -> ProductType.Tshirt
@@ -30,7 +33,8 @@ class DataParser @Inject constructor(private val gson: Gson) {
         },
         code = dto.code,
         name = dto.name,
-        price = dto.price
+        price = dto.price,
+        description = description
     )
 
 

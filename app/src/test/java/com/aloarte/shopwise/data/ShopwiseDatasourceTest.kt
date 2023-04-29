@@ -1,16 +1,15 @@
-package com.aloarte.shopwise
+package com.aloarte.shopwise.data
 
-import com.aloarte.shopwise.data.ProductsApi
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
 import com.aloarte.shopwise.data.dto.ApiResult
 import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.domain.ProductBo
 import com.aloarte.shopwise.utils.CoroutinesTestRule
-import com.aloarte.shopwise.utils.TestData.mug
+import com.aloarte.shopwise.utils.TestData.mugDto
 import com.aloarte.shopwise.utils.TestData.productsJson
-import com.aloarte.shopwise.utils.TestData.tshirt
-import com.aloarte.shopwise.utils.TestData.voucher
+import com.aloarte.shopwise.utils.TestData.tshirtDto
+import com.aloarte.shopwise.utils.TestData.voucherDto
 import com.aloarte.shopwise.utils.Utils.buildResponse
 import com.google.gson.Gson
 import io.mockk.MockKAnnotations
@@ -27,7 +26,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class ShopwiseDatasourceTest {
-
 
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
@@ -50,18 +48,21 @@ class ShopwiseDatasourceTest {
 
     @Test
     fun `test fetch products success`() = coroutinesTestRule.runBlockingTest {
-        coEvery { api.fetchProductsJson() } returns mediaType.buildResponse(resultCode = 200, json = productsJson)
+        coEvery { api.fetchProductsJson() } returns mediaType.buildResponse(
+            resultCode = 200,
+            json = productsJson
+        )
 
         val listResult = runBlocking { datasource.fetchProducts() }
 
-        val expected = ApiResult.Success(listOf(voucher, tshirt, mug))
+        val expected = ApiResult.Success(listOf(voucherDto, tshirtDto, mugDto))
         coVerify { api.fetchProductsJson() }
         Assert.assertEquals(expected, listResult)
     }
 
     @Test
     fun `test fetch products error`() = coroutinesTestRule.runBlockingTest {
-        coEvery { api.fetchProductsJson() } returns  mediaType.buildResponse(resultCode = 404)
+        coEvery { api.fetchProductsJson() } returns mediaType.buildResponse(resultCode = 404)
 
         val listResult = runBlocking { datasource.fetchProducts() }
 
