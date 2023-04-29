@@ -20,6 +20,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val onInnerEventTriggered:(UiEvent)->Unit = {event->
         when (event) {
             UiEvent.GoCheckout -> navController.navigate(Screen.PaymentScreen.route)
+            UiEvent.GoList -> navController.navigate(Screen.ListScreen.route)
             is UiEvent.OpenDetail -> navController.navigate(
                 route = Screen.DetailScreen.withArgs(event.productCode)
             )

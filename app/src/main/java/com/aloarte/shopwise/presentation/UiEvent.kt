@@ -8,4 +8,7 @@ sealed interface UiEvent {
     data class OpenDetail(val productCode:String) : UiEvent
 
     object GoCheckout : UiEvent
+
+    object GoList : UiEvent
+
 }
