@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -93,7 +94,8 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                     OutlinedButton(
                         enabled = enableAddProducts,
                         modifier = Modifier.fillMaxWidth(),
-                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+                        colors = ButtonDefaults.buttonColors(disabledContainerColor =Color.LightGray, containerColor = Color.Transparent),
+                        border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else Color.LightGray),
                         shape = RoundedCornerShape(10.dp),
                         onClick = { onDismiss.invoke(quantity) }
                     ) {

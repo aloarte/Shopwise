@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -131,7 +133,7 @@ fun DetailDescription(description: String) {
     ) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
-            fontSize = 20.sp,
+            fontSize = 18.sp,
             color = Color.LightGray,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,
@@ -183,8 +185,11 @@ fun DetailAddToCart(onItemsAdded: (Int) -> Unit) {
         }
         Spacer(modifier = Modifier.width(30.dp))
         OutlinedButton(
-            modifier = Modifier.width(150.dp),
-            border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary),
+            enabled = enableAddProducts,
+            modifier = Modifier
+                .width(150.dp),
+            colors = ButtonDefaults.buttonColors(disabledContainerColor =Color.LightGray, containerColor = Color.Transparent),
+            border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else Color.LightGray),
             shape = RoundedCornerShape(10.dp),
             onClick = { onItemsAdded.invoke(quantity) }
         ) {
