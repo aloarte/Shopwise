@@ -6,28 +6,37 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
 
     /*
      * Add a product to the map. Update if already exist. Add the quantity of items
-     * */
+     */
     fun addItem(product: ProductBo, quantity: Int) {
         products[product] = products.getOrDefault(product, 0) + quantity
     }
 
     /*
-     * Reset a product quantity in the map.
-     * */
+     * Reset a product quantity in the map if exist.
+     */
     fun resetItem(product: ProductBo) {
         if(products.containsKey(product)){
             products[product] = 0
         }
     }
 
+    /*
+     * Remove a product in the map if exist.
+     */
     fun removeItem(product: ProductBo) {
         if(products.containsKey(product)){
             products.remove(product)
         }
     }
 
+    /*
+     * Return the list of Pair<ProductBo, Int) from the products map
+     */
     fun getCartItems() = products.toList()
 
+    /*
+     * Calculate the checkout of the cart applying the discounts
+     */
     fun checkout(): Double {
         val vouchersPrice = getItemsPriceByType(ProductType.Voucher)
         val tshirtsPrice = getItemsPriceByType(ProductType.Tshirt)
@@ -35,6 +44,9 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
     }
 
+    /*
+     * Calculate the checkout of the cart without applying the discounts
+     */
     fun checkoutWithoutDiscount(): Double {
         val vouchersPrice = getItemsPriceWithoutDiscountByType(ProductType.Voucher)
         val tshirtsPrice = getItemsPriceWithoutDiscountByType(ProductType.Tshirt)
@@ -42,6 +54,9 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
     }
 
+    /*
+     * Calculate the total amount of items in the cart
+     */
     fun productsNumber(): Int {
         var itemNumber = 0
         for ((_, value) in products) {

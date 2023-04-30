@@ -140,6 +140,25 @@ class ShoppingCartTest {
     }
 
     @Test
+    fun `test checkout without discount  regular shopping cart mixed items`() {
+        regularCart.addItem(mug, 1)
+        regularCart.addItem(tshirt, 2)
+        regularCart.addItem(voucher, 4)
+        regularCart.addItem(tshirt, 3)
+        regularCart.addItem(mug, 4)
+        regularCart.addItem(voucher, 1)
+
+        //Total 5 tshirts = 5*20 , Total 5 vouchers = 5*5, 5 mugs = 5*7.5
+        // 100 + 25 + 37.5 = 162.5
+        assertEquals(162.5, regularCart.checkoutWithoutDiscount())
+        assertEquals(100.0, regularCart.getItemsPriceWithoutDiscountByType(ProductType.Tshirt))
+        assertEquals(25.0, regularCart.getItemsPriceWithoutDiscountByType(ProductType.Voucher))
+        assertEquals(37.5, regularCart.getItemsPriceWithoutDiscountByType(ProductType.Mug))
+
+    }
+
+
+    @Test
     fun `test get products number`() {
         regularCart.addItem(mug, 1)
         regularCart.addItem(tshirt, 2)
