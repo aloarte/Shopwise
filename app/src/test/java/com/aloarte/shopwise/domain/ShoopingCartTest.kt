@@ -1,7 +1,5 @@
 package com.aloarte.shopwise.domain
 
-import com.aloarte.shopwise.domain.ShoppingCart
-import com.aloarte.shopwise.domain.ShoppingCartParams
 import com.aloarte.shopwise.utils.TestData.DISCOUNTED_TSHIRT_ALT_PRICE
 import com.aloarte.shopwise.utils.TestData.DISCOUNTED_TSHIRT_PRICE
 import com.aloarte.shopwise.utils.TestData.MUG_ALT_PRICE
@@ -26,7 +24,6 @@ class ShoppingCartTest {
     private lateinit var regularCart: ShoppingCart
 
     private lateinit var alternativeCart: ShoppingCart
-
 
     @Before
     fun setup() {
@@ -61,18 +58,24 @@ class ShoppingCartTest {
     fun `test regular shopping cart only vouchers`() {
         regularCart.addItem(voucher, 1)
         assertEquals(5.0, regularCart.checkout())
+        assertEquals(5.0, regularCart.getItemsPriceByType(ProductType.Voucher))
+
         regularCart.addItem(voucher, 5)
         //6 item in total, 1 free for each 2, 4 items should be priced = 4x5 = 20
         assertEquals(20.0, regularCart.checkout())
+        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Voucher))
+
     }
 
     @Test
     fun `test regular shopping cart only tshirts`() {
         regularCart.addItem(tshirt, 1)
         assertEquals(20.0, regularCart.checkout())
+        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
         regularCart.addItem(tshirt, 2)
         //3 item in total, the price get a discount for every tshirt = 3*19
         assertEquals(57.0, regularCart.checkout())
+        assertEquals(57.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
 
     }
 
@@ -81,6 +84,8 @@ class ShoppingCartTest {
         regularCart.addItem(mug, 6)
         //6 * 7.5 = 45
         assertEquals(45.0, regularCart.checkout())
+        assertEquals(45.0, regularCart.getItemsPriceByType(ProductType.Mug))
+
     }
 
     @Test
@@ -95,6 +100,10 @@ class ShoppingCartTest {
         //Total 5 tshirts = 5*19 , Total 5 vouchers = 4*5, 5 mugs = 5*7.5
         // 95 + 20 + 37.5 = 152.5
         assertEquals(152.5, regularCart.checkout())
+        assertEquals(95.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
+        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Voucher))
+        assertEquals(37.5, regularCart.getItemsPriceByType(ProductType.Mug))
+
     }
 
     @Test
@@ -124,6 +133,44 @@ class ShoppingCartTest {
         regularCart.addItem(tshirt, 2)
         regularCart.addItem(voucher, 3)
         Assert.assertEquals(6, regularCart.productsNumber())
+    }
+
+
+    @Test
+    fun `test get discounted count by type `() {
+        regularCart.addItem(voucher, 6)
+        regularCart.addItem(tshirt, 6)
+        regularCart.addItem(mug, 6)
+
+        Assert.assertEquals(2, regularCart.getDiscountedCountByType(6, ProductType.Voucher))
+        Assert.assertEquals(6, regularCart.getDiscountedCountByType(6, ProductType.Tshirt))
+        Assert.assertEquals(0, regularCart.getDiscountedCountByType(6, ProductType.Mug))
+
+    }
+
+    @Test
+    fun `test items price without discount by type `() {
+        val numberOfItems = 6
+        regularCart.addItem(voucher, numberOfItems)
+        regularCart.addItem(tshirt, numberOfItems)
+        regularCart.addItem(mug, numberOfItems)
+
+        Assert.assertEquals(
+            numberOfItems * VOUCHER_PRICE,
+            regularCart.getItemsPriceWithoutDiscountByType(ProductType.Voucher),
+            0.001
+        )
+        Assert.assertEquals(
+            numberOfItems * TSHIRT_PRICE,
+            regularCart.getItemsPriceWithoutDiscountByType(ProductType.Tshirt),
+            0.001
+        )
+        Assert.assertEquals(
+            numberOfItems * MUG_PRICE,
+            regularCart.getItemsPriceWithoutDiscountByType(ProductType.Mug),
+            0.001
+        )
+
     }
 
 

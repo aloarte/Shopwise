@@ -21,7 +21,8 @@
     <string name="img_desc_info_icon">Info icon</string>
     <string name="img_desc_modify_quantity_icon">Modify quantity icon</string>
     <string name="img_desc_detail_image">Detail image</string>
-    <string name="img_desc_exit_detail_icon">Exit to list screen icon</string>
+    <string name="img_desc_exit_detail_icon">Exit to list screen icon from detail</string>
+    <string name="img_desc_exit_checkout_icon">Exit to list screen icon from checkout</string>
 
 
 

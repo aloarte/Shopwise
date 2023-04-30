@@ -8,23 +8,13 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         products[product] = products.getOrDefault(product, 0) + quantity
     }
 
-    fun checkout(): Double {
-        val productsList = products.toList()
-        val vouchersPrice = with(productsList.find { it.first.type == ProductType.Voucher }) {
-            getVouchersPrice(
-                this?.second ?: 0,
-                this?.first?.price ?: cartParams.voucherDefaultPrice
-            )
-        }
-        val tshirtsPrice = with(productsList.find { it.first.type == ProductType.Tshirt }) {
-            getTshirtsPrice(this?.second ?: 0, this?.first?.price ?: cartParams.tshirtDefaultPrice)
-        }
-        // If its anything different than a Voucher or a Tshirt (A Mug)
-        val nonDiscountedItemsPrice = productsList.filterNot {
-            it.first.type in listOf(ProductType.Voucher, ProductType.Tshirt)
-        }.sumOf { it.second * it.first.price }
+    fun getCartItems() = products.toList()
 
-        return vouchersPrice + tshirtsPrice + nonDiscountedItemsPrice
+    fun checkout(): Double {
+        val vouchersPrice = getItemsPriceByType(ProductType.Voucher)
+        val tshirtsPrice = getItemsPriceByType(ProductType.Tshirt)
+        val generalNonDiscountedPrice = getItemsPriceByType(ProductType.Mug)
+        return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
     }
 
     fun productsNumber(): Int {
@@ -35,12 +25,69 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return itemNumber
     }
 
-    private fun getVouchersPrice(voucherCount: Int, voucherPrice: Double) =
-        (voucherCount - (voucherCount / cartParams.voucherDiscountThreshold)) * voucherPrice
+    private fun getVouchersPrice(count: Int, price: Double) =
+        (count - (count / cartParams.voucherDiscountThreshold)) * price
 
-    private fun getTshirtsPrice(tshirtCount: Int, shirtsPrice: Double) = when {
-        tshirtCount >= cartParams.tshirtDiscountThreshold -> tshirtCount * cartParams.discountedTshirtPrice
-        else -> tshirtCount * shirtsPrice
+
+    private fun getTshirtsPrice(count: Int, price: Double) :Double= when {
+        count >= cartParams.tshirtDiscountThreshold -> count * cartParams.discountedTshirtPrice
+        else -> count * price
     }
+
+    private fun getNotDiscountableItemsPrice(count: Int, price: Double):Double = count * price
+
+
+    fun getDiscountedCountByType(amount: Int, type: ProductType) : Int= when (type) {
+        ProductType.Voucher -> amount / cartParams.voucherDiscountThreshold
+        ProductType.Tshirt -> if (amount > cartParams.tshirtDiscountThreshold) amount else 0
+        ProductType.Mug, ProductType.Unknown -> 0
+    }
+
+    fun getItemsPriceWithoutDiscountByType(type: ProductType):Double = when (type) {
+        ProductType.Voucher -> {
+            products.toList().filter {
+                it.first.type == ProductType.Voucher
+            }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
+        }
+
+        ProductType.Tshirt -> {
+            products.toList().filter {
+                it.first.type == ProductType.Tshirt
+            }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
+        }
+
+        ProductType.Mug, ProductType.Unknown -> {
+            products.toList().filterNot {
+                it.first.type in listOf(ProductType.Voucher, ProductType.Tshirt)
+            }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
+        }
+    }
+
+    fun getItemsPriceByType(type: ProductType) = when (type) {
+        ProductType.Voucher -> {
+            with(products.toList().find { it.first.type == ProductType.Voucher }) {
+                getVouchersPrice(
+                    this?.second ?: 0,
+                    this?.first?.price ?: cartParams.voucherDefaultPrice
+                )
+            }
+        }
+
+        ProductType.Tshirt -> {
+            with(products.toList().find { it.first.type == ProductType.Tshirt }) {
+                getTshirtsPrice(
+                    this?.second ?: 0,
+                    this?.first?.price ?: cartParams.tshirtDefaultPrice
+                )
+            }
+        }
+
+        ProductType.Mug, ProductType.Unknown -> {
+            products.toList().filterNot {
+                it.first.type in listOf(ProductType.Voucher, ProductType.Tshirt)
+            }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
+        }
+    }
+
 
 }

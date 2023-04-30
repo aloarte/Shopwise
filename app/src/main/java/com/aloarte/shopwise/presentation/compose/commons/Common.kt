@@ -26,8 +26,8 @@ import com.aloarte.shopwise.R
 import com.aloarte.shopwise.presentation.compose.ModifyType
 
 @Composable
-fun TitleText(title: String) {
-    Row(modifier = Modifier.padding(horizontal = 14.dp)) {
+fun TitleText(title: String, modifier: Modifier = Modifier) {
+    Row(modifier = modifier.padding(horizontal = 14.dp)) {
         Text(
             fontSize = 30.sp,
             style = MaterialTheme.typography.titleMedium,
