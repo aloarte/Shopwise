@@ -43,15 +43,14 @@ import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
 import com.aloarte.shopwise.presentation.getProductBackground
 import com.aloarte.shopwise.presentation.getProductImage
 
-
 @Composable
-fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int> ,onItemsAdded: (Int) -> Unit) {
+fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (Int) -> Unit) {
     val product = item.first
     val productQuantity = item.second
 
     Box(
         modifier = Modifier
-            .height(200.dp)
+            .height(120.dp)
             .fillMaxWidth()
     ) {
         CheckoutProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
@@ -64,7 +63,7 @@ fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int> ,onItemsAdded
         CheckoutChangeProductQuantity(
             modifier = Modifier.align(Alignment.CenterEnd),
             quantity = productQuantity,
-            onItemsAdded=onItemsAdded
+            onItemsAdded = onItemsAdded
         )
 
     }
@@ -94,7 +93,6 @@ fun CheckoutProductImage(
             contentDescription = stringResource(id = R.string.img_desc_product)
         )
     }
-
 }
 
 @Composable
@@ -124,29 +122,28 @@ fun CheckoutProductTitlePrice(
                 fontSize = 20.sp,
                 color = Color.LightGray,
                 style = if (productsDiscounted) {
-                    MaterialTheme.typography.headlineSmall.copy(textDecoration = TextDecoration.LineThrough)
+                    MaterialTheme.typography.labelSmall.copy(textDecoration = TextDecoration.LineThrough)
                 } else {
-                    MaterialTheme.typography.headlineSmall
+                    MaterialTheme.typography.labelSmall
                 },
                 fontWeight = FontWeight.ExtraLight,
-                text = productPriceWithoutDiscount.toString()
+
+                text = "$productPriceWithoutDiscount €"
             )
             if (productsDiscounted) {
                 Spacer(Modifier.width(10.dp))
                 Text(
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.ExtraLight,
-                    text = productsPrice.toString()
+                    text = "$productsPrice €"
                 )
             }
         }
 
     }
-
 }
-
 
 @Composable
 fun CheckoutChangeProductQuantity(
@@ -168,17 +165,12 @@ fun CheckoutChangeProductQuantity(
 
         ModifyQuantityIcon(
             size = QuantityIconSizeType.Small,
-            enabled = enableAddProducts,
-            type = ModifyType.Remove
+            enabled = enableAdd,
+            type = ModifyType.Add
         ) {
-            //Disable the button if the quantity came from 1 to 0
-            if (productQuantity == 1) {
-                enableAddProducts = false
-                productQuantity = 0
-            } else if (productQuantity > 0) {
-                if (productQuantity <= UiConstants.MAX_ITEMS_TO_ADD) enableAdd = true
-                productQuantity -= 1
-            }
+            productQuantity += 1
+            if (productQuantity == UiConstants.MAX_ITEMS_TO_ADD) enableAdd = false
+            enableAddProducts = true
             onItemsAdded.invoke(productQuantity)
         }
         Spacer(modifier = Modifier.width(10.dp))
@@ -194,14 +186,20 @@ fun CheckoutChangeProductQuantity(
         Spacer(modifier = Modifier.width(10.dp))
         ModifyQuantityIcon(
             size = QuantityIconSizeType.Small,
-            enabled = enableAdd,
-            type = ModifyType.Add
+            enabled = enableAddProducts,
+            type = ModifyType.Remove
         ) {
-            productQuantity += 1
-            if (productQuantity == UiConstants.MAX_ITEMS_TO_ADD) enableAdd = false
-            enableAddProducts = true
+            //Disable the button if the quantity came from 1 to 0
+            if (productQuantity == 1) {
+                enableAddProducts = false
+                productQuantity = 0
+            } else if (productQuantity > 0) {
+                if (productQuantity <= UiConstants.MAX_ITEMS_TO_ADD) enableAdd = true
+                productQuantity -= 1
+            }
             onItemsAdded.invoke(productQuantity)
         }
+
     }
 }
 

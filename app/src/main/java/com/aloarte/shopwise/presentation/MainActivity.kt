@@ -31,12 +31,25 @@ class MainActivity : ComponentActivity() {
                     NavigationComponent(state) { event ->
                         when (event) {
                             is UiEvent.AddProduct -> {
-                                viewModel.addItemToCart(product = event.product, quantity = event.quantity)
+                                viewModel.addItemToCart(
+                                    product = event.product,
+                                    quantity = event.quantity
+                                )
                             }
+
                             is UiEvent.ReplaceProductQuantity -> {
-                                viewModel.addItemToCart(replace=true,product=event.product, quantity=event.quantity)
+                                viewModel.addItemToCart(
+                                    replace = true,
+                                    product = event.product,
+                                    quantity = event.quantity
+                                )
                             }
-                            else ->{}
+
+                            is UiEvent.RemoveProduct -> {
+                                viewModel.removeItemFromCart(product = event.product)
+                            }
+
+                            else -> {}
 
                         }
                     }

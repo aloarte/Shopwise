@@ -21,6 +21,10 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         when (event) {
             UiEvent.GoCheckout -> navController.navigate(Screen.CheckoutScreen.route)
             UiEvent.GoList -> navController.navigate(Screen.ListScreen.route)
+            is UiEvent.GoPayment -> navController.navigate(
+                route = Screen.PaymentScreen.withArgs(event.price.toString())
+            )
+
             is UiEvent.OpenDetail -> navController.navigate(
                 route = Screen.DetailScreen.withArgs(event.productCode)
             )
@@ -60,8 +64,20 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             )
 
         }
-        composable(route = Screen.PaymentScreen.route) {
-            PaymentScreen(navController = navController)
+        composable(
+            route = Screen.PaymentScreen.route + "/{price}",
+            arguments = listOf(
+                navArgument("price") {
+                    type = NavType.StringType
+                    defaultValue = "UNKNOWN"
+                    nullable = true
+                })
+        ) { entry ->
+            PaymentScreen(
+                price = entry.arguments?.getDouble("price"),
+                state = state,
+                onEventTriggered = onInnerEventTriggered
+            )
 
         }
         composable(route = Screen.ResultScreen.route) {

@@ -7,7 +7,11 @@ sealed interface UiEvent {
 
     data class ReplaceProductQuantity(val product: ProductBo, val quantity: Int) : UiEvent
 
+    data class RemoveProduct(val product: ProductBo) : UiEvent
+
     data class OpenDetail(val productCode:String) : UiEvent
+
+    data class  GoPayment(val price:Double) : UiEvent
 
     object GoCheckout : UiEvent
 

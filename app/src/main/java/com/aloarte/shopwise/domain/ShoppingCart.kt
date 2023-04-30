@@ -27,6 +27,13 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
     }
 
+    fun checkoutWithoutDiscount(): Double{
+        val vouchersPrice = getItemsPriceWithoutDiscountByType(ProductType.Voucher)
+        val tshirtsPrice = getItemsPriceWithoutDiscountByType(ProductType.Tshirt)
+        val generalNonDiscountedPrice = getItemsPriceWithoutDiscountByType(ProductType.Mug)
+        return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
+    }
+
     fun productsNumber(): Int {
         var itemNumber = 0
         for ((_, value) in products) {
@@ -96,6 +103,7 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
     }
 
     private fun getNotDiscountableItemsPrice(count: Int, price: Double): Double = count * price
+
 
 
 }

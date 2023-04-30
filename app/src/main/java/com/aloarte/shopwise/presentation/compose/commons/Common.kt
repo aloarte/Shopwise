@@ -4,7 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
+import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
 
 @Composable
@@ -79,4 +82,38 @@ fun ModifyQuantityIcon(size: QuantityIconSizeType = QuantityIconSizeType.Normal,
         )
     }
 
+}
+
+@Composable
+fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Regular) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 30.dp)
+    ) {
+        val textSize = when (type) {
+            PriceRowType.Regular, PriceRowType.Discount -> 16.sp
+            PriceRowType.Total -> 20.sp
+        }
+        val priceTextColor = when (type) {
+            PriceRowType.Regular -> Color.LightGray
+            PriceRowType.Discount -> MaterialTheme.colorScheme.primary
+            PriceRowType.Total -> Color.Black
+        }
+        Text(
+            modifier = Modifier.align(Alignment.CenterStart),
+            fontSize = textSize,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.ExtraLight,
+            text = label
+        )
+        Text(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            fontSize = textSize,
+            style = MaterialTheme.typography.labelSmall,
+            color = priceTextColor,
+            fontWeight = FontWeight.ExtraLight,
+            text = "$price €"
+        )
+    }
 }

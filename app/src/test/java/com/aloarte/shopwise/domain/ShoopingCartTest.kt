@@ -145,7 +145,6 @@ class ShoppingCartTest {
         Assert.assertEquals(2, regularCart.getDiscountedCountByType(6, ProductType.Voucher))
         Assert.assertEquals(6, regularCart.getDiscountedCountByType(6, ProductType.Tshirt))
         Assert.assertEquals(0, regularCart.getDiscountedCountByType(6, ProductType.Mug))
-
     }
 
     @Test
@@ -170,8 +169,6 @@ class ShoppingCartTest {
             regularCart.getItemsPriceWithoutDiscountByType(ProductType.Mug),
             0.001
         )
-
     }
-
 
 }
