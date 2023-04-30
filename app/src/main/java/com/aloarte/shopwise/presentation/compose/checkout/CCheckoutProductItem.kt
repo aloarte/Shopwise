@@ -1,9 +1,7 @@
 package com.aloarte.shopwise.presentation.compose.checkout
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,8 +49,9 @@ fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded
 
     Box(
         modifier = Modifier
-            .height(120.dp)
+            .height(100.dp)
             .fillMaxWidth()
+            .padding(10.dp)
     ) {
         CheckoutProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
         CheckoutProductTitlePrice(
@@ -73,26 +73,29 @@ fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded
 fun CheckoutProductImage(
     modifier: Modifier = Modifier, type: ProductType
 ) {
-    Box(
-        modifier = modifier
+    Card(
+        modifier = Modifier
             .height(80.dp)
             .width(80.dp)
-            .border(
-                border = BorderStroke(1.5.dp, Color.Black),
-                shape = RoundedCornerShape(20.dp)
-            )
-            .background(type.getProductBackground()),
-
-        contentAlignment = Alignment.Center
+            .clickable(onClick = {}, enabled = false),
+        colors = CardDefaults.cardColors(containerColor = type.getProductBackground())
     ) {
-        Image(
-            modifier = Modifier
-                .height(40.dp)
-                .width(40.dp),
-            painter = painterResource(id = type.getProductImage()),
-            contentDescription = stringResource(id = R.string.img_desc_product)
-        )
+        Box(
+            modifier = modifier
+                .height(80.dp)
+                .width(80.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                modifier = Modifier
+                    .height(40.dp)
+                    .width(40.dp),
+                painter = painterResource(id = type.getProductImage()),
+                contentDescription = stringResource(id = R.string.img_desc_product)
+            )
+        }
     }
+
 }
 
 @Composable
@@ -106,43 +109,51 @@ fun CheckoutProductTitlePrice(
     val productsPrice = state.cart.getItemsPriceByType(product.type)
     val productPriceWithoutDiscount = state.cart.getItemsPriceWithoutDiscountByType(product.type)
 
-    Column(
+    Row(
         modifier
-            .padding(10.dp)
-            .width(150.dp)
+            .padding(vertical = 10.dp, horizontal = 40.dp)
+            .width(150.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            fontSize = 20.sp,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.ExtraLight,
-            text = product.name
-        )
-        Row {
+        Spacer(modifier = Modifier.width(10.dp))
+        Column(
+            Modifier.fillMaxWidth().fillMaxHeight(),
+            verticalArrangement = Arrangement.Center
+        ) {
             Text(
                 fontSize = 20.sp,
-                color = Color.LightGray,
-                style = if (productsDiscounted) {
-                    MaterialTheme.typography.labelSmall.copy(textDecoration = TextDecoration.LineThrough)
-                } else {
-                    MaterialTheme.typography.labelSmall
-                },
+                style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
-
-                text = "$productPriceWithoutDiscount €"
+                text = product.name
             )
-            if (productsDiscounted) {
-                Spacer(Modifier.width(10.dp))
+            Row {
                 Text(
                     fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.labelSmall,
+                    color = Color.LightGray,
+                    style = if (productsDiscounted) {
+                        MaterialTheme.typography.labelSmall.copy(textDecoration = TextDecoration.LineThrough)
+                    } else {
+                        MaterialTheme.typography.labelSmall
+                    },
                     fontWeight = FontWeight.ExtraLight,
-                    text = "$productsPrice €"
-                )
-            }
-        }
 
+                    text = "$productPriceWithoutDiscount €"
+                )
+                if (productsDiscounted) {
+                    Spacer(Modifier.width(10.dp))
+                    Text(
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.ExtraLight,
+                        text = "$productsPrice €"
+                    )
+                }
+            }
+
+        }
     }
+
 }
 
 @Composable
@@ -158,7 +169,7 @@ fun CheckoutChangeProductQuantity(
     Column(
         modifier = modifier
             .fillMaxHeight()
-            .padding(horizontal = 40.dp, vertical = 20.dp),
+            .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

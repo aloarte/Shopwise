@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -92,6 +93,7 @@ fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     LazyColumn {
         items(cartItems.size) { itemIndex ->
             val product = cartItems[itemIndex]
+            Spacer(modifier = Modifier.height(10.dp))
             CheckoutProductItem(
                 state = state,
                 item = product
@@ -118,7 +120,7 @@ fun TotalAndPaymentRow(
     val totalWithoutDiscount = state.cart.checkoutWithoutDiscount()
     val totalPrice = state.cart.checkout()
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth().padding(vertical = 20.dp)) {
         if (vouchersPrice > 0) PriceRow(
             label = stringResource(id = R.string.checkout_label_total_vouchers),
             price = vouchersPrice
@@ -142,6 +144,7 @@ fun TotalAndPaymentRow(
             type = PriceRowType.Discount
         )
 
+        Spacer(Modifier.height(20.dp))
         OutlinedButton(
             modifier = Modifier
                 .fillMaxWidth()
