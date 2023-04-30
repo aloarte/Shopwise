@@ -31,7 +31,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.presentation.UiConstants.MAX_ITEMS_TO_ADD
-import com.aloarte.shopwise.presentation.compose.ModifyType
+import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 
 @Composable
 fun AddProductDialog(onDismiss: (Int?) -> Unit) {
@@ -55,7 +55,7 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.Black,
                         fontWeight = FontWeight.ExtraLight,
-                        text = stringResource(id = R.string.list_add_amount_title)
+                        text = stringResource(id = R.string.list_add_quantity_title)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     //Add / remove quantity
@@ -104,7 +104,7 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.ExtraLight,
-                            text = stringResource(id = R.string.list_add_amount_btn)
+                            text = stringResource(id = R.string.list_add_quantity_btn)
                         )
                     }
                 }
