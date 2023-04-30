@@ -4,8 +4,18 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
 
     private val products: MutableMap<ProductBo, Int> = mutableMapOf()
 
+    /* Add a product to the map. Update if already exist. Add the quantity of items
+    * */
     fun addItem(product: ProductBo, quantity: Int) {
         products[product] = products.getOrDefault(product, 0) + quantity
+    }
+
+    fun resetItem(product: ProductBo) {
+        products[product] = 0
+    }
+
+    fun removeItem(product: ProductBo) {
+        products.remove(product)
     }
 
     fun getCartItems() = products.toList()
@@ -25,25 +35,13 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return itemNumber
     }
 
-    private fun getVouchersPrice(count: Int, price: Double) =
-        (count - (count / cartParams.voucherDiscountThreshold)) * price
-
-
-    private fun getTshirtsPrice(count: Int, price: Double) :Double= when {
-        count >= cartParams.tshirtDiscountThreshold -> count * cartParams.discountedTshirtPrice
-        else -> count * price
-    }
-
-    private fun getNotDiscountableItemsPrice(count: Int, price: Double):Double = count * price
-
-
-    fun getDiscountedCountByType(amount: Int, type: ProductType) : Int= when (type) {
-        ProductType.Voucher -> amount / cartParams.voucherDiscountThreshold
-        ProductType.Tshirt -> if (amount > cartParams.tshirtDiscountThreshold) amount else 0
+    fun getDiscountedCountByType(quantity: Int, type: ProductType): Int = when (type) {
+        ProductType.Voucher -> quantity / cartParams.voucherDiscountThreshold
+        ProductType.Tshirt -> if (quantity >= cartParams.tshirtDiscountThreshold) quantity else 0
         ProductType.Mug, ProductType.Unknown -> 0
     }
 
-    fun getItemsPriceWithoutDiscountByType(type: ProductType):Double = when (type) {
+    fun getItemsPriceWithoutDiscountByType(type: ProductType): Double = when (type) {
         ProductType.Voucher -> {
             products.toList().filter {
                 it.first.type == ProductType.Voucher
@@ -88,6 +86,16 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
             }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
         }
     }
+
+    private fun getVouchersPrice(count: Int, price: Double) =
+        (count - (count / cartParams.voucherDiscountThreshold)) * price
+
+    private fun getTshirtsPrice(count: Int, price: Double): Double = when {
+        count >= cartParams.tshirtDiscountThreshold -> count * cartParams.discountedTshirtPrice
+        else -> count * price
+    }
+
+    private fun getNotDiscountableItemsPrice(count: Int, price: Double): Double = count * price
 
 
 }

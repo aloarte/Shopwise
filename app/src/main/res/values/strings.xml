@@ -6,9 +6,8 @@
     <string name="list_checkout_btn">CHECKOUT</string>
     <string name="list_chip_all">All</string>
     <string name="list_search_hint">"Search for any product name"</string>
-    <string name="list_add_amount_btn">ADD</string>
-    <string name="list_add_amount_title">Amount of items</string>
-
+    <string name="list_add_quantity_btn">ADD</string>
+    <string name="list_add_quantity_title">Amount of items</string>
 
     <string name="detail_add_cart_btn">ADD TO CART</string>
 

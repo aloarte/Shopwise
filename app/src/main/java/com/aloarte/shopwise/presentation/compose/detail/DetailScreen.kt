@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,7 +42,7 @@ import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.presentation.UiConstants.MAX_ITEMS_TO_ADD
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
-import com.aloarte.shopwise.presentation.compose.ModifyType
+import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.commons.ModifyQuantityIcon
 import com.aloarte.shopwise.presentation.getProductBackground
 import com.aloarte.shopwise.presentation.getProductImage

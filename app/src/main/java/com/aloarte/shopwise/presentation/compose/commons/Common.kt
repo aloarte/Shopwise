@@ -23,7 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.presentation.compose.ModifyType
+import com.aloarte.shopwise.presentation.compose.enums.ModifyType
+import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
 
 @Composable
 fun TitleText(title: String, modifier: Modifier = Modifier) {
@@ -39,13 +40,19 @@ fun TitleText(title: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ModifyQuantityIcon(enabled: Boolean = true, type: ModifyType, onModification: () -> Unit) {
+fun ModifyQuantityIcon(size: QuantityIconSizeType = QuantityIconSizeType.Normal, enabled: Boolean = true, type: ModifyType, onModification: () -> Unit) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
             .background(if (enabled) MaterialTheme.colorScheme.primary else Color.LightGray)
-            .height(40.dp)
-            .width(40.dp)
+            .height(when(size){
+                QuantityIconSizeType.Normal -> 40.dp
+                QuantityIconSizeType.Small -> 25.dp
+            })
+            .width(when(size){
+                QuantityIconSizeType.Normal -> 40.dp
+                QuantityIconSizeType.Small -> 25.dp
+            })
             .clickable(onClick = onModification, enabled = enabled),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -58,10 +65,15 @@ fun ModifyQuantityIcon(enabled: Boolean = true, type: ModifyType, onModification
                     ModifyType.Remove -> R.drawable.ic_remove
                 }
             ),
-
             modifier = Modifier
-                .height(30.dp)
-                .width(30.dp),
+                .height(when(size){
+                    QuantityIconSizeType.Normal -> 30.dp
+                    QuantityIconSizeType.Small -> 15.dp
+                })
+                .width(when(size){
+                    QuantityIconSizeType.Normal -> 30.dp
+                    QuantityIconSizeType.Small -> 15.dp
+                }),
             colorFilter = ColorFilter.tint(Color.Black),
             contentDescription = stringResource(id = R.string.img_desc_modify_quantity_icon)
         )
