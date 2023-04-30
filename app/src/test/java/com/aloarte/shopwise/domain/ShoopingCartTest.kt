@@ -50,12 +50,24 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun `test regular shopping cart no items`() {
+    fun `test cart basic operations`() {
+        regularCart.addItem(tshirt, 3)
+        assertEquals(listOf(Pair(tshirt,3)), regularCart.getCartItems())
+        regularCart.resetItem(tshirt)
+        assertEquals(listOf(Pair(tshirt,0)), regularCart.getCartItems())
+        regularCart.addItem(tshirt, 1)
+        assertEquals(listOf(Pair(tshirt,1)), regularCart.getCartItems())
+        regularCart.removeItem(tshirt)
+        assertEquals(emptyList<Pair<ProductBo,Int>>(), regularCart.getCartItems())
+    }
+
+    @Test
+    fun `test checkout regular shopping cart no items`() {
         assertEquals(0.0, regularCart.checkout())
     }
 
     @Test
-    fun `test regular shopping cart only vouchers`() {
+    fun `test checkout regular shopping cart only vouchers`() {
         regularCart.addItem(voucher, 1)
         assertEquals(5.0, regularCart.checkout())
         assertEquals(5.0, regularCart.getItemsPriceByType(ProductType.Voucher))
@@ -68,7 +80,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun `test regular shopping cart only tshirts`() {
+    fun `test checkout regular shopping cart only tshirts`() {
         regularCart.addItem(tshirt, 1)
         assertEquals(20.0, regularCart.checkout())
         assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
@@ -80,7 +92,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun `test regular shopping cart only mugs`() {
+    fun `test checkout regular shopping cart only mugs`() {
         regularCart.addItem(mug, 6)
         //6 * 7.5 = 45
         assertEquals(45.0, regularCart.checkout())
@@ -89,7 +101,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun `test regular shopping cart mixed items`() {
+    fun `test checkout regular shopping cart mixed items`() {
         regularCart.addItem(mug, 1)
         regularCart.addItem(tshirt, 2)
         regularCart.addItem(voucher, 4)
@@ -107,7 +119,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    fun `test alternative shopping cart mixed items`() {
+    fun `test checkout alternative shopping cart mixed items`() {
         alternativeCart.addItem(alternativeMug, 1)
         alternativeCart.addItem(alternativeTshirt, 1)
         alternativeCart.addItem(alternativeVoucher, 2)

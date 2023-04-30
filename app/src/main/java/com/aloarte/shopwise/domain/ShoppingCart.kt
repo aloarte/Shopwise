@@ -4,18 +4,26 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
 
     private val products: MutableMap<ProductBo, Int> = mutableMapOf()
 
-    /* Add a product to the map. Update if already exist. Add the quantity of items
-    * */
+    /*
+     * Add a product to the map. Update if already exist. Add the quantity of items
+     * */
     fun addItem(product: ProductBo, quantity: Int) {
         products[product] = products.getOrDefault(product, 0) + quantity
     }
 
+    /*
+     * Reset a product quantity in the map.
+     * */
     fun resetItem(product: ProductBo) {
-        products[product] = 0
+        if(products.containsKey(product)){
+            products[product] = 0
+        }
     }
 
     fun removeItem(product: ProductBo) {
-        products.remove(product)
+        if(products.containsKey(product)){
+            products.remove(product)
+        }
     }
 
     fun getCartItems() = products.toList()
@@ -27,7 +35,7 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         return vouchersPrice + tshirtsPrice + generalNonDiscountedPrice
     }
 
-    fun checkoutWithoutDiscount(): Double{
+    fun checkoutWithoutDiscount(): Double {
         val vouchersPrice = getItemsPriceWithoutDiscountByType(ProductType.Voucher)
         val tshirtsPrice = getItemsPriceWithoutDiscountByType(ProductType.Tshirt)
         val generalNonDiscountedPrice = getItemsPriceWithoutDiscountByType(ProductType.Mug)
@@ -103,7 +111,6 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
     }
 
     private fun getNotDiscountableItemsPrice(count: Int, price: Double): Double = count * price
-
 
 
 }
