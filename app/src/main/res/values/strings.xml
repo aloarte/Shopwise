@@ -29,6 +29,7 @@
 
     <!-- Buttons-->
     <string name="list_btn">CART</string>
+    <string name="cart_empty_btn">BACK</string>
     <string name="cart_btn">CHECKOUT</string>
     <string name="checkout_btn">MAKE PAYMENT</string>
     <string name="list_add_quantity_btn">ADD</string>

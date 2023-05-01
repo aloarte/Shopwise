@@ -28,7 +28,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             UiEvent.GoResult -> {
                 onEventTriggered.invoke(event)
                 // Navigate to the main list screen and pass the event to the main activity so it can empty the cart
-                navController.navigate(Screen.ListScreen.route)
+                navController.navigate(Screen.ResultScreen.route)
             }
 
             is UiEvent.OpenDetail -> navController.navigate(

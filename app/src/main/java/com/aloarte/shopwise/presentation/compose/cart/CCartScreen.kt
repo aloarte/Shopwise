@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.cart.ProductBoComparator
 import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
@@ -33,48 +31,34 @@ import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 
 @Composable
 fun CartScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+    val cartFilled = state.cartSize > 0
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(20.dp)
     ) {
+
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TitleRow(stringResource(id = R.string.cart_title)){
+            TitleRow(stringResource(id = R.string.cart_title)) {
                 onEventTriggered.invoke(UiEvent.GoList)
             }
-            SelectedProductList(state = state, onEventTriggered = onEventTriggered)
+            if (cartFilled) SelectedProductList(state = state, onEventTriggered = onEventTriggered)
+            else EmptyCart {
+                onEventTriggered.invoke(UiEvent.GoList)
+            }
 
         }
-        TotalAndCheckoutRow(
+        if (cartFilled) TotalAndCheckoutRow(
             modifier = Modifier.align(Alignment.BottomCenter),
             state = state,
             onEventTriggered = onEventTriggered
         )
-    }
-}
 
-@Composable
-fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    val cartItems = state.cart.getCartItems().sortedWith(ProductBoComparator)
-    LazyColumn {
-        items(cartItems.size) { itemIndex ->
-            val product = cartItems[itemIndex]
-            Spacer(modifier = Modifier.height(10.dp))
-            CartProductItem(
-                state = state,
-                item = product
-            ) { quantity ->
-                if (quantity > 0) {
-                    onEventTriggered.invoke(UiEvent.ReplaceProductQuantity(product.first, quantity))
-                } else {
-                    onEventTriggered.invoke(UiEvent.RemoveProduct(product.first))
-                }
-            }
-        }
+
     }
 }
 
@@ -90,7 +74,11 @@ fun TotalAndCheckoutRow(
     val totalWithoutDiscount = state.cart.checkoutWithoutDiscount()
     val totalPrice = state.cart.checkout()
 
-    Column(modifier = modifier.fillMaxWidth().padding(vertical = 20.dp)) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 20.dp)
+    ) {
         if (vouchersPrice > 0) PriceRow(
             label = stringResource(id = R.string.cart_label_total_vouchers),
             price = vouchersPrice
@@ -113,7 +101,6 @@ fun TotalAndCheckoutRow(
             price = totalWithoutDiscount - totalPrice,
             type = PriceRowType.Discount
         )
-
         Spacer(Modifier.height(20.dp))
         OutlinedButton(
             modifier = Modifier
@@ -138,6 +125,7 @@ fun TotalAndCheckoutRow(
                 text = stringResource(id = R.string.cart_btn)
             )
         }
+
     }
 
 }

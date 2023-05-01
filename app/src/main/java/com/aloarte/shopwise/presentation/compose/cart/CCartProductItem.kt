@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -32,9 +33,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
+import com.aloarte.shopwise.domain.cart.ProductBoComparator
 import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiConstants
+import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.ModifyQuantityIcon
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
@@ -43,10 +46,30 @@ import com.aloarte.shopwise.presentation.getProductBackground
 import com.aloarte.shopwise.presentation.getProductImage
 
 @Composable
+fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+    val cartItems = state.cart.getCartItems().sortedWith(ProductBoComparator)
+    LazyColumn {
+        items(cartItems.size) { itemIndex ->
+            val product = cartItems[itemIndex]
+            Spacer(modifier = Modifier.height(10.dp))
+            CartProductItem(
+                state = state,
+                item = product
+            ) { quantity ->
+                if (quantity > 0) {
+                    onEventTriggered.invoke(UiEvent.ReplaceProductQuantity(product.first, quantity))
+                } else {
+                    onEventTriggered.invoke(UiEvent.RemoveProduct(product.first))
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (Int) -> Unit) {
     val product = item.first
     val productQuantity = item.second
-
     Box(
         modifier = Modifier
             .height(100.dp)
