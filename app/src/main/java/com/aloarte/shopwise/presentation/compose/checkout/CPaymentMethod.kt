@@ -64,7 +64,7 @@ fun PaymentMethodSelectorRow(
         PaymentMethodType.Visa,
         PaymentMethodType.Paypal
     )
-    Row(modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
         paymentMethods.forEach { paymentMethod ->
             Column(
                 Modifier

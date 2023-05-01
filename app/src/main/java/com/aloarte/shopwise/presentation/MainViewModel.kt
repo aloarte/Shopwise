@@ -18,8 +18,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val productsRepository: ShopwiseProductsRepository,
     private val cardsRepository: CardsRepository
-) :
-    ViewModel() {
+) :    ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
     val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())

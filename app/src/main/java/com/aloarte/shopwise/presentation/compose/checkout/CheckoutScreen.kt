@@ -2,8 +2,10 @@ package com.aloarte.shopwise.presentation.compose.checkout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,6 +30,7 @@ fun PaymentScreen(price: Double?, state: UiState, onEventTriggered: (UiEvent) ->
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             TitleRow(stringResource(id = R.string.checkout_title)) {
                 onEventTriggered.invoke(UiEvent.GoCart)
             }

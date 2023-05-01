@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -76,9 +75,7 @@ fun CardSection(state: UiState) {
         )
         Spacer(modifier = Modifier.height(15.dp))
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(shutterAlpha)
+            modifier = Modifier.alpha(shutterAlpha)
         ) {
             when (val selectedPayment = payment) {
                 PaymentMethodType.Paypal -> PaypalCard()

@@ -45,7 +45,6 @@ class ShopwiseDatasourceTest {
         datasource = ShopwiseProductsDatasourceImpl(api, dataParser)
     }
 
-
     @Test
     fun `test fetch products success`() = coroutinesTestRule.runBlockingTest {
         coEvery { api.fetchProductsJson() } returns mediaType.buildResponse(

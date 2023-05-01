@@ -17,7 +17,7 @@
 
     <!-- Checkout screen-->
     <string name="checkout_title">CHECKOUT</string>
-    <string name="checkout_selected_payment_title">Selected payment method data</string>
+    <string name="checkout_selected_payment_title">Selected payment data</string>
     <string name="checkout_choose_payment_title">Choose payment</string>
     <string name="checkout_user_card_expiration_label">Valid until</string>
     <string name="checkout_user_card_ccv_label">CCV</string>
