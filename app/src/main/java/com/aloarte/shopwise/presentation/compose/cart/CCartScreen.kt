@@ -23,8 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductBoComparator
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.cart.ProductBoComparator
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.PriceRow
@@ -43,7 +43,7 @@ fun CartScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TitleRow(stringResource(id = R.string.list_products_title)){
+            TitleRow(stringResource(id = R.string.cart_title)){
                 onEventTriggered.invoke(UiEvent.GoList)
             }
             SelectedProductList(state = state, onEventTriggered = onEventTriggered)

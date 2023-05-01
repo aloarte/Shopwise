@@ -8,6 +8,7 @@
     <string name="list_add_quantity_title">Amount of items</string>
 
     <!-- Cart screen -->
+    <string name="cart_title">MY CART</string>
     <string name="cart_label_total_vouchers">Vouchers</string>
     <string name="cart_label_total_tshirts">Tshirts</string>
     <string name="cart_label_total_mugs">"Mugs</string>
@@ -34,6 +35,8 @@
     <string name="img_desc_detail_image">Detail image</string>
     <string name="img_desc_exit_detail_icon">Exit to list screen icon from detail</string>
     <string name="img_desc_exit_checkout_icon">Exit to list screen icon from checkout</string>
+    <string name="ic_descr_nfc">Icon of the NFC protocol</string>
+    <string name="ic_descr_card_supplier">Icon of the card supplier (mastercard/visa)</string>
 
 
 

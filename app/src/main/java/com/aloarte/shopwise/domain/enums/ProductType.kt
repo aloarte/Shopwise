@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.enums
 
 enum class ProductType {
     Voucher, Tshirt, Mug, Unknown;

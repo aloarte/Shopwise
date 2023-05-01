@@ -1,6 +1,6 @@
 package com.aloarte.shopwise.presentation
 
-import com.aloarte.shopwise.domain.ProductBo
+import com.aloarte.shopwise.domain.model.ProductBo
 
 sealed interface UiEvent {
     data class AddProduct(val product: ProductBo, val quantity: Int) : UiEvent
@@ -11,10 +11,12 @@ sealed interface UiEvent {
 
     data class OpenDetail(val productCode:String) : UiEvent
 
-    data class  GoCheckout(val price:Double) : UiEvent
+    object GoList : UiEvent
 
     object GoCart : UiEvent
 
-    object GoList : UiEvent
+    data class  GoCheckout(val price:Double) : UiEvent
+
+    object GoResult : UiEvent
 
 }

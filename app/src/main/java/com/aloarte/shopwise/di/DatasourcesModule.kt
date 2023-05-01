@@ -1,12 +1,16 @@
 package com.aloarte.shopwise.di
 
 
+import com.aloarte.shopwise.data.datasources.CardsDatasource
+import com.aloarte.shopwise.data.datasources.CardsDatasourceImpl
 import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasource
 import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasourceImpl
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
+import com.aloarte.shopwise.data.repositories.CardsRepositoryImpl
 import com.aloarte.shopwise.data.repositories.ShopwiseProductsRepositoryImpl
-import com.aloarte.shopwise.domain.ShopwiseProductsRepository
+import com.aloarte.shopwise.domain.repositories.CardsRepository
+import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,5 +26,6 @@ abstract class DataSourceModule {
     abstract fun bindProductsDescriptionDatasource(impl: ProductsDescriptionsDatasourceImpl): ProductsDescriptionsDatasource
 
     @Binds
-    abstract fun bindShopwiseProductsRepository(impl: ShopwiseProductsRepositoryImpl): ShopwiseProductsRepository
+    abstract fun bindCardsDatasource(impl: CardsDatasourceImpl): CardsDatasource
+
 }

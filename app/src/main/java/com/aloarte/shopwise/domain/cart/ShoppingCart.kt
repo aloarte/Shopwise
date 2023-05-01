@@ -1,4 +1,7 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.cart
+
+import com.aloarte.shopwise.domain.enums.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
 
 class ShoppingCart(private val cartParams: ShoppingCartParams) {
 
@@ -26,6 +29,12 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
     fun removeItem(product: ProductBo) {
         if(products.containsKey(product)){
             products.remove(product)
+        }
+    }
+
+    fun clearCart(){
+        products.forEach {
+            removeItem(it.key)
         }
     }
 

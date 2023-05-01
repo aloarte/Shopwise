@@ -13,8 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import java.util.Locale

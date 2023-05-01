@@ -32,8 +32,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiConstants
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.ModifyQuantityIcon

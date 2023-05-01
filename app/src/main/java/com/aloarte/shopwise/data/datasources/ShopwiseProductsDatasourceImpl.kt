@@ -5,7 +5,6 @@ import com.aloarte.shopwise.data.ProductsApi
 import com.aloarte.shopwise.data.dto.ApiResult
 import com.aloarte.shopwise.data.dto.ProductDto
 import com.aloarte.shopwise.data.parser.DataParser
-import com.aloarte.shopwise.domain.ProductBo
 import javax.inject.Inject
 
 class ShopwiseProductsDatasourceImpl @Inject constructor(

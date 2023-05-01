@@ -1,7 +1,7 @@
 package com.aloarte.shopwise.presentation
 
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.ui.theme.MugBackground
 import com.aloarte.shopwise.presentation.ui.theme.TshirtBackground
 import com.aloarte.shopwise.presentation.ui.theme.VoucherBackground

@@ -2,8 +2,8 @@ package com.aloarte.shopwise.data.parser
 
 import com.aloarte.shopwise.data.ProductsResponse
 import com.aloarte.shopwise.data.dto.ProductDto
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 import javax.inject.Inject

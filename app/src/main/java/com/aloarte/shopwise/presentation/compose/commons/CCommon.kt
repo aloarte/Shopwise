@@ -96,13 +96,15 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
             .padding(horizontal = 30.dp)
     ) {
         val textSize = when (type) {
-            PriceRowType.Regular, PriceRowType.Discount -> 16.sp
-            PriceRowType.Total -> 20.sp
+            PriceRowType.Regular, PriceRowType.Discount -> 18.sp
+            PriceRowType.Total -> 22.sp
+            PriceRowType.Checkout -> 26.sp
         }
         val priceTextColor = when (type) {
             PriceRowType.Regular -> Color.LightGray
             PriceRowType.Discount -> MaterialTheme.colorScheme.primary
-            PriceRowType.Total -> Color.Black
+            PriceRowType.Total,PriceRowType.Checkout -> Color.Black
+
         }
         Text(
             modifier = Modifier.align(Alignment.CenterStart),

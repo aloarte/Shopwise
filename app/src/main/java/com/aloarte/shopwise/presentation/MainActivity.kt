@@ -49,6 +49,10 @@ class MainActivity : ComponentActivity() {
                                 viewModel.removeItemFromCart(product = event.product)
                             }
 
+                            UiEvent.GoResult ->{
+                                viewModel.clearCartAndState()
+                            }
+
                             else -> {}
 
                         }

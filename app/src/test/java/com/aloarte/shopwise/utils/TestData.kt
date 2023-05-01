@@ -1,8 +1,8 @@
 package com.aloarte.shopwise.utils
 
 import com.aloarte.shopwise.data.dto.ProductDto
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 
 object TestData {
 
