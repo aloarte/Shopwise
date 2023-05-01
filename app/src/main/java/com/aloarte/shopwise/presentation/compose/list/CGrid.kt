@@ -77,7 +77,7 @@ fun GridContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp),
-                    buttonText = R.string.list_checkout_btn,
+                    buttonText = R.string.list_btn,
                     onButtonClicked = onGoToCheckout
                 )
             }

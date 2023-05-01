@@ -11,6 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
+import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
@@ -115,5 +119,31 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
             fontWeight = FontWeight.ExtraLight,
             text = "$price €"
         )
+    }
+}
+
+
+@Composable
+fun TitleRow(titleText:String , onBackClicked: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Icon(
+            modifier = Modifier
+                .padding(10.dp)
+                .height(30.dp)
+                .width(30.dp)
+                .align(Alignment.CenterStart)
+                .clickable(onClick = onBackClicked),
+            imageVector = Icons.Default.ArrowBack,
+            contentDescription = stringResource(id = R.string.img_desc_exit_checkout_icon)
+        )
+
+        TitleText(
+            title = titleText,
+            modifier = Modifier.align(Alignment.Center)
+        )
+
     }
 }

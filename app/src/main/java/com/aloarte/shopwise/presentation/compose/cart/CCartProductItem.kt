@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.presentation.compose.checkout
+package com.aloarte.shopwise.presentation.compose.cart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -43,7 +43,7 @@ import com.aloarte.shopwise.presentation.getProductBackground
 import com.aloarte.shopwise.presentation.getProductImage
 
 @Composable
-fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (Int) -> Unit) {
+fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (Int) -> Unit) {
     val product = item.first
     val productQuantity = item.second
 
@@ -53,14 +53,14 @@ fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        CheckoutProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
-        CheckoutProductTitlePrice(
+        CartProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
+        CartProductTitlePrice(
             modifier = Modifier.align(Alignment.Center),
             state = state,
             product = product,
             quantity = productQuantity
         )
-        CheckoutChangeProductQuantity(
+        CartChangeProductQuantity(
             modifier = Modifier.align(Alignment.CenterEnd),
             quantity = productQuantity,
             onItemsAdded = onItemsAdded
@@ -70,7 +70,7 @@ fun CheckoutProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded
 }
 
 @Composable
-fun CheckoutProductImage(
+fun CartProductImage(
     modifier: Modifier = Modifier, type: ProductType
 ) {
     Card(
@@ -99,7 +99,7 @@ fun CheckoutProductImage(
 }
 
 @Composable
-fun CheckoutProductTitlePrice(
+fun CartProductTitlePrice(
     modifier: Modifier = Modifier,
     state: UiState,
     product: ProductBo,
@@ -157,7 +157,7 @@ fun CheckoutProductTitlePrice(
 }
 
 @Composable
-fun CheckoutChangeProductQuantity(
+fun CartChangeProductQuantity(
     modifier: Modifier,
     quantity: Int,
     onItemsAdded: (Int) -> Unit

@@ -7,20 +7,22 @@
     <string name="list_search_hint">Search for any product name</string>
     <string name="list_add_quantity_title">Amount of items</string>
 
+    <!-- Cart screen -->
+    <string name="cart_label_total_vouchers">Vouchers</string>
+    <string name="cart_label_total_tshirts">Tshirts</string>
+    <string name="cart_label_total_mugs">"Mugs</string>
+    <string name="cart_label_total">Total</string>
+    <string name="cart_label_total_discount">You are saving</string>
 
-    <!-- Checkout screen -->
-    <string name="checkout_label_total_vouchers">Vouchers</string>
-    <string name="checkout_label_total_tshirts">Tshirts</string>
-    <string name="checkout_label_total_mugs">"Mugs</string>
-    <string name="checkout_label_total">Total</string>
-    <string name="checkout_label_total_discount">You are saving</string>
+    <!-- Checkout screen-->
+    <string name="checkout_title">CHECKOUT</string>
 
     <!-- Buttons-->
-    <string name="list_checkout_btn">CHECKOUT</string>
+    <string name="list_btn">CART</string>
+    <string name="cart_btn">CHECKOUT</string>
+    <string name="checkout_btn">MAKE PAYMENT</string>
     <string name="list_add_quantity_btn">ADD</string>
     <string name="detail_add_cart_btn">ADD TO CART</string>
-    <string name="checkout_add_cart_btn">PAYMENT</string>
-
 
     <!-- Image descriptions -->
     <string name="img_desc_product">Product image</string>

@@ -1,7 +1,6 @@
-package com.aloarte.shopwise.presentation.compose.checkout
+package com.aloarte.shopwise.presentation.compose.cart
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,13 +8,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -33,11 +28,11 @@ import com.aloarte.shopwise.domain.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.PriceRow
-import com.aloarte.shopwise.presentation.compose.commons.TitleText
+import com.aloarte.shopwise.presentation.compose.commons.TitleRow
 import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 
 @Composable
-fun CheckoutScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+fun CartScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,43 +43,18 @@ fun CheckoutScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TitleRow(onEventTriggered)
+            TitleRow(stringResource(id = R.string.list_products_title)){
+                onEventTriggered.invoke(UiEvent.GoList)
+            }
             SelectedProductList(state = state, onEventTriggered = onEventTriggered)
 
         }
-        TotalAndPaymentRow(
+        TotalAndCheckoutRow(
             modifier = Modifier.align(Alignment.BottomCenter),
             state = state,
             onEventTriggered = onEventTriggered
         )
     }
-
-}
-
-@Composable
-fun TitleRow(onEventTriggered: (UiEvent) -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Icon(
-            modifier = Modifier
-                .padding(10.dp)
-                .height(30.dp)
-                .width(30.dp)
-                .align(Alignment.CenterStart)
-                .clickable(onClick = { onEventTriggered.invoke(UiEvent.GoList) }),
-            imageVector = Icons.Default.ArrowBack,
-            contentDescription = stringResource(id = R.string.img_desc_exit_checkout_icon)
-        )
-
-        TitleText(
-            title = stringResource(id = R.string.list_products_title),
-            modifier = Modifier.align(Alignment.Center)
-        )
-
-    }
-
 }
 
 @Composable
@@ -94,7 +64,7 @@ fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         items(cartItems.size) { itemIndex ->
             val product = cartItems[itemIndex]
             Spacer(modifier = Modifier.height(10.dp))
-            CheckoutProductItem(
+            CartProductItem(
                 state = state,
                 item = product
             ) { quantity ->
@@ -109,7 +79,7 @@ fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 }
 
 @Composable
-fun TotalAndPaymentRow(
+fun TotalAndCheckoutRow(
     modifier: Modifier = Modifier,
     state: UiState,
     onEventTriggered: (UiEvent) -> Unit
@@ -122,24 +92,24 @@ fun TotalAndPaymentRow(
 
     Column(modifier = modifier.fillMaxWidth().padding(vertical = 20.dp)) {
         if (vouchersPrice > 0) PriceRow(
-            label = stringResource(id = R.string.checkout_label_total_vouchers),
+            label = stringResource(id = R.string.cart_label_total_vouchers),
             price = vouchersPrice
         )
         if (tshirtsPrice > 0) PriceRow(
-            label = stringResource(id = R.string.checkout_label_total_tshirts),
+            label = stringResource(id = R.string.cart_label_total_tshirts),
             price = tshirtsPrice
         )
         if (mugsPrice > 0) PriceRow(
-            label = stringResource(id = R.string.checkout_label_total_mugs),
+            label = stringResource(id = R.string.cart_label_total_mugs),
             price = mugsPrice
         )
         PriceRow(
-            label = stringResource(id = R.string.checkout_label_total),
+            label = stringResource(id = R.string.cart_label_total),
             price = totalPrice,
             type = PriceRowType.Total
         )
         PriceRow(
-            label = stringResource(id = R.string.checkout_label_total_discount),
+            label = stringResource(id = R.string.cart_label_total_discount),
             price = totalWithoutDiscount - totalPrice,
             type = PriceRowType.Discount
         )
@@ -158,15 +128,14 @@ fun TotalAndPaymentRow(
                 MaterialTheme.colorScheme.primary
             ),
             shape = RoundedCornerShape(10.dp),
-            onClick = { onEventTriggered.invoke(UiEvent.GoPayment(totalPrice)) }
+            onClick = { onEventTriggered.invoke(UiEvent.GoCheckout(totalPrice)) }
         ) {
-
             Text(
                 color = Color.Black,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
-                text = stringResource(id = R.string.checkout_add_cart_btn)
+                text = stringResource(id = R.string.cart_btn)
             )
         }
     }

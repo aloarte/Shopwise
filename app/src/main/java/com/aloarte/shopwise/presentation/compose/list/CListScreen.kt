@@ -35,7 +35,7 @@ fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         IconsRow(state.cartSize) {
-            onEventTriggered.invoke(UiEvent.GoCheckout)
+            onEventTriggered.invoke(UiEvent.GoCart)
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -56,7 +56,7 @@ fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 onEventTriggered.invoke(UiEvent.AddProduct(product, quantity))
             },
             onItemClicked = { onEventTriggered .invoke(UiEvent.OpenDetail(it))},
-            onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCheckout) })
+            onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCart) })
 
     }
 }

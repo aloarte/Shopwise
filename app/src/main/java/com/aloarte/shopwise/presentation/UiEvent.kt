@@ -11,9 +11,9 @@ sealed interface UiEvent {
 
     data class OpenDetail(val productCode:String) : UiEvent
 
-    data class  GoPayment(val price:Double) : UiEvent
+    data class  GoCheckout(val price:Double) : UiEvent
 
-    object GoCheckout : UiEvent
+    object GoCart : UiEvent
 
     object GoList : UiEvent
 
