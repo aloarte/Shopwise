@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.enums.ProductType
 
 @Composable
 fun FilterRow(onFilterChanged: (ProductType) -> Unit) {

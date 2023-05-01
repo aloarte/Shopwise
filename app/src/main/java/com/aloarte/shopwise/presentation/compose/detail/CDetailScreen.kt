@@ -37,8 +37,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiConstants.MAX_ITEMS_TO_ADD
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState

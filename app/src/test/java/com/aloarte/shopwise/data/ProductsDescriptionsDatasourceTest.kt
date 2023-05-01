@@ -18,15 +18,12 @@ class ProductsDescriptionsDatasourceTest {
         datasource = ProductsDescriptionsDatasourceImpl()
     }
 
-
     @Test
     fun `test fetch products success`() {
-
         val listResult = runBlocking {
             datasource.retrieveDescriptions(codeItemsList)
         }
 
         Assert.assertEquals(descriptionsPairList, listResult)
     }
-
 }

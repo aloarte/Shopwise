@@ -7,20 +7,33 @@
     <string name="list_search_hint">Search for any product name</string>
     <string name="list_add_quantity_title">Amount of items</string>
 
+    <!-- Cart screen -->
+    <string name="cart_title">MY CART</string>
+    <string name="cart_label_total_vouchers">Vouchers</string>
+    <string name="cart_label_total_tshirts">Tshirts</string>
+    <string name="cart_label_total_mugs">"Mugs</string>
+    <string name="cart_label_total">Total</string>
+    <string name="cart_label_total_discount">You are saving</string>
 
-    <!-- Checkout screen -->
-    <string name="checkout_label_total_vouchers">Vouchers</string>
-    <string name="checkout_label_total_tshirts">Tshirts</string>
-    <string name="checkout_label_total_mugs">"Mugs</string>
-    <string name="checkout_label_total">Total</string>
-    <string name="checkout_label_total_discount">You are saving</string>
+    <!-- Checkout screen-->
+    <string name="checkout_title">CHECKOUT</string>
+    <string name="checkout_selected_payment_title">Selected payment data</string>
+    <string name="checkout_choose_payment_title">Choose payment</string>
+    <string name="checkout_user_card_expiration_label">Valid until</string>
+    <string name="checkout_user_card_ccv_label">CCV</string>
+    <string name="checkout_user_card_name_label">Owner</string>
+    <string name="checkout_user_card_number_label">Card number</string>
+    <string name="checkout_user_card_type">%s Card</string>
+    <string name="checkout_paypal_mail_label">PayPal account</string>
+    <string name="checkout_paypal_mail_value">john.doe@gmail.com</string>
 
     <!-- Buttons-->
-    <string name="list_checkout_btn">CHECKOUT</string>
+    <string name="list_btn">CART</string>
+    <string name="cart_empty_btn">BACK</string>
+    <string name="cart_btn">CHECKOUT</string>
+    <string name="checkout_btn">MAKE PAYMENT</string>
     <string name="list_add_quantity_btn">ADD</string>
     <string name="detail_add_cart_btn">ADD TO CART</string>
-    <string name="checkout_add_cart_btn">PAYMENT</string>
-
 
     <!-- Image descriptions -->
     <string name="img_desc_product">Product image</string>
@@ -32,6 +45,10 @@
     <string name="img_desc_detail_image">Detail image</string>
     <string name="img_desc_exit_detail_icon">Exit to list screen icon from detail</string>
     <string name="img_desc_exit_checkout_icon">Exit to list screen icon from checkout</string>
+    <string name="ic_descr_nfc">Icon of the NFC protocol</string>
+    <string name="ic_descr_card_supplier">Icon of the card supplier (mastercard/visa)</string>
+    <string name="img_desc_payment_method">Image with the logo of a payment method</string>
+
 
 
 

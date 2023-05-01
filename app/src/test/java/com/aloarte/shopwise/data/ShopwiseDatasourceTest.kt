@@ -4,7 +4,7 @@ import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
 import com.aloarte.shopwise.data.dto.ApiResult
 import com.aloarte.shopwise.data.parser.DataParser
-import com.aloarte.shopwise.domain.ProductBo
+import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.utils.CoroutinesTestRule
 import com.aloarte.shopwise.utils.TestData.mugDto
 import com.aloarte.shopwise.utils.TestData.productsJson
@@ -44,7 +44,6 @@ class ShopwiseDatasourceTest {
         MockKAnnotations.init(this)
         datasource = ShopwiseProductsDatasourceImpl(api, dataParser)
     }
-
 
     @Test
     fun `test fetch products success`() = coroutinesTestRule.runBlockingTest {

@@ -5,8 +5,8 @@ import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.dto.ApiResult
 import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.data.repositories.ShopwiseProductsRepositoryImpl
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ShopwiseProductsRepository
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import com.aloarte.shopwise.utils.TestData.codeItemsList
 import com.aloarte.shopwise.utils.TestData.descriptionsPairList
 import com.aloarte.shopwise.utils.TestData.mug

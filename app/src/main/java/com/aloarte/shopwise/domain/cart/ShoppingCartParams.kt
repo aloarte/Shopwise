@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.cart
 
 data class ShoppingCartParams(
     val voucherDefaultPrice: Double,

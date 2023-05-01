@@ -1,8 +1,11 @@
 package com.aloarte.shopwise.utils
 
 import com.aloarte.shopwise.data.dto.ProductDto
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.enums.CardPaymentNetworkType
+import com.aloarte.shopwise.domain.enums.CardType
+import com.aloarte.shopwise.domain.enums.ProductType
+import com.aloarte.shopwise.domain.model.CardBo
+import com.aloarte.shopwise.domain.model.ProductBo
 
 object TestData {
 
@@ -117,6 +120,27 @@ object TestData {
         Pair(VOUCHER_CODE, VOUCHER_DESCR),
         Pair(TSHIRT_CODE, TSHIRT_DESCR),
         Pair(MUG_CODE, MUG_DESCR)
+    )
+
+    val productsBoList = listOf(voucher, tshirt, mug)
+
+    val cardsBoList = listOf(
+        CardBo(
+            type = CardType.Credit,
+            paymentNetworkType = CardPaymentNetworkType.Mastercard,
+            cardNumber = "3678 2014 0205 7840",
+            ownerName = "J. Doe",
+            ccv = "502",
+            expirationDate = "03/30"
+        ),
+        CardBo(
+            type = CardType.Debit,
+            paymentNetworkType = CardPaymentNetworkType.Visa,
+            cardNumber = "5800 1020 9845 3614",
+            ownerName = "J. Doe",
+            ccv = "184",
+            expirationDate = "11/32"
+        )
     )
 
 }

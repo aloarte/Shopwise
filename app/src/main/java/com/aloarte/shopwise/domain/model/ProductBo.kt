@@ -1,4 +1,6 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.model
+
+import com.aloarte.shopwise.domain.enums.ProductType
 
 data class ProductBo(
     val type: ProductType,

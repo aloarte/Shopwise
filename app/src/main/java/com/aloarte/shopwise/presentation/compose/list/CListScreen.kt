@@ -13,8 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.aloarte.shopwise.domain.ProductBo
-import com.aloarte.shopwise.domain.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import java.util.Locale
@@ -35,7 +35,7 @@ fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         IconsRow(state.cartSize) {
-            onEventTriggered.invoke(UiEvent.GoCheckout)
+            onEventTriggered.invoke(UiEvent.GoCart)
 
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -56,7 +56,7 @@ fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
                 onEventTriggered.invoke(UiEvent.AddProduct(product, quantity))
             },
             onItemClicked = { onEventTriggered .invoke(UiEvent.OpenDetail(it))},
-            onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCheckout) })
+            onGoToCheckout = { onEventTriggered.invoke(UiEvent.GoCart) })
 
     }
 }

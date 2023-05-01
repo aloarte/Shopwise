@@ -8,10 +8,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
-import com.aloarte.shopwise.presentation.compose.checkout.CheckoutScreen
+import com.aloarte.shopwise.presentation.compose.cart.CartScreen
+import com.aloarte.shopwise.presentation.compose.checkout.PaymentScreen
 import com.aloarte.shopwise.presentation.compose.detail.DetailScreen
 import com.aloarte.shopwise.presentation.compose.list.ListScreen
-import com.aloarte.shopwise.presentation.compose.payment.PaymentScreen
 import com.aloarte.shopwise.presentation.compose.result.ResultScreen
 
 @Composable
@@ -19,11 +19,17 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val navController = rememberNavController()
     val onInnerEventTriggered: (UiEvent) -> Unit = { event ->
         when (event) {
-            UiEvent.GoCheckout -> navController.navigate(Screen.CheckoutScreen.route)
             UiEvent.GoList -> navController.navigate(Screen.ListScreen.route)
-            is UiEvent.GoPayment -> navController.navigate(
+            UiEvent.GoCart -> navController.navigate(Screen.CheckoutScreen.route)
+            is UiEvent.GoCheckout -> navController.navigate(
                 route = Screen.PaymentScreen.withArgs(event.price.toString())
             )
+
+            UiEvent.GoResult -> {
+                onEventTriggered.invoke(event)
+                // Navigate to the main list screen and pass the event to the main activity so it can empty the cart
+                navController.navigate(Screen.ResultScreen.route)
+            }
 
             is UiEvent.OpenDetail -> navController.navigate(
                 route = Screen.DetailScreen.withArgs(event.productCode)
@@ -34,7 +40,6 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
     }
     NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
-
         composable(route = Screen.ListScreen.route) {
             ListScreen(
                 state = state,
@@ -58,7 +63,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
         }
         composable(route = Screen.CheckoutScreen.route) {
-            CheckoutScreen(
+            CartScreen(
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )
@@ -69,12 +74,11 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             arguments = listOf(
                 navArgument("price") {
                     type = NavType.StringType
-                    defaultValue = "UNKNOWN"
-                    nullable = true
+                    defaultValue = "0.0"
                 })
         ) { entry ->
             PaymentScreen(
-                price = entry.arguments?.getDouble("price"),
+                price = entry.arguments?.getString("price")?.toDouble(),
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )

@@ -42,7 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.ProductBo
+import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.presentation.compose.commons.AddProductDialog
 import com.aloarte.shopwise.presentation.compose.commons.TitleText
 import com.aloarte.shopwise.presentation.getProductBackground
@@ -77,7 +77,7 @@ fun GridContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp),
-                    buttonText = R.string.list_checkout_btn,
+                    buttonText = R.string.list_btn,
                     onButtonClicked = onGoToCheckout
                 )
             }

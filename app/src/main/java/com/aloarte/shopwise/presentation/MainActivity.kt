@@ -49,6 +49,14 @@ class MainActivity : ComponentActivity() {
                                 viewModel.removeItemFromCart(product = event.product)
                             }
 
+                            is UiEvent.ChangePayment ->{
+                                viewModel.changePaymentType(event.type)
+                            }
+
+                            UiEvent.GoResult ->{
+                                viewModel.clearCartAndState()
+                            }
+
                             else -> {}
 
                         }

@@ -1,4 +1,7 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.cart
+
+import com.aloarte.shopwise.domain.enums.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
 
 class ProductBoComparator {
 

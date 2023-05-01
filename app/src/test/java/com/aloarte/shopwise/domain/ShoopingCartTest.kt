@@ -1,5 +1,9 @@
 package com.aloarte.shopwise.domain
 
+import com.aloarte.shopwise.domain.cart.ShoppingCart
+import com.aloarte.shopwise.domain.cart.ShoppingCartParams
+import com.aloarte.shopwise.domain.enums.ProductType
+import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.utils.TestData.DISCOUNTED_TSHIRT_ALT_PRICE
 import com.aloarte.shopwise.utils.TestData.DISCOUNTED_TSHIRT_PRICE
 import com.aloarte.shopwise.utils.TestData.MUG_ALT_PRICE
