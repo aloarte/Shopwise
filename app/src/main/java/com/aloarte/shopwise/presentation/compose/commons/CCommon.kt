@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
@@ -47,19 +47,28 @@ fun TitleText(title: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ModifyQuantityIcon(size: QuantityIconSizeType = QuantityIconSizeType.Normal, enabled: Boolean = true, type: ModifyType, onModification: () -> Unit) {
+fun ModifyQuantityIcon(
+    size: QuantityIconSizeType = QuantityIconSizeType.Normal,
+    enabled: Boolean = true,
+    type: ModifyType,
+    onModification: () -> Unit
+) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
             .background(if (enabled) MaterialTheme.colorScheme.primary else Color.LightGray)
-            .height(when(size){
-                QuantityIconSizeType.Normal -> 40.dp
-                QuantityIconSizeType.Small -> 25.dp
-            })
-            .width(when(size){
-                QuantityIconSizeType.Normal -> 40.dp
-                QuantityIconSizeType.Small -> 25.dp
-            })
+            .height(
+                when (size) {
+                    QuantityIconSizeType.Normal -> 40.dp
+                    QuantityIconSizeType.Small -> 25.dp
+                }
+            )
+            .width(
+                when (size) {
+                    QuantityIconSizeType.Normal -> 40.dp
+                    QuantityIconSizeType.Small -> 25.dp
+                }
+            )
             .clickable(onClick = onModification, enabled = enabled),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -73,14 +82,18 @@ fun ModifyQuantityIcon(size: QuantityIconSizeType = QuantityIconSizeType.Normal,
                 }
             ),
             modifier = Modifier
-                .height(when(size){
-                    QuantityIconSizeType.Normal -> 30.dp
-                    QuantityIconSizeType.Small -> 15.dp
-                })
-                .width(when(size){
-                    QuantityIconSizeType.Normal -> 30.dp
-                    QuantityIconSizeType.Small -> 15.dp
-                }),
+                .height(
+                    when (size) {
+                        QuantityIconSizeType.Normal -> 30.dp
+                        QuantityIconSizeType.Small -> 15.dp
+                    }
+                )
+                .width(
+                    when (size) {
+                        QuantityIconSizeType.Normal -> 30.dp
+                        QuantityIconSizeType.Small -> 15.dp
+                    }
+                ),
             colorFilter = ColorFilter.tint(Color.Black),
             contentDescription = stringResource(id = R.string.img_desc_modify_quantity_icon)
         )
@@ -103,7 +116,7 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
         val priceTextColor = when (type) {
             PriceRowType.Regular -> Color.LightGray
             PriceRowType.Discount -> MaterialTheme.colorScheme.primary
-            PriceRowType.Total,PriceRowType.Checkout -> Color.Black
+            PriceRowType.Total, PriceRowType.Checkout -> Color.Black
 
         }
         Text(
@@ -126,7 +139,7 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
 
 
 @Composable
-fun TitleRow(titleText:String , onBackClicked: () -> Unit) {
+fun TitleRow(titleText: String, onBackClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -145,6 +158,34 @@ fun TitleRow(titleText:String , onBackClicked: () -> Unit) {
         TitleText(
             title = titleText,
             modifier = Modifier.align(Alignment.Center)
+        )
+
+    }
+}
+
+@Composable
+fun CardItemWithLabel(
+    hideValue: Boolean = false,
+    itemValue: String,
+    label: String,
+    modifier: Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(
+            fontSize = 14.sp,
+            color = Color.White,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.ExtraLight,
+            text = label
+        )
+        Text(
+            fontSize = 20.sp,
+            color = Color.White,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.ExtraLight,
+            text = if (hideValue) itemValue.replace(itemValue[0],'*') else itemValue
         )
 
     }

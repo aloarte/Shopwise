@@ -17,7 +17,11 @@
 
     <!-- Checkout screen-->
     <string name="checkout_title">CHECKOUT</string>
-
+    <string name="checkout_user_card_expiration_label">Valid until</string>
+    <string name="checkout_user_card_ccv_label">CCV</string>
+    <string name="checkout_user_card_name_label">Owner</string>
+    <string name="checkout_user_card_number_label">Card number</string>
+    <string name="checkout_user_card_type">%s Card</string>
     <!-- Buttons-->
     <string name="list_btn">CART</string>
     <string name="cart_btn">CHECKOUT</string>
