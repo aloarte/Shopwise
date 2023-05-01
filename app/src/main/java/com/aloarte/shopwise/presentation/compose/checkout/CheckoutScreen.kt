@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -23,7 +22,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
-import com.aloarte.shopwise.domain.model.CardBo
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.PriceRow
@@ -45,32 +43,27 @@ fun PaymentScreen(price: Double?, state: UiState, onEventTriggered: (UiEvent) ->
             TitleRow(stringResource(id = R.string.checkout_title)) {
                 onEventTriggered.invoke(UiEvent.GoCart)
             }
-            CardSection(state.cards)
+            CardSection(state)
+            PaymentMethod(state.selectedPaymentMethod) { paymentType ->
+                onEventTriggered.invoke(UiEvent.ChangePayment(paymentType))
+            }
+
         }
         TotalAndPaymentRow(
             modifier = Modifier.align(Alignment.BottomCenter),
-            price = price ?: 0.0,
-            onEventTriggered = onEventTriggered
-        )
+            price = price ?: 0.0
+        ) {
+            onEventTriggered.invoke(UiEvent.GoResult)
+        }
     }
-}
 
-@Composable
-fun CardSection(cardList: List<CardBo>) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp), horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        FakeCard(cardList.getOrNull(1))
-    }
 }
 
 @Composable
 fun TotalAndPaymentRow(
     modifier: Modifier,
     price: Double = 0.0,
-    onEventTriggered: (UiEvent) -> Unit
+    onContinueClicked: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -96,7 +89,7 @@ fun TotalAndPaymentRow(
                 MaterialTheme.colorScheme.primary
             ),
             shape = RoundedCornerShape(10.dp),
-            onClick = { onEventTriggered.invoke(UiEvent.GoResult) }
+            onClick = onContinueClicked
         ) {
             Text(
                 color = Color.Black,

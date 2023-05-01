@@ -26,9 +26,9 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             )
 
             UiEvent.GoResult -> {
-                // Navigate and pass the event to the main activity so it can empty the cart
-                navController.navigate(Screen.CheckoutScreen.route)
                 onEventTriggered.invoke(event)
+                // Navigate to the main list screen and pass the event to the main activity so it can empty the cart
+                navController.navigate(Screen.ListScreen.route)
             }
 
             is UiEvent.OpenDetail -> navController.navigate(
@@ -39,7 +39,7 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
         }
 
     }
-    NavHost(navController = navController, startDestination = Screen.PaymentScreen.route) {
+    NavHost(navController = navController, startDestination = Screen.ListScreen.route) {
         composable(route = Screen.ListScreen.route) {
             ListScreen(
                 state = state,
@@ -70,16 +70,15 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
         }
         composable(
-            route = Screen.PaymentScreen.route /*+ "/{price}",
+            route = Screen.PaymentScreen.route + "/{price}",
             arguments = listOf(
                 navArgument("price") {
                     type = NavType.StringType
                     defaultValue = "0.0"
-                })*/
+                })
         ) { entry ->
             PaymentScreen(
-//                price = entry.arguments?.getString("price")?.toDouble(),
-                price = 120.0,
+                price = entry.arguments?.getString("price")?.toDouble(),
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )

@@ -4,6 +4,8 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +30,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
@@ -36,11 +39,39 @@ import com.aloarte.shopwise.domain.model.CardBo
 import com.aloarte.shopwise.presentation.UiConstants
 import com.aloarte.shopwise.presentation.UiConstants.USER_CARD_ANIM_TIME
 import com.aloarte.shopwise.presentation.UiConstants.USER_CARD_SIZE
+import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.commons.CardItemWithLabel
+import com.aloarte.shopwise.presentation.compose.enums.PaymentMethodType
+
+@Composable
+fun CardSection(state: UiState) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .height(260.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start,
+            fontSize = 24.sp,
+            color = Color.Black,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.ExtraLight,
+            text = stringResource(id = R.string.checkout_selected_payment_title)
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+        when (val selectedPayment = state.selectedPaymentMethod) {
+            PaymentMethodType.Paypal -> PaypalCard()
+            PaymentMethodType.Mastercard, PaymentMethodType.Visa -> UserCard(state.cards.find { it.paymentNetworkType.toString() == selectedPayment.toString() })
+        }
+
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FakeCard(card: CardBo?) {
+fun UserCard(card: CardBo?) {
 
     var rotated by remember { mutableStateOf(false) }
 
@@ -77,7 +108,7 @@ fun FakeCard(card: CardBo?) {
                     rotationY = rotation
                     cameraDistance = 8 * density
                 },
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary )
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
             if (rotated) CardBack(card = cardValue, modifier = cardModifier)
             else CardFront(card = cardValue, modifier = cardModifier)
@@ -167,6 +198,29 @@ fun CardBack(card: CardBo, modifier: Modifier = Modifier) {
             label = stringResource(id = R.string.checkout_user_card_expiration_label),
             modifier = Modifier.align(Alignment.BottomEnd)
         )
+    }
+}
+
+@Composable
+fun PaypalCard() {
+    Card(
+        shape = RoundedCornerShape(25.dp),
+        modifier = Modifier
+            .height(USER_CARD_SIZE.dp)
+            .width((USER_CARD_SIZE * UiConstants.ID_CARD_AR).dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+    ) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(25.dp)) {
+            CardItemWithLabel(
+                itemValue = stringResource(id = R.string.checkout_paypal_mail_value),
+                label = stringResource(id = R.string.checkout_paypal_mail_label),
+                modifier = Modifier.align(Alignment.TopStart)
+            )
+
+        }
     }
 }
 

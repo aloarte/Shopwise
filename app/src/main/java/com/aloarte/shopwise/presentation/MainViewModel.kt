@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.domain.repositories.CardsRepository
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
+import com.aloarte.shopwise.presentation.compose.enums.PaymentMethodType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -71,6 +72,14 @@ class MainViewModel @Inject constructor(
                     cartSize = productsNumber()
                 )
             }
+        }
+    }
+
+    fun changePaymentType(type: PaymentMethodType) {
+        _state.update {
+            it.copy(
+                selectedPaymentMethod = type,
+            )
         }
     }
 

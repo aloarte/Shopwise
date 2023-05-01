@@ -17,11 +17,16 @@
 
     <!-- Checkout screen-->
     <string name="checkout_title">CHECKOUT</string>
+    <string name="checkout_selected_payment_title">Selected payment method data</string>
+    <string name="checkout_choose_payment_title">Choose payment</string>
     <string name="checkout_user_card_expiration_label">Valid until</string>
     <string name="checkout_user_card_ccv_label">CCV</string>
     <string name="checkout_user_card_name_label">Owner</string>
     <string name="checkout_user_card_number_label">Card number</string>
     <string name="checkout_user_card_type">%s Card</string>
+    <string name="checkout_paypal_mail_label">PayPal account</string>
+    <string name="checkout_paypal_mail_value">john.doe@gmail.com</string>
+
     <!-- Buttons-->
     <string name="list_btn">CART</string>
     <string name="cart_btn">CHECKOUT</string>
@@ -41,6 +46,8 @@
     <string name="img_desc_exit_checkout_icon">Exit to list screen icon from checkout</string>
     <string name="ic_descr_nfc">Icon of the NFC protocol</string>
     <string name="ic_descr_card_supplier">Icon of the card supplier (mastercard/visa)</string>
+    <string name="img_desc_payment_method">Image with the logo of a payment method</string>
+
 
 
 
