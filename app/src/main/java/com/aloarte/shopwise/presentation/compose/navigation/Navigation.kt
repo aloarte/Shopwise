@@ -85,7 +85,8 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
 
         }
         composable(route = Screen.ResultScreen.route) {
-            ResultScreen(navController = navController)
+            ResultScreen(state = state,
+                onEventTriggered = onInnerEventTriggered)
         }
     }
 }

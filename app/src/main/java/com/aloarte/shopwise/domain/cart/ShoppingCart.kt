@@ -33,9 +33,7 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
     }
 
     fun clearCart(){
-        products.forEach {
-            removeItem(it.key)
-        }
+        products.clear()
     }
 
     /*

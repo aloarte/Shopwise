@@ -27,6 +27,11 @@
     <string name="checkout_paypal_mail_label">PayPal account</string>
     <string name="checkout_paypal_mail_value">john.doe@gmail.com</string>
 
+    <!-- Result screen-->
+    <string name="result_title">YOUR ORDER</string>
+    <string name="result_text">You order has been successfully paid. You will receive your products in the next few days. </string>
+
+
     <!-- Buttons-->
     <string name="list_btn">CART</string>
     <string name="cart_empty_btn">BACK</string>
@@ -48,8 +53,5 @@
     <string name="ic_descr_nfc">Icon of the NFC protocol</string>
     <string name="ic_descr_card_supplier">Icon of the card supplier (mastercard/visa)</string>
     <string name="img_desc_payment_method">Image with the logo of a payment method</string>
-
-
-
 
 </resources> 

@@ -2,11 +2,13 @@ package com.aloarte.shopwise.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.domain.repositories.CardsRepository
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import com.aloarte.shopwise.presentation.compose.enums.PaymentMethodType
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -18,7 +20,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val productsRepository: ShopwiseProductsRepository,
     private val cardsRepository: CardsRepository
-) :    ViewModel() {
+) : ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
     val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
@@ -54,15 +56,6 @@ class MainViewModel @Inject constructor(
 
     fun removeItemFromCart(product: ProductBo) {
         _state.value.cart.removeItem(product)
-        refreshCartState()
-    }
-
-    fun clearCartAndState() {
-        _state.value.cart.clearCart()
-        refreshCartState()
-    }
-
-    private fun refreshCartState() {
         _state.update {
             with(_state.value.cart) {
                 it.copy(
@@ -73,6 +66,24 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun clearCartAndState() {
+        val purchaseData = getPurchaseData()
+        _state.value.cart.clearCart()
+        _state.update {
+            with(_state.value.cart) {
+                it.copy(
+                    purchaseData = purchaseData,
+                    cart = this,
+                    cartValue = checkout(),
+                    cartSize = productsNumber()
+                )
+            }
+        }
+    }
+
+    private fun getPurchaseData(): List<PurchaseDataItem> =
+        productsRepository.getPurchaseData(state.value.cart.getCartItems())
 
     fun changePaymentType(type: PaymentMethodType) {
         _state.update {
