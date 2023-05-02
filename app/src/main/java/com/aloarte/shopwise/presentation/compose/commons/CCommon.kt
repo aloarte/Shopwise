@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.enums.PriceRowType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
@@ -111,7 +112,7 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
         val textSize = when (type) {
             PriceRowType.Regular, PriceRowType.Discount -> 18.sp
             PriceRowType.Total -> 22.sp
-            PriceRowType.Checkout -> 26.sp
+            PriceRowType.Checkout -> 22.sp
         }
         val priceTextColor = when (type) {
             PriceRowType.Regular -> Color.LightGray
@@ -133,6 +134,37 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
             color = priceTextColor,
             fontWeight = FontWeight.ExtraLight,
             text = "$price €"
+        )
+    }
+}
+
+@Composable
+fun PurchaseSummaryRow(item: PurchaseDataItem? = null) {
+    val titleRow = item == null
+    val fontSize = if (titleRow) 20.sp else 18.sp
+    val fontWeight = if (titleRow) FontWeight.Bold else FontWeight.ExtraLight
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 30.dp)
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterStart),
+            fontSize = fontSize,
+            color = Color.Black,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = fontWeight,
+            text = item?.name ?: stringResource(id = R.string.result_table_product_title)
+        )
+        Text(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            fontSize = fontSize,
+            style = MaterialTheme.typography.headlineSmall,
+            color = Color.Black,
+            fontWeight = fontWeight,
+            text = item?.quantity?.toString()
+                ?: stringResource(id = R.string.result_table_quantity_title)
         )
     }
 }
@@ -185,7 +217,7 @@ fun CardItemWithLabel(
             color = Color.White,
             style = MaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.ExtraLight,
-            text = if (hideValue) itemValue.replace(itemValue[0],'*') else itemValue
+            text = if (hideValue) itemValue.replace(itemValue[0], '*') else itemValue
         )
 
     }
