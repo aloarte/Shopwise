@@ -44,8 +44,9 @@ fun EmptyCart(onBackPressed: () -> Unit) {
             fontSize = 20.sp,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.ExtraLight,
-            text = "Your cart is empty. Come back again when you have any item to complete the purchase."
-        )
+            text = stringResource(id = R.string.cart_empty_message),
+
+            )
         EmptyCartLottie(Modifier.align(Alignment.Center))
         OutlinedButton(
             modifier = Modifier

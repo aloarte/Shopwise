@@ -4,6 +4,7 @@ import com.aloarte.shopwise.data.Constants.DISCOUNTED_TSHIRT_PRICE
 import com.aloarte.shopwise.data.Constants.MUG_PRICE
 import com.aloarte.shopwise.data.Constants.TSHIRT_PRICE
 import com.aloarte.shopwise.data.Constants.VOUCHER_PRICE
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.cart.ShoppingCart
 import com.aloarte.shopwise.domain.cart.ShoppingCartParams
 import com.aloarte.shopwise.domain.model.CardBo
@@ -25,5 +26,6 @@ data class UiState(
     val selectedPaymentMethod: PaymentMethodType = PaymentMethodType.Mastercard,
     val productList: List<ProductBo> = emptyList(),
     val cartValue: Double = 0.0,
-    val cartSize: Int = 0
+    val cartSize: Int = 0,
+    val purchaseData: List<PurchaseDataItem> = emptyList()
 )

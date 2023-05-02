@@ -30,10 +30,10 @@ fun PaymentScreen(price: Double?, state: UiState, onEventTriggered: (UiEvent) ->
             modifier = Modifier.align(Alignment.TopCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
             TitleRow(stringResource(id = R.string.checkout_title)) {
                 onEventTriggered.invoke(UiEvent.GoCart)
             }
+            Spacer(modifier = Modifier.height(20.dp))
             CardSection(state)
             PaymentMethod(state.selectedPaymentMethod) { paymentType ->
                 onEventTriggered.invoke(UiEvent.ChangePayment(paymentType))

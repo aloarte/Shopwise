@@ -1,5 +1,6 @@
 package com.aloarte.shopwise.presentation.compose.list
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,6 +22,9 @@ import java.util.Locale
 
 @Composable
 fun ListScreen(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+    BackHandler {
+       //Avoid doing a back from this screen
+    }
     var searchText by remember { mutableStateOf("") }
     var filterType by remember { mutableStateOf(ProductType.Unknown) }
     val products = state.productList.filter {

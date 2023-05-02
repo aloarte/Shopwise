@@ -1,11 +1,13 @@
 package com.aloarte.shopwise.viewmodel
 
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.repositories.CardsRepository
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import com.aloarte.shopwise.presentation.MainViewModel
 import com.aloarte.shopwise.presentation.UiState
 import com.aloarte.shopwise.presentation.compose.enums.PaymentMethodType
 import com.aloarte.shopwise.utils.CoroutinesTestRule
+import com.aloarte.shopwise.utils.TestData
 import com.aloarte.shopwise.utils.TestData.TSHIRT_PRICE
 import com.aloarte.shopwise.utils.TestData.cardsBoList
 import com.aloarte.shopwise.utils.TestData.productsBoList
@@ -25,7 +27,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class MainViewModelTest {
 
-    companion object{
+    companion object {
         const val quantity = 2
     }
 
@@ -106,6 +108,10 @@ class MainViewModelTest {
 
     @Test
     fun `test clear cart and state`() = coroutinesTestRule.runBlockingTest {
+        val purchaseData = listOf(
+            PurchaseDataItem(name = TestData.TSHIRT_CODE, 1)
+        )
+        coEvery { productsRepository.getPurchaseData(any()) } returns purchaseData
         viewModel.addItemToCart(product = tshirt, quantity = quantity)
         val expectedPreviousState = UiState(
             cartValue = quantity * TSHIRT_PRICE,
@@ -115,9 +121,11 @@ class MainViewModelTest {
 
         viewModel.clearCartAndState()
 
+        coVerify { productsRepository.getPurchaseData(any()) }
         val expectedState = UiState(
             cartValue = 0.0,
-            cartSize = 0
+            cartSize = 0,
+            purchaseData =  purchaseData
         )
         assertStateEqualsWithoutCart(expectedState, viewModel.state.first())
     }
