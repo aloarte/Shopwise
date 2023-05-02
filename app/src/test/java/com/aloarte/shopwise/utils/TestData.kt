@@ -6,15 +6,18 @@ import com.aloarte.shopwise.domain.enums.CardType
 import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.domain.model.CardBo
 import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 
 object TestData {
 
     const val VOUCHER_PRICE = 5.0
     const val VOUCHER_CODE = "VOUCHER"
+
     const val VOUCHER_DESCR = "A voucher for a Cabify trip.\n" +
             "Get a 3x2 discount offer to save some money in your future trips."
     const val TSHIRT_PRICE = 20.0
     const val TSHIRT_CODE = "TSHIRT"
+    const val TSHIRT_NAME = "Cabify T-Shirt"
     const val TSHIRT_DESCR = "A Cabify T-shirt with their fantastic design.\n" +
             "Buy 3 or more to enjoy of a price discount on all of the selected units."
     const val DISCOUNTED_TSHIRT_PRICE = 19.0
@@ -34,7 +37,7 @@ object TestData {
 
     val tshirtDto = ProductDto(
         code = "TSHIRT",
-        name = "Cabify T-Shirt",
+        name = TSHIRT_NAME,
         price = TSHIRT_PRICE
     )
 
@@ -142,5 +145,4 @@ object TestData {
             expirationDate = "11/32"
         )
     )
-
 }

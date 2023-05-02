@@ -11,18 +11,16 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 
-
-
-
 val TealLight = Color(0xFFE0F2F1)
 val TealMedium = Color(0xFF1DE9B6)
 val TealDark = Color(0xFF00BFA5)
 
 
+val color  = Color(0x80FF405A)
 
-val OrangeLight = Color(0xFFFFECB3)
-val OrangeMedium = Color(0xFFFFE57F)
-val OrangeDark = Color(0xFFFFD740)
+val OrangeLight = color
+val OrangeMedium =color
+val OrangeDark = color
 
 
 
