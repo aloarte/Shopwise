@@ -72,13 +72,13 @@ fun shouldFilter(product: ProductBo, searchText: String, filterType: ProductType
     } else if (searchText.isEmpty()) {
         true
     } else {
-        searchText.isNotEmpty() && areSameStringsInLower(product.code, searchText)
+        searchText.isNotEmpty() && areSameStringsInLower(product.name, searchText)
     }
     return searchTextFilter
 }
 
 fun areSameStringsInLower(code: String, searchText: String) = with(Locale.getDefault()) {
-    code.lowercase(this).startsWith(searchText.lowercase(this))
+    code.lowercase(this).contains(searchText.lowercase(this))
 }
 
 

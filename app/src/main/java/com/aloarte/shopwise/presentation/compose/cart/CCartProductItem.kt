@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.domain.cart.ProductBoComparator
 import com.aloarte.shopwise.domain.model.ProductBo
-import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiConstants
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
@@ -43,12 +41,15 @@ import com.aloarte.shopwise.presentation.compose.commons.ModifyQuantityIcon
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
 import com.aloarte.shopwise.presentation.getProductBackground
-import com.aloarte.shopwise.presentation.getProductImage
 
 @Composable
 fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val cartItems = state.cart.getCartItems().sortedWith(ProductBoComparator)
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(450.dp),
+    ) {
         items(cartItems.size) { itemIndex ->
             val product = cartItems[itemIndex]
             Spacer(modifier = Modifier.height(10.dp))
@@ -140,7 +141,9 @@ fun CartProductTitlePrice(
     ) {
         Spacer(modifier = Modifier.width(10.dp))
         Column(
-            Modifier.fillMaxWidth().fillMaxHeight(),
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.Center
         ) {
             Text(
