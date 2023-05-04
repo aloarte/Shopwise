@@ -68,7 +68,7 @@ fun CardSection(state: UiState) {
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             fontSize = 24.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.ExtraLight,
             text = stringResource(id = R.string.checkout_selected_payment_title)

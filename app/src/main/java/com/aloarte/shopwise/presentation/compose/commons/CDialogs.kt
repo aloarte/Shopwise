@@ -53,7 +53,7 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                     Text(
                         fontSize = 20.sp,
                         style = MaterialTheme.typography.titleMedium,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         fontWeight = FontWeight.ExtraLight,
                         text = stringResource(id = R.string.list_add_quantity_title)
                     )
@@ -77,7 +77,7 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
 
                         Text(
                             modifier = Modifier.padding(horizontal = 10.dp),
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.primaryContainer,
                             fontSize = 20.sp,
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.ExtraLight,
@@ -94,13 +94,13 @@ fun AddProductDialog(onDismiss: (Int?) -> Unit) {
                     OutlinedButton(
                         enabled = enableAddProducts,
                         modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(disabledContainerColor =Color.LightGray, containerColor = Color.Transparent),
-                        border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else Color.LightGray),
+                        colors = ButtonDefaults.buttonColors(disabledContainerColor =MaterialTheme.colorScheme.onPrimary, containerColor = Color.Transparent),
+                        border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary),
                         shape = RoundedCornerShape(10.dp),
                         onClick = { onDismiss.invoke(quantity) }
                     ) {
                         Text(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.primaryContainer,
                             fontSize = 14.sp,
                             style = MaterialTheme.typography.headlineSmall,
                             fontWeight = FontWeight.ExtraLight,

@@ -100,7 +100,7 @@ fun CheckoutRow(modifier: Modifier = Modifier,@StringRes buttonText:Int, onButto
         ) {
 
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
@@ -192,7 +192,7 @@ fun ProductItem(
             ) {
 
                 Image(
-                    colorFilter = ColorFilter.tint(Color.Black),
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
                     modifier = Modifier
                         .height(20.dp)
                         .width(20.dp),

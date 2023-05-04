@@ -45,7 +45,7 @@ fun TotalAndPaymentRow(
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
             colors = ButtonDefaults.buttonColors(
-                disabledContainerColor = Color.LightGray,
+                disabledContainerColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = Color.Transparent
             ),
             border = BorderStroke(
@@ -56,7 +56,7 @@ fun TotalAndPaymentRow(
             onClick = onContinueClicked
         ) {
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,

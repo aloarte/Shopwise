@@ -92,7 +92,7 @@ fun DetailImage(type: ProductType, onIconClicked: () -> Unit) {
                 .align(Alignment.Center)
                 .height(200.dp)
                 .width(200.dp),
-            colorFilter = ColorFilter.tint(Color.Black),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
             contentDescription = stringResource(id = R.string.img_desc_detail_image)
         )
     }
@@ -133,7 +133,7 @@ fun DetailDescription(description: String) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
             fontSize = 18.sp,
-            color = Color.LightGray,
+            color = MaterialTheme.colorScheme.onPrimary,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,
             text = description
@@ -169,7 +169,7 @@ fun DetailAddToCart(onItemsAdded: (Int) -> Unit) {
         Text(
             textAlign = TextAlign.Center,
             modifier = Modifier.width(20.dp),
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             fontSize = 20.sp,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,
@@ -187,14 +187,14 @@ fun DetailAddToCart(onItemsAdded: (Int) -> Unit) {
             enabled = enableAddProducts,
             modifier = Modifier
                 .width(150.dp),
-            colors = ButtonDefaults.buttonColors(disabledContainerColor =Color.LightGray, containerColor = Color.Transparent),
-            border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else Color.LightGray),
+            colors = ButtonDefaults.buttonColors(disabledContainerColor =MaterialTheme.colorScheme.onPrimary, containerColor = Color.Transparent),
+            border = BorderStroke(1.5.dp, if (enableAddProducts) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary),
             shape = RoundedCornerShape(10.dp),
             onClick = { onItemsAdded.invoke(quantity) }
         ) {
 
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
