@@ -131,7 +131,7 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
 
         ProductType.Mug -> {
             val product = products.toList()
-                .find { findItemByTypeAndName(it.first, ProductType.Tshirt, name) }
+                .find { findItemByTypeAndName(it.first, ProductType.Mug, name) }
             getNotDiscountableItemsPrice(product?.second ?: 0, product?.first?.price ?: 0.0)
         }
 
