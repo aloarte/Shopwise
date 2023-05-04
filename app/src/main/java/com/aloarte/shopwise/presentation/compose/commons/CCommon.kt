@@ -57,7 +57,7 @@ fun ModifyQuantityIcon(
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(10.dp))
-            .background(if (enabled) MaterialTheme.colorScheme.primary else Color.LightGray)
+            .background(if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary)
             .height(
                 when (size) {
                     QuantityIconSizeType.Normal -> 40.dp
@@ -95,7 +95,7 @@ fun ModifyQuantityIcon(
                         QuantityIconSizeType.Small -> 15.dp
                     }
                 ),
-            colorFilter = ColorFilter.tint(Color.Black),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer),
             contentDescription = stringResource(id = R.string.img_desc_modify_quantity_icon)
         )
     }
@@ -115,9 +115,9 @@ fun PriceRow(label: String, price: Double, type: PriceRowType = PriceRowType.Reg
             PriceRowType.Checkout -> 22.sp
         }
         val priceTextColor = when (type) {
-            PriceRowType.Regular -> Color.LightGray
+            PriceRowType.Regular -> MaterialTheme.colorScheme.onPrimary
             PriceRowType.Discount -> MaterialTheme.colorScheme.primary
-            PriceRowType.Total, PriceRowType.Checkout -> Color.Black
+            PriceRowType.Total, PriceRowType.Checkout -> MaterialTheme.colorScheme.primaryContainer
 
         }
         Text(
@@ -152,7 +152,7 @@ fun PurchaseSummaryRow(item: PurchaseDataItem? = null) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
             fontSize = fontSize,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = fontWeight,
             text = item?.name ?: stringResource(id = R.string.result_table_product_title)
@@ -161,7 +161,7 @@ fun PurchaseSummaryRow(item: PurchaseDataItem? = null) {
             modifier = Modifier.align(Alignment.CenterEnd),
             fontSize = fontSize,
             style = MaterialTheme.typography.headlineSmall,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             fontWeight = fontWeight,
             text = item?.quantity?.toString()
                 ?: stringResource(id = R.string.result_table_quantity_title)

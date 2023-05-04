@@ -152,7 +152,7 @@ fun CartProductTitlePrice(
             Row {
                 Text(
                     fontSize = 20.sp,
-                    color = Color.LightGray,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     style = if (productsDiscounted) {
                         MaterialTheme.typography.labelSmall.copy(textDecoration = TextDecoration.LineThrough)
                     } else {
@@ -211,7 +211,7 @@ fun CartChangeProductQuantity(
         Text(
             textAlign = TextAlign.Center,
             modifier = Modifier.width(20.dp),
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             fontSize = 20.sp,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,

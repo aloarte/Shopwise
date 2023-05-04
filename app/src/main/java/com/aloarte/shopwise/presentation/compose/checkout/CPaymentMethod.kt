@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,7 +44,7 @@ fun PaymentMethod(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             fontSize = 24.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.ExtraLight,
             text = stringResource(id = R.string.checkout_choose_payment_title)
@@ -64,14 +64,16 @@ fun PaymentMethodSelectorRow(
         PaymentMethodType.Visa,
         PaymentMethodType.Paypal
     )
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 10.dp)) {
         paymentMethods.forEach { paymentMethod ->
             Column(
                 Modifier
                     .border(
                         border = BorderStroke(
                             1.5.dp,
-                            if (paymentMethod == selected) MaterialTheme.colorScheme.primary else Color.Black
+                            if (paymentMethod == selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.primaryContainer
                         ),
                         shape = RoundedCornerShape(15.dp)
                     )
@@ -79,7 +81,8 @@ fun PaymentMethodSelectorRow(
                     .width(80.dp)
                     .clickable {
                         onPaymentSelected.invoke(paymentMethod)
-                    }.padding(5.25.dp),
+                    }
+                    .padding(5.25.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -88,7 +91,12 @@ fun PaymentMethodSelectorRow(
                     modifier = Modifier
                         .height(40.dp)
                         .width(40.dp),
-                    painter = painterResource(id = getPaymentMethodIcon(paymentMethod)),
+                    painter = painterResource(
+                        id = getPaymentMethodIcon(
+                            paymentMethod,
+                            isSystemInDarkTheme()
+                        )
+                    ),
                     contentDescription = stringResource(id = R.string.img_desc_payment_method)
                 )
             }
@@ -97,8 +105,9 @@ fun PaymentMethodSelectorRow(
     }
 }
 
-fun getPaymentMethodIcon(paymentMethod: PaymentMethodType) = when (paymentMethod) {
-    PaymentMethodType.Mastercard -> R.drawable.ic_mastercard
-    PaymentMethodType.Visa -> R.drawable.ic_visa
-    PaymentMethodType.Paypal -> R.drawable.ic_paypal
-}
+fun getPaymentMethodIcon(paymentMethod: PaymentMethodType, isDarkMode: Boolean = false) =
+    when (paymentMethod) {
+        PaymentMethodType.Mastercard -> if (isDarkMode) R.drawable.ic_mastercard_white else R.drawable.ic_mastercard
+        PaymentMethodType.Visa -> if (isDarkMode) R.drawable.ic_visa_white else R.drawable.ic_visa
+        PaymentMethodType.Paypal -> if (isDarkMode) R.drawable.ic_paypal_white else R.drawable.ic_paypal
+    }

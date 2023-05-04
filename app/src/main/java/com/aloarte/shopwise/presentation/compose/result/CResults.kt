@@ -61,7 +61,7 @@ fun ThanksAndContinueButton(modifier: Modifier = Modifier, onContinue: () -> Uni
         Text(
             modifier = Modifier.width(280.dp),
             fontSize = 18.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,
             text = stringResource(id = R.string.result_thanks)
@@ -73,7 +73,7 @@ fun ThanksAndContinueButton(modifier: Modifier = Modifier, onContinue: () -> Uni
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
             colors = ButtonDefaults.buttonColors(
-                disabledContainerColor = Color.LightGray,
+                disabledContainerColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = Color.Transparent
             ),
             border = BorderStroke(
@@ -84,7 +84,7 @@ fun ThanksAndContinueButton(modifier: Modifier = Modifier, onContinue: () -> Uni
             onClick = onContinue
         ) {
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,
@@ -127,7 +127,7 @@ fun ResultPayment(paymentMethod: PaymentMethodType, cards: List<CardBo>) {
     ) {
         Text(
             fontSize = 20.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             text = stringResource(id = R.string.result_payment_method)
@@ -144,7 +144,7 @@ fun ResultPaymentCard(card: CardBo?) {
     card?.let {
         Text(
             fontSize = 18.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.primaryContainer,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.ExtraLight,
             text = stringResource(
@@ -161,7 +161,7 @@ fun ResultPaymentCard(card: CardBo?) {
 fun ResultPaypal() {
     Text(
         fontSize = 18.sp,
-        color = Color.Black,
+        color = MaterialTheme.colorScheme.primaryContainer,
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.ExtraLight,
         text = stringResource(id = R.string.result_payment_paypal)

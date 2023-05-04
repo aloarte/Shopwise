@@ -107,7 +107,7 @@ fun TotalAndCheckoutRow(
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp),
             colors = ButtonDefaults.buttonColors(
-                disabledContainerColor = Color.LightGray,
+                disabledContainerColor = MaterialTheme.colorScheme.onPrimary,
                 containerColor = Color.Transparent
             ),
             border = BorderStroke(
@@ -118,7 +118,7 @@ fun TotalAndCheckoutRow(
             onClick = { onEventTriggered.invoke(UiEvent.GoCheckout(totalPrice)) }
         ) {
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,

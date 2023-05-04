@@ -73,7 +73,7 @@ fun Chip(
             .width(75.dp)
             .padding(4.dp),
         shape = RoundedCornerShape(10.dp),
-        color = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
+        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
     ) {
         Row(modifier = Modifier
             .toggleable(
@@ -87,7 +87,7 @@ fun Chip(
         ) {
 
             Text(
-                color = Color.Black,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 14.sp,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.ExtraLight,

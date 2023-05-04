@@ -2,13 +2,12 @@ package com.aloarte.shopwise.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.repositories.CardsRepository
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import com.aloarte.shopwise.presentation.compose.enums.PaymentMethodType
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
