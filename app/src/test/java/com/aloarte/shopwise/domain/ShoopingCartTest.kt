@@ -74,12 +74,12 @@ class ShoppingCartTest {
     fun `test checkout regular shopping cart only vouchers`() {
         regularCart.addItem(voucher, 1)
         assertEquals(5.0, regularCart.checkout())
-        assertEquals(5.0, regularCart.getItemsPriceByType(ProductType.Voucher))
+        assertEquals(5.0, regularCart.getItemsPriceByAndName(ProductType.Voucher))
 
         regularCart.addItem(voucher, 5)
         //6 item in total, 1 free for each 2, 4 items should be priced = 4x5 = 20
         assertEquals(20.0, regularCart.checkout())
-        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Voucher))
+        assertEquals(20.0, regularCart.getItemsPriceByAndName(ProductType.Voucher))
 
     }
 
@@ -87,11 +87,11 @@ class ShoppingCartTest {
     fun `test checkout regular shopping cart only tshirts`() {
         regularCart.addItem(tshirt, 1)
         assertEquals(20.0, regularCart.checkout())
-        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
+        assertEquals(20.0, regularCart.getItemsPriceByAndName(ProductType.Tshirt))
         regularCart.addItem(tshirt, 2)
         //3 item in total, the price get a discount for every tshirt = 3*19
         assertEquals(57.0, regularCart.checkout())
-        assertEquals(57.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
+        assertEquals(57.0, regularCart.getItemsPriceByAndName(ProductType.Tshirt))
 
     }
 
@@ -100,7 +100,7 @@ class ShoppingCartTest {
         regularCart.addItem(mug, 6)
         //6 * 7.5 = 45
         assertEquals(45.0, regularCart.checkout())
-        assertEquals(45.0, regularCart.getItemsPriceByType(ProductType.Mug))
+        assertEquals(45.0, regularCart.getItemsPriceByAndName(ProductType.Mug))
 
     }
 
@@ -116,9 +116,9 @@ class ShoppingCartTest {
         //Total 5 tshirts = 5*19 , Total 5 vouchers = 4*5, 5 mugs = 5*7.5
         // 95 + 20 + 37.5 = 152.5
         assertEquals(152.5, regularCart.checkout())
-        assertEquals(95.0, regularCart.getItemsPriceByType(ProductType.Tshirt))
-        assertEquals(20.0, regularCart.getItemsPriceByType(ProductType.Voucher))
-        assertEquals(37.5, regularCart.getItemsPriceByType(ProductType.Mug))
+        assertEquals(95.0, regularCart.getItemsPriceByAndName(ProductType.Tshirt))
+        assertEquals(20.0, regularCart.getItemsPriceByAndName(ProductType.Voucher))
+        assertEquals(37.5, regularCart.getItemsPriceByAndName(ProductType.Mug))
 
     }
 

@@ -130,8 +130,8 @@ fun CartProductTitlePrice(
     quantity: Int
 ) {
     val productsDiscounted = state.cart.getDiscountedCountByType(quantity, product.type) > 0
-    val productsPrice = state.cart.getItemsPriceByType(product.type)
-    val productPriceWithoutDiscount = state.cart.getItemsPriceWithoutDiscountByType(product.type)
+    val productsPrice = state.cart.getItemsPriceByAndName(product.type,product.name)
+    val productPriceWithoutDiscount = state.cart.getItemsPriceWithoutDiscountByTypeAndName(product.type,product.name)
 
     Row(
         modifier

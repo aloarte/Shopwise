@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
 
     fun fetchItems() {
         viewModelScope.launch {
-            val products = productsRepository.fetchProducts()
+            val products = productsRepository.fetchProducts().shuffled()
             val cards = cardsRepository.fetchUserCards()
             _state.update {
                 it.copy(

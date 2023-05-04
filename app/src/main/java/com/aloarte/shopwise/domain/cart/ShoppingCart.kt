@@ -18,7 +18,7 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
      * Reset a product quantity in the map if exist.
      */
     fun resetItem(product: ProductBo) {
-        if(products.containsKey(product)){
+        if (products.containsKey(product)) {
             products[product] = 0
         }
     }
@@ -27,12 +27,12 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
      * Remove a product in the map if exist.
      */
     fun removeItem(product: ProductBo) {
-        if(products.containsKey(product)){
+        if (products.containsKey(product)) {
             products.remove(product)
         }
     }
 
-    fun clearCart(){
+    fun clearCart() {
         products.clear()
     }
 
@@ -98,9 +98,19 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         }
     }
 
-    fun getItemsPriceByType(type: ProductType) = when (type) {
+
+    fun getItemsPriceByType(type: ProductType): Double {
+        var totalAmountByType = 0.0
+        products.filter { it.key.type == type }
+            .forEach { totalAmountByType += getItemsPriceByAndName(it.key.type, it.key.name) }
+        return totalAmountByType
+    }
+
+    fun getItemsPriceByAndName(type: ProductType, name: String?) = when (type) {
         ProductType.Voucher -> {
-            with(products.toList().find { it.first.type == ProductType.Voucher }) {
+            with(
+                products.toList()
+                    .find { findItemByTypeAndName(it.first, ProductType.Voucher, name) }) {
                 getVouchersPrice(
                     this?.second ?: 0,
                     this?.first?.price ?: cartParams.voucherDefaultPrice
@@ -109,7 +119,9 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
         }
 
         ProductType.Tshirt -> {
-            with(products.toList().find { it.first.type == ProductType.Tshirt }) {
+            with(
+                products.toList()
+                    .find { findItemByTypeAndName(it.first, ProductType.Tshirt, name) }) {
                 getTshirtsPrice(
                     this?.second ?: 0,
                     this?.first?.price ?: cartParams.tshirtDefaultPrice
@@ -117,22 +129,46 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
             }
         }
 
-        ProductType.Mug, ProductType.Unknown -> {
-            products.toList().filterNot {
-                it.first.type in listOf(ProductType.Voucher, ProductType.Tshirt)
-            }.sumOf { getNotDiscountableItemsPrice(it.second, it.first.price) }
+        ProductType.Mug -> {
+            val product = products.toList()
+                .find { findItemByTypeAndName(it.first, ProductType.Tshirt, name) }
+            getNotDiscountableItemsPrice(product?.second ?: 0, product?.first?.price ?: 0.0)
+        }
+
+        ProductType.Unknown -> {
+            0.0
         }
     }
+
+    private fun findItemByTypeAndName(
+        product: ProductBo, type: ProductType, name: String?
+    ) =
+        if (name != null) {
+            product.type == type && name == product.name
+        } else {
+            product.type == ProductType.Voucher
+        }
 
     private fun getVouchersPrice(count: Int, price: Double) =
         (count - (count / cartParams.voucherDiscountThreshold)) * price
 
-    private fun getTshirtsPrice(count: Int, price: Double): Double = when {
-        count >= cartParams.tshirtDiscountThreshold -> count * cartParams.discountedTshirtPrice
+    private fun getTshirtsPrice(count: Int, price: Double)
+            : Double = when {
+        count >= cartParams.tshirtDiscountThreshold -> count * (price - cartParams.discountedTshirtPrice)
         else -> count * price
     }
 
-    private fun getNotDiscountableItemsPrice(count: Int, price: Double): Double = count * price
+    private fun getNotDiscountableItemsPrice(count: Int, price: Double)
+            : Double = count * price
+
+    fun getItemsPriceWithoutDiscountByTypeAndName(type: ProductType, name: String): Double {
+        val products =
+            products.toList().find { findItemByTypeAndName(it.first, type, name) }
+        return getNotDiscountableItemsPrice(
+            products?.second ?: 0,
+            products?.first?.price ?: cartParams.voucherDefaultPrice
+        )
+    }
 
 
 }

@@ -80,6 +80,3 @@ fun shouldFilter(product: ProductBo, searchText: String, filterType: ProductType
 fun areSameStringsInLower(code: String, searchText: String) = with(Locale.getDefault()) {
     code.lowercase(this).contains(searchText.lowercase(this))
 }
-
-
-
