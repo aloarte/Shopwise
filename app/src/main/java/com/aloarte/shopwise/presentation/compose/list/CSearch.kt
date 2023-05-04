@@ -41,7 +41,7 @@ fun SearchRow(onContentSearched: (String) -> Unit) {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 15.dp)
+            .padding(horizontal = 10.dp)
     ) {
         OutlinedTextField(
 
