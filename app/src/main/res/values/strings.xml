@@ -39,10 +39,6 @@
     <string name="result_payment_card">%s %s card finished in %s</string>
     <string name="result_thanks"> Thank you for purchasing in our store.</string>
 
-
-
-
-
     <!-- Buttons-->
     <string name="list_btn">CART</string>
     <string name="cart_empty_btn">BACK</string>
