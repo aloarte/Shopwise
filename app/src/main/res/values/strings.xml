@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Shopwise</string>
+
+    <!-- List screen -->
+    <string name="list_products_title">PRODUCTS</string>
+    <string name="list_chip_all">All</string>
+    <string name="list_search_hint">Search for any product name</string>
+    <string name="list_add_quantity_title">Amount of items</string>
+
+    <!-- Cart screen -->
+    <string name="cart_title">MY CART</string>
+    <string name="cart_label_total_vouchers">Vouchers</string>
+    <string name="cart_label_total_tshirts">Tshirts</string>
+    <string name="cart_label_total_mugs">"Mugs</string>
+    <string name="cart_label_total">Total</string>
+    <string name="cart_label_total_discount">You are saving</string>
+    <string name="cart_empty_message">Your cart is empty. Come back again when you have any item to complete the purchase.</string>
+
+    <!-- Checkout screen-->
+    <string name="checkout_title">CHECKOUT</string>
+    <string name="checkout_selected_payment_title">Selected payment data</string>
+    <string name="checkout_choose_payment_title">Choose payment</string>
+    <string name="checkout_user_card_expiration_label">Valid until</string>
+    <string name="checkout_user_card_ccv_label">CCV</string>
+    <string name="checkout_user_card_name_label">Owner</string>
+    <string name="checkout_user_card_number_label">Card number</string>
+    <string name="checkout_user_card_type">%s Card</string>
+    <string name="checkout_paypal_mail_label">PayPal account</string>
+    <string name="checkout_paypal_mail_value">john.doe@gmail.com</string>
+
+    <!-- Result screen-->
+    <string name="result_title">YOUR ORDER</string>
+    <string name="result_text">You order has been successfully paid. You will receive your products in the next few days. </string>
+    <string name="result_loading_payment_message">Hold on a second, we are finishing the payment of your order.</string>
+    <string name="result_table_product_title">Product</string>
+    <string name="result_table_quantity_title">Quantity</string>
+    <string name="result_payment_method">Payment method</string>
+    <string name="result_payment_paypal">PayPal</string>
+    <string name="result_payment_card">%s %s card finished in %s</string>
+    <string name="result_thanks"> Thank you for purchasing in our store.</string>
+
+    <!-- Buttons-->
+    <string name="list_btn">CART</string>
+    <string name="cart_empty_btn">BACK</string>
+    <string name="cart_btn">CHECKOUT</string>
+    <string name="checkout_btn">MAKE PAYMENT</string>
+    <string name="list_add_quantity_btn">ADD</string>
+    <string name="detail_add_cart_btn">ADD TO CART</string>
+    <string name="result_btn">FINISH</string>
+
+    <!-- Image descriptions -->
+    <string name="img_desc_product">Product image</string>
+    <string name="img_desc_add_icon">Add icon</string>
+    <string name="img_desc_search_icon">Search icon</string>
+    <string name="img_desc_cart_icon">Cart icon</string>
+    <string name="img_desc_info_icon">Info icon</string>
+    <string name="img_desc_modify_quantity_icon">Modify quantity icon</string>
+    <string name="img_desc_detail_image">Detail image</string>
+    <string name="img_desc_exit_detail_icon">Exit to list screen icon from detail</string>
+    <string name="img_desc_exit_checkout_icon">Exit to list screen icon from checkout</string>
+    <string name="ic_descr_nfc">Icon of the NFC protocol</string>
+    <string name="ic_descr_card_supplier">Icon of the card supplier (mastercard/visa)</string>
+    <string name="img_desc_payment_method">Image with the logo of a payment method</string>
+
+</resources> 
