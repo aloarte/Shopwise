@@ -99,8 +99,8 @@ fun ArrowLottie(modifier: Modifier = Modifier) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.arrow_anim))
     Surface(
         modifier
-            .height(40.dp)
-            .width(40.dp)
+            .height(30.dp)
+            .width(30.dp)
     ) {
         LottieAnimation(
             composition,
