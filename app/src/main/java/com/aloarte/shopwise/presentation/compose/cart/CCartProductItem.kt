@@ -76,7 +76,7 @@ fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (I
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        CartProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
+        CartProductImage(modifier = Modifier.align(Alignment.CenterStart), product)
         CartProductTitlePrice(
             modifier = Modifier.align(Alignment.Center),
             state = state,
@@ -94,14 +94,14 @@ fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (I
 
 @Composable
 fun CartProductImage(
-    modifier: Modifier = Modifier, type: ProductType
+    modifier: Modifier = Modifier, product: ProductBo
 ) {
     Card(
         modifier = Modifier
             .height(80.dp)
             .width(80.dp)
             .clickable(onClick = {}, enabled = false),
-        colors = CardDefaults.cardColors(containerColor = type.getProductBackground())
+        colors = CardDefaults.cardColors(containerColor = product.type.getProductBackground())
     ) {
         Box(
             modifier = modifier
@@ -113,7 +113,7 @@ fun CartProductImage(
                 modifier = Modifier
                     .height(40.dp)
                     .width(40.dp),
-                painter = painterResource(id = type.getProductImage()),
+                painter = painterResource(id = product.imageResource/* type.getProductImage()*/),
                 contentDescription = stringResource(id = R.string.img_desc_product)
             )
         }

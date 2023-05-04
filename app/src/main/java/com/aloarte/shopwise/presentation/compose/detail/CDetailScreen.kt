@@ -48,12 +48,12 @@ import com.aloarte.shopwise.presentation.getProductBackground
 import com.aloarte.shopwise.presentation.getProductImage
 
 @Composable
-fun DetailScreen(productType: String?, state: UiState, onEventTriggered: (UiEvent) -> Unit) {
-    val product = state.productList.find { it.code == productType }
+fun DetailScreen(productId: String?, state: UiState, onEventTriggered: (UiEvent) -> Unit) {
+    val product = state.productList.find { it.id == productId }
 
     product?.let {
         Column {
-            DetailImage(it.type) {
+            DetailImage(it) {
                 onEventTriggered.invoke(UiEvent.GoList)
             }
             DetailTitle(it)
@@ -67,12 +67,12 @@ fun DetailScreen(productType: String?, state: UiState, onEventTriggered: (UiEven
 }
 
 @Composable
-fun DetailImage(type: ProductType, onIconClicked: () -> Unit) {
+fun DetailImage(product: ProductBo, onIconClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(400.dp)
-            .background(type.getProductBackground()),
+            .background(product.type.getProductBackground()),
         contentAlignment = Alignment.Center
     ) {
         Icon(
@@ -87,7 +87,7 @@ fun DetailImage(type: ProductType, onIconClicked: () -> Unit) {
         )
 
         Image(
-            painter = painterResource(id = type.getProductImage()),
+            painter = painterResource(id = product.imageResource/*type.getProductImage()*/),
             modifier = Modifier
                 .align(Alignment.Center)
                 .height(200.dp)

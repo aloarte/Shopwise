@@ -22,10 +22,10 @@ class ShopwiseProductsRepositoryImpl @Inject constructor(
 
             is ApiResult.Success -> {
                 val apiResult = result.data
-                val productsCodeList = mutableListOf<String>()
-                apiResult.forEach { productsCodeList.add(it.code) }
-                val descriptions = descriptionsDatasource.retrieveDescriptions(productsCodeList)
-                parser.transformList(apiResult, descriptions)
+//                val productsCodeList = mutableListOf<String>()
+               /* apiResult.forEach { productsCodeList.add(it.code) }
+                val descriptions = descriptionsDatasource.retrieveDescriptions(productsCodeList)*/
+                parser.transformList(apiResult)
             }
         }
     }

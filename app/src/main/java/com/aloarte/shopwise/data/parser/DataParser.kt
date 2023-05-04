@@ -2,9 +2,9 @@ package com.aloarte.shopwise.data.parser
 
 import com.aloarte.shopwise.data.ProductsResponse
 import com.aloarte.shopwise.data.dto.ProductDto
-import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 import com.google.gson.Gson
 import okhttp3.ResponseBody
 import javax.inject.Inject
@@ -25,7 +25,10 @@ class DataParser @Inject constructor(private val gson: Gson) {
             transform(dto, descriptions.find { it.first == dto.code }?.second)
         }
 
+    fun transformList(dtoList: List<ProductDto>) = dtoList.map(::transform)
+
     private fun transform(dto: ProductDto, description: String?) = ProductBo(
+        id="0",
         type = when (dto.code) {
             "VOUCHER" -> ProductType.Voucher
             "TSHIRT" -> ProductType.Tshirt
@@ -37,6 +40,22 @@ class DataParser @Inject constructor(private val gson: Gson) {
         price = dto.price,
         description = description
     )
+
+    private fun transform(dto: ProductDto) = ProductBo(
+        id = dto.id,
+        type = when (dto.code) {
+            "VOUCHER" -> ProductType.Voucher
+            "TSHIRT" -> ProductType.Tshirt
+            "MUG" -> ProductType.Mug
+            else -> ProductType.Mug
+        },
+        code = dto.code,
+        name = dto.name,
+        price = dto.price,
+        description = dto.description,
+        imageResource = dto.imageResource
+    )
+
 
     fun parsePurchaseData(products: List<Pair<ProductBo, Int>>): List<PurchaseDataItem> {
         val jsonList = mutableListOf<PurchaseDataItem>()
