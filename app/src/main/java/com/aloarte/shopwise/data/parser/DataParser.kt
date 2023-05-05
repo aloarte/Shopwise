@@ -38,7 +38,7 @@ class DataParser @Inject constructor(private val gson: Gson) {
         code = dto.code,
         name = dto.name,
         price = dto.price,
-        description = description
+        description = description ?:""
     )
 
     private fun transform(dto: ProductDto) = ProductBo(
