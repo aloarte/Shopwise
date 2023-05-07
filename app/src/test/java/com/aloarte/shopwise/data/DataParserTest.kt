@@ -1,15 +1,14 @@
 package com.aloarte.shopwise.data
 
-import com.aloarte.shopwise.data.ProductsResponse
 import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.utils.TestData.descriptionsPairList
-import com.aloarte.shopwise.utils.TestData.mug
-import com.aloarte.shopwise.utils.TestData.mugDto
+import com.aloarte.shopwise.utils.TestData.rMug
+import com.aloarte.shopwise.utils.TestData.rMugDto
 import com.aloarte.shopwise.utils.TestData.productsJson
-import com.aloarte.shopwise.utils.TestData.tshirt
-import com.aloarte.shopwise.utils.TestData.tshirtDto
-import com.aloarte.shopwise.utils.TestData.voucher
-import com.aloarte.shopwise.utils.TestData.voucherDto
+import com.aloarte.shopwise.utils.TestData.rTshirt
+import com.aloarte.shopwise.utils.TestData.rTshirtDto
+import com.aloarte.shopwise.utils.TestData.rVoucher
+import com.aloarte.shopwise.utils.TestData.rVoucherDto
 import com.google.gson.Gson
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
@@ -29,7 +28,7 @@ class DataParserTest {
 
         val responseParsed = dataParser.parseResponse(successfulResponse.body())
 
-        val expected = ProductsResponse(products = listOf(voucherDto, tshirtDto, mugDto))
+        val expected = ProductsResponse(products = listOf(rVoucherDto, rTshirtDto, rMugDto))
         Assert.assertEquals(expected, responseParsed)
     }
 
@@ -53,9 +52,9 @@ class DataParserTest {
 
     @Test
     fun `test transform list success`() {
-        val boList = dataParser.transformList(listOf(voucherDto, tshirtDto, mugDto), descriptionsPairList)
+        val boList = dataParser.transformList(listOf(rVoucherDto, rTshirtDto, rMugDto), descriptionsPairList)
 
-        Assert.assertEquals(listOf(voucher, tshirt, mug), boList)
+        Assert.assertEquals(listOf(rVoucher, rTshirt, rMug), boList)
     }
 
 

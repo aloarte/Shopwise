@@ -9,12 +9,12 @@ import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
 import com.aloarte.shopwise.utils.TestData.codeItemsList
 import com.aloarte.shopwise.utils.TestData.descriptionsPairList
-import com.aloarte.shopwise.utils.TestData.mug
-import com.aloarte.shopwise.utils.TestData.mugDto
-import com.aloarte.shopwise.utils.TestData.tshirt
-import com.aloarte.shopwise.utils.TestData.tshirtDto
-import com.aloarte.shopwise.utils.TestData.voucher
-import com.aloarte.shopwise.utils.TestData.voucherDto
+import com.aloarte.shopwise.utils.TestData.rMug
+import com.aloarte.shopwise.utils.TestData.rMugDto
+import com.aloarte.shopwise.utils.TestData.rTshirt
+import com.aloarte.shopwise.utils.TestData.rTshirtDto
+import com.aloarte.shopwise.utils.TestData.rVoucher
+import com.aloarte.shopwise.utils.TestData.rVoucherDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -47,8 +47,8 @@ class ShopwiseRepositoryTest {
 
     @Test
     fun `test fetch products success`() {
-        val dtoProductList = listOf(voucherDto, tshirtDto, mugDto)
-        val boProductList = listOf(voucher, tshirt, mug)
+        val dtoProductList = listOf(rVoucherDto, rTshirtDto, rMugDto)
+        val boProductList = listOf(rVoucher, rTshirt, rMug)
         coEvery { productsDatasource.fetchProducts() } returns ApiResult.Success(dtoProductList)
         every { descriptionsDatasource.retrieveDescriptions(codeItemsList) } returns descriptionsPairList
         every { parser.transformList(dtoProductList,descriptionsPairList) } returns boProductList

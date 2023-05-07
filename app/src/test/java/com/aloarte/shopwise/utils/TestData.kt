@@ -178,32 +178,33 @@ object TestData {
     const val MUG_PRICE = 7.5
     const val MUG_DESCR = "A simple mug to start you day with high energy."
 
-    val voucherDto = ProductDto(
+    val rVoucherDto = ProductDto(
         code = "VOUCHER",
         name = "Cabify Voucher",
         price = VOUCHER_PRICE
     )
 
-    val tshirtDto = ProductDto(
+    val rTshirtDto = ProductDto(
         code = "TSHIRT",
         name = TSHIRT_NAME,
         price = TSHIRT_PRICE
     )
 
-    val mugDto = ProductDto(
+    val rMugDto = ProductDto(
         code = "MUG",
         name = "Cabify Coffee Mug",
         price = MUG_PRICE
     )
 
-    val voucher = ProductBo(
+    val rVoucher = ProductBo(
         type = ProductType.Voucher,
         code = "VOUCHER",
         name = "Cabify Voucher",
-        price = VOUCHER_PRICE
+        price = VOUCHER_PRICE,
+        description = VOUCHER_DESCR
     )
 
-    val tshirt = ProductBo(
+    val rTshirt = ProductBo(
         type = ProductType.Tshirt,
         code = "TSHIRT",
         name = "Cabify T-Shirt",
@@ -212,7 +213,7 @@ object TestData {
 
     )
 
-    val mug = ProductBo(
+    val rMug = ProductBo(
         type = ProductType.Mug,
         code = "MUG",
         name = "Cabify Coffee Mug",
@@ -273,7 +274,9 @@ object TestData {
         Pair(MUG_CODE, MUG_DESCR)
     )
 
-    val productsBoList = listOf(voucher1, tshirt1, mug1)
+    val remoteProductsBoList = listOf(rVoucher, rTshirt, rMug)
+
+    val localProductsBoList = listOf(voucher1, tshirt1, mug1)
 
     val cardsBoList = listOf(
         CardBo(
