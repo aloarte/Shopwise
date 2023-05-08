@@ -22,6 +22,6 @@ with **Jetpack Compose**. The app displays a shopping cart and applies different
 
 Light and dark mode screenshots:
 
-<img src="/captures/list_light.png" width="200"> <img src="/captures/cart_light.png" width="200"> <img src="/captures/checkout_light.png" width="200">
-
-<br><img src="/captures/list_dark.png" width="200"> <img src="/captures/cart_dark.png" width="200"> <img src="/captures/checkout_dark.png" width="200">
+<img src="/captures/list_light.png" width="200"> <img src="/captures/cart_light.png" width="200"> <img src="/captures/checkout_light.png" width="200"> <img src="/captures/result_light.png" width="200">
+<br>
+<img src="/captures/list_dark.png" width="200"> <img src="/captures/cart_dark.png" width="200"> <img src="/captures/checkout_dark.png" width="200"> <img src="/captures/result_light.png" width="200">
