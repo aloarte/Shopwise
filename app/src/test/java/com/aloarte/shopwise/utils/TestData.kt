@@ -6,6 +6,7 @@ import com.aloarte.shopwise.domain.enums.CardType
 import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.domain.model.CardBo
 import com.aloarte.shopwise.domain.model.ProductBo
+import com.aloarte.shopwise.domain.model.PurchaseDataItem
 
 object TestData {
 
@@ -42,12 +43,20 @@ object TestData {
     private const val MUG_2_PRICE = 5.0
     private const val MUG_2_DESCR = "Mug 2 descr"
     private const val MUG_2_IMAGE = 2
-
-
     const val VOUCHER_ALT_PRICE = 6.0
     const val TSHIRT_ALT_PRICE = 25.0
-    const val DISCOUNTED_TSHIRT_ALT_PRICE = 20.0
+    const val DISCOUNTED_TSHIRT_ALT_PRICE = 2.0
     const val MUG_ALT_PRICE = 5.5
+    const val VOUCHER_PRICE = 5.0
+    private const val VOUCHER_DESCR = "A voucher for a Cabify trip.\n" +
+            "Get a 3x2 discount offer to save some money in your future trips."
+    const val TSHIRT_PRICE = 20.0
+    private const val TSHIRT_NAME = "Cabify T-Shirt"
+    private const val TSHIRT_DESCR = "A Cabify T-shirt with their fantastic design.\n" +
+            "Buy 3 or more to enjoy of a price discount on all of the selected units."
+    const val DISCOUNTED_TSHIRT_PRICE = 1.0
+    const val MUG_PRICE = 7.5
+    private const val MUG_DESCR = "A simple mug to start you day with high energy."
 
     val voucherDto1 = ProductDto(
         id = VOUCHER_1_ID,
@@ -165,18 +174,28 @@ object TestData {
         imageResource = MUG_2_IMAGE
     )
 
+    val boList = listOf(
+        voucher1, voucher2,
+        tshirt1, tshirt2,
+        mug1, mug2
+    )
 
-    const val VOUCHER_PRICE = 5.0
+    val boMap = mapOf(
+        voucher1 to 1,
+        voucher2 to 2,
+        tshirt1 to 1,
+        tshirt2 to 2,
+        mug1 to 1,
+        mug2 to 2
+    )
 
-    const val VOUCHER_DESCR = "A voucher for a Cabify trip.\n" +
-            "Get a 3x2 discount offer to save some money in your future trips."
-    const val TSHIRT_PRICE = 20.0
-    const val TSHIRT_NAME = "Cabify T-Shirt"
-    const val TSHIRT_DESCR = "A Cabify T-shirt with their fantastic design.\n" +
-            "Buy 3 or more to enjoy of a price discount on all of the selected units."
-    const val DISCOUNTED_TSHIRT_PRICE = 1.0
-    const val MUG_PRICE = 7.5
-    const val MUG_DESCR = "A simple mug to start you day with high energy."
+    val purchaseData = listOf(
+        PurchaseDataItem(voucher1.name,1),
+        PurchaseDataItem(voucher2.name,2),
+        PurchaseDataItem(tshirt1.name,1),
+        PurchaseDataItem(tshirt2.name,2),
+        PurchaseDataItem(mug1.name,1),
+        PurchaseDataItem(mug2.name,2))
 
     val rVoucherDto = ProductDto(
         code = "VOUCHER",
@@ -210,7 +229,6 @@ object TestData {
         name = "Cabify T-Shirt",
         price = TSHIRT_PRICE,
         description = TSHIRT_DESCR
-
     )
 
     val rMug = ProductBo(
@@ -220,27 +238,27 @@ object TestData {
         price = MUG_PRICE,
         description = MUG_DESCR
     )
-//
-//    val alternativeVoucher = ProductBo(
-//        type = ProductType.Voucher,
-//        code = "VOUCHER",
-//        name = "Cabify Voucher",
-//        price = VOUCHER_ALT_PRICE
-//    )
-//
-//    val alternativeTshirt = ProductBo(
-//        type = ProductType.Tshirt,
-//        code = "TSHIRT",
-//        name = "Cabify T-Shirt",
-//        price = TSHIRT_ALT_PRICE
-//    )
-//
-//    val alternativeMug = ProductBo(
-//        type = ProductType.Mug,
-//        code = "MUG",
-//        name = "Cabify Coffee Mug",
-//        price = MUG_ALT_PRICE
-//    )
+
+    val alternativeVoucher = ProductBo(
+        type = ProductType.Voucher,
+        code = "VOUCHER",
+        name = "Cabify Voucher",
+        price = VOUCHER_ALT_PRICE
+    )
+
+    val alternativeTshirt = ProductBo(
+        type = ProductType.Tshirt,
+        code = "TSHIRT",
+        name = "Cabify T-Shirt",
+        price = TSHIRT_ALT_PRICE
+    )
+
+    val alternativeMug = ProductBo(
+        type = ProductType.Mug,
+        code = "MUG",
+        name = "Cabify Coffee Mug",
+        price = MUG_ALT_PRICE
+    )
 
     const val productsJson = "{\n" +
             "  \"products\": [\n" +
@@ -275,8 +293,6 @@ object TestData {
     )
 
     val remoteProductsBoList = listOf(rVoucher, rTshirt, rMug)
-
-    val localProductsBoList = listOf(voucher1, tshirt1, mug1)
 
     val cardsBoList = listOf(
         CardBo(

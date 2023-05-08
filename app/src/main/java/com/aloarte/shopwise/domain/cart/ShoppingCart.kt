@@ -117,12 +117,8 @@ class ShoppingCart(private val cartParams: ShoppingCartParams) {
     }
 
     private fun findItemByTypeAndName(
-        product: ProductBo, type: ProductType, name: String?
-    ) = if (name != null) {
-        product.type == type && name == product.name
-    } else {
-        product.type == ProductType.Voucher
-    }
+        product: ProductBo, type: ProductType, name: String
+    ) =  product.type == type && name == product.name
 
     private fun getDiscountedVouchersPrice(count: Int, price: Double) =
         (count - (count / cartParams.voucherDiscountThreshold)) * price

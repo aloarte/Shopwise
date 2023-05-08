@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.repositories
 
 import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
@@ -7,8 +7,11 @@ import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.data.repositories.ShopwiseProductsRepositoryImpl
 import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.domain.repositories.ShopwiseProductsRepository
+import com.aloarte.shopwise.utils.TestData.boList
+import com.aloarte.shopwise.utils.TestData.boMap
 import com.aloarte.shopwise.utils.TestData.codeItemsList
 import com.aloarte.shopwise.utils.TestData.descriptionsPairList
+import com.aloarte.shopwise.utils.TestData.purchaseData
 import com.aloarte.shopwise.utils.TestData.rMug
 import com.aloarte.shopwise.utils.TestData.rMugDto
 import com.aloarte.shopwise.utils.TestData.rTshirt
@@ -73,5 +76,15 @@ class ShopwiseRepositoryTest {
 
         coVerify { productsDatasource.fetchProducts() }
         Assert.assertEquals(emptyList<ProductBo>(),productListResponse)
+    }
+
+    @Test
+    fun `test get purchase data`() {
+        coEvery {  parser.parsePurchaseData(boMap.toList()) } returns purchaseData
+
+        val purchaseDataResult = runBlocking { repository.getPurchaseData(boMap.toList()) }
+
+        coVerify { parser.parsePurchaseData(boMap.toList()) }
+        Assert.assertEquals(purchaseData,purchaseDataResult)
     }
 }

@@ -1,5 +1,6 @@
-package com.aloarte.shopwise.data
+package com.aloarte.shopwise.data.datasource
 
+import com.aloarte.shopwise.data.ProductsApi
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
 import com.aloarte.shopwise.data.dto.ApiResult
@@ -55,6 +56,7 @@ class ShopwiseDatasourceTest {
         val listResult = runBlocking { datasource.fetchProducts() }
 
         val expected = ApiResult.Success(listOf(rVoucherDto, rTshirtDto, rMugDto))
+
         coVerify { api.fetchProductsJson() }
         Assert.assertEquals(expected, listResult)
     }
@@ -70,5 +72,4 @@ class ShopwiseDatasourceTest {
         coVerify { api.fetchProductsJson() }
         Assert.assertEquals(expected, listResult)
     }
-
 }

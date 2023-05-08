@@ -14,6 +14,9 @@ import com.aloarte.shopwise.utils.TestData.VOUCHER_1_PRICE
 import com.aloarte.shopwise.utils.TestData.VOUCHER_2_PRICE
 import com.aloarte.shopwise.utils.TestData.VOUCHER_ALT_PRICE
 import com.aloarte.shopwise.utils.TestData.VOUCHER_PRICE
+import com.aloarte.shopwise.utils.TestData.alternativeMug
+import com.aloarte.shopwise.utils.TestData.alternativeTshirt
+import com.aloarte.shopwise.utils.TestData.alternativeVoucher
 import com.aloarte.shopwise.utils.TestData.mug1
 import com.aloarte.shopwise.utils.TestData.tshirt1
 import com.aloarte.shopwise.utils.TestData.tshirt2
@@ -130,27 +133,27 @@ class ShoppingCartTest {
         assertEquals(mugsPrice, regularCart.getItemsPrice(ProductType.Mug))
         assertEquals(tshirtsPrice + mugsPrice + vouchersPrice, regularCart.checkout())
     }
-//
-//    @Test
-//    fun `test checkout alternative shopping cart mixed items`() {
-//        alternativeCart.addItem(alternativeMug, 1)
-//        alternativeCart.addItem(alternativeTshirt, 1)
-//        alternativeCart.addItem(alternativeVoucher, 2)
-//        //Total 1 tshirt = 1*25 , Total 2 vouchers = 2*6, 1 mug = 5.5
-//        // 25 + 12 + 5.5 = 40.5
-//        assertEquals(42.5, alternativeCart.checkout())
-//
-//        alternativeCart.addItem(alternativeMug, 1)
-//        alternativeCart.addItem(alternativeTshirt, 2)
-//        alternativeCart.addItem(alternativeVoucher, 4)
-//        alternativeCart.addItem(alternativeTshirt, 2)
-//        alternativeCart.addItem(alternativeMug, 3)
-//        alternativeCart.addItem(alternativeVoucher, 1)
-//
-//        //Total 5 tshirts = 5*20 , Total 7 vouchers = 6*6, 5 mugs = 5*5.5
-//        // 100 + 36 + 27.5 = 163.5
-//        assertEquals(163.5, alternativeCart.checkout())
-//    }
+
+    @Test
+    fun `test checkout alternative shopping cart mixed items`() {
+        alternativeCart.addItem(alternativeMug, 1)
+        alternativeCart.addItem(alternativeTshirt, 1)
+        alternativeCart.addItem(alternativeVoucher, 2)
+        //Total 1 tshirt = 1*25 , Total 2 vouchers = 2*6, 1 mug = 5.5
+        // 25 + 12 + 5.5 = 40.5
+        assertEquals(42.5, alternativeCart.checkout())
+
+        alternativeCart.addItem(alternativeMug, 1)
+        alternativeCart.addItem(alternativeTshirt, 2)
+        alternativeCart.addItem(alternativeVoucher, 4)
+        alternativeCart.addItem(alternativeTshirt, 2)
+        alternativeCart.addItem(alternativeMug, 3)
+        alternativeCart.addItem(alternativeVoucher, 1)
+
+        //Total 5 tshirts = 5*(25-2) , Total 7 vouchers = 6*6, 5 mugs = 5*5.5
+        // 90 + 36 + 27.5 = 163.5
+        assertEquals(178.5, alternativeCart.checkout())
+    }
 
     @Test
     fun `test checkout without discount regular shopping cart mixed items`() {

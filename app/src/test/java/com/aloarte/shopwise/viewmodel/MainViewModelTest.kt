@@ -10,7 +10,6 @@ import com.aloarte.shopwise.utils.CoroutinesTestRule
 import com.aloarte.shopwise.utils.TestData
 import com.aloarte.shopwise.utils.TestData.TSHIRT_PRICE
 import com.aloarte.shopwise.utils.TestData.cardsBoList
-import com.aloarte.shopwise.utils.TestData.localProductsBoList
 import com.aloarte.shopwise.utils.TestData.rTshirt
 import com.aloarte.shopwise.utils.TestData.remoteProductsBoList
 import io.mockk.MockKAnnotations
