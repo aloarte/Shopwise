@@ -28,4 +28,4 @@ Light and dark mode screenshots:
 
 Demo:
 
-<img src="/captures/shopwise-gif.gif" width="260">
+<img src="/captures/shopwise-first.gif" width="260"> <img src="/captures/shopwise-second.gif" width="260">
