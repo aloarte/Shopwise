@@ -10,8 +10,8 @@ import com.aloarte.shopwise.utils.CoroutinesTestRule
 import com.aloarte.shopwise.utils.TestData
 import com.aloarte.shopwise.utils.TestData.TSHIRT_PRICE
 import com.aloarte.shopwise.utils.TestData.cardsBoList
-import com.aloarte.shopwise.utils.TestData.productsBoList
-import com.aloarte.shopwise.utils.TestData.tshirt
+import com.aloarte.shopwise.utils.TestData.rTshirt
+import com.aloarte.shopwise.utils.TestData.remoteProductsBoList
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -49,17 +49,17 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `test fetch items`() = coroutinesTestRule.runBlockingTest {
-        coEvery { productsRepository.fetchProducts() } returns productsBoList
+    fun `test fetch items from remote`() = coroutinesTestRule.runBlockingTest {
+        coEvery { productsRepository.fetchProducts(true) } returns remoteProductsBoList
         coEvery { cardsRepository.fetchUserCards() } returns cardsBoList
 
-        viewModel.fetchItems()
+        viewModel.fetchItems(true)
 
-        coVerify { productsRepository.fetchProducts() }
+        coVerify { productsRepository.fetchProducts(true) }
         coVerify { cardsRepository.fetchUserCards() }
         val expectedState = UiState(
             cards = cardsBoList,
-            productList = productsBoList
+            productList = remoteProductsBoList
 
         )
         assertStateEqualsWithoutCart(expectedState, viewModel.state.first())
@@ -67,7 +67,7 @@ class MainViewModelTest {
 
     @Test
     fun `test add item to cart`() = coroutinesTestRule.runBlockingTest {
-        viewModel.addItemToCart(product = tshirt, quantity = quantity)
+        viewModel.addItemToCart(product = rTshirt, quantity = quantity)
 
         val expectedState = UiState(
             cartValue = quantity * TSHIRT_PRICE,
@@ -78,8 +78,8 @@ class MainViewModelTest {
 
     @Test
     fun `test add item to cart with replace`() = coroutinesTestRule.runBlockingTest {
-        viewModel.addItemToCart(product = tshirt, quantity = quantity)
-        viewModel.addItemToCart(replace = true, product = tshirt, quantity = quantity)
+        viewModel.addItemToCart(product = rTshirt, quantity = quantity)
+        viewModel.addItemToCart(replace = true, product = rTshirt, quantity = quantity)
 
         val expectedState = UiState(
             cartValue = quantity * TSHIRT_PRICE,
@@ -90,14 +90,14 @@ class MainViewModelTest {
 
     @Test
     fun `test remove item from cart`() = coroutinesTestRule.runBlockingTest {
-        viewModel.addItemToCart(product = tshirt, quantity = quantity)
+        viewModel.addItemToCart(product = rTshirt, quantity = quantity)
         val expectedPreviousState = UiState(
             cartValue = quantity * TSHIRT_PRICE,
             cartSize = quantity
         )
         assertStateEqualsWithoutCart(expectedPreviousState, viewModel.state.first())
 
-        viewModel.removeItemFromCart(product = tshirt)
+        viewModel.removeItemFromCart(product = rTshirt)
 
         val expectedState = UiState(
             cartValue = 0.0,
@@ -112,7 +112,7 @@ class MainViewModelTest {
             PurchaseDataItem(name = TestData.TSHIRT_CODE, 1)
         )
         coEvery { productsRepository.getPurchaseData(any()) } returns purchaseData
-        viewModel.addItemToCart(product = tshirt, quantity = quantity)
+        viewModel.addItemToCart(product = rTshirt, quantity = quantity)
         val expectedPreviousState = UiState(
             cartValue = quantity * TSHIRT_PRICE,
             cartSize = quantity

@@ -47,16 +47,16 @@ fun NavigationComponent(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
             )
         }
         composable(
-            route = Screen.DetailScreen.route + "/{productType}",
+            route = Screen.DetailScreen.route + "/{productId}",
             arguments = listOf(
-                navArgument("productType") {
+                navArgument("productId") {
                     type = NavType.StringType
                     defaultValue = "UNKNOWN"
                     nullable = true
                 })
         ) { entry ->
             DetailScreen(
-                productType = entry.arguments?.getString("productType"),
+                productId = entry.arguments?.getString("productId"),
                 state = state,
                 onEventTriggered = onInnerEventTriggered
             )

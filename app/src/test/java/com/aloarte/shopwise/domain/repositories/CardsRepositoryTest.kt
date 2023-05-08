@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.domain
+package com.aloarte.shopwise.domain.repositories
 
 import com.aloarte.shopwise.data.datasources.CardsDatasource
 import com.aloarte.shopwise.data.repositories.CardsRepositoryImpl

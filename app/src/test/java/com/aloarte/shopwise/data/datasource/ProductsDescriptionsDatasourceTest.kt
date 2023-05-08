@@ -1,4 +1,4 @@
-package com.aloarte.shopwise.data
+package com.aloarte.shopwise.data.datasource
 
 import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasource
 import com.aloarte.shopwise.data.datasources.ProductsDescriptionsDatasourceImpl

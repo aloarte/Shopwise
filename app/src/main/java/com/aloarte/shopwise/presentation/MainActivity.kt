@@ -68,6 +68,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.fetchItems()
+        viewModel.fetchItems(false)
     }
 }

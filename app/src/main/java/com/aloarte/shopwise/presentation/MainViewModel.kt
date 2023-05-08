@@ -24,9 +24,9 @@ class MainViewModel @Inject constructor(
     private val _state = MutableStateFlow(UiState())
     val state = _state.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
-    fun fetchItems() {
+    fun fetchItems(fetchFromRemote:Boolean = true) {
         viewModelScope.launch {
-            val products = productsRepository.fetchProducts()
+            val products = productsRepository.fetchProducts(remote = fetchFromRemote)
             val cards = cardsRepository.fetchUserCards()
             _state.update {
                 it.copy(

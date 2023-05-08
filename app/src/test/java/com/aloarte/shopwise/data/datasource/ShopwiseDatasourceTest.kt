@@ -1,15 +1,16 @@
-package com.aloarte.shopwise.data
+package com.aloarte.shopwise.data.datasource
 
+import com.aloarte.shopwise.data.ProductsApi
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasource
 import com.aloarte.shopwise.data.datasources.ShopwiseProductsDatasourceImpl
 import com.aloarte.shopwise.data.dto.ApiResult
 import com.aloarte.shopwise.data.parser.DataParser
 import com.aloarte.shopwise.domain.model.ProductBo
 import com.aloarte.shopwise.utils.CoroutinesTestRule
-import com.aloarte.shopwise.utils.TestData.mugDto
+import com.aloarte.shopwise.utils.TestData.rMugDto
 import com.aloarte.shopwise.utils.TestData.productsJson
-import com.aloarte.shopwise.utils.TestData.tshirtDto
-import com.aloarte.shopwise.utils.TestData.voucherDto
+import com.aloarte.shopwise.utils.TestData.rTshirtDto
+import com.aloarte.shopwise.utils.TestData.rVoucherDto
 import com.aloarte.shopwise.utils.Utils.buildResponse
 import com.google.gson.Gson
 import io.mockk.MockKAnnotations
@@ -54,7 +55,8 @@ class ShopwiseDatasourceTest {
 
         val listResult = runBlocking { datasource.fetchProducts() }
 
-        val expected = ApiResult.Success(listOf(voucherDto, tshirtDto, mugDto))
+        val expected = ApiResult.Success(listOf(rVoucherDto, rTshirtDto, rMugDto))
+
         coVerify { api.fetchProductsJson() }
         Assert.assertEquals(expected, listResult)
     }
@@ -70,5 +72,4 @@ class ShopwiseDatasourceTest {
         coVerify { api.fetchProductsJson() }
         Assert.assertEquals(expected, listResult)
     }
-
 }
