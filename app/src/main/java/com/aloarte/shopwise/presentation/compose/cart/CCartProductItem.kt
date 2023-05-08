@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +34,6 @@ import androidx.compose.ui.unit.sp
 import com.aloarte.shopwise.R
 import com.aloarte.shopwise.domain.cart.ProductBoComparator
 import com.aloarte.shopwise.domain.model.ProductBo
-import com.aloarte.shopwise.domain.enums.ProductType
 import com.aloarte.shopwise.presentation.UiConstants
 import com.aloarte.shopwise.presentation.UiEvent
 import com.aloarte.shopwise.presentation.UiState
@@ -43,12 +41,15 @@ import com.aloarte.shopwise.presentation.compose.commons.ModifyQuantityIcon
 import com.aloarte.shopwise.presentation.compose.enums.ModifyType
 import com.aloarte.shopwise.presentation.compose.enums.QuantityIconSizeType
 import com.aloarte.shopwise.presentation.getProductBackground
-import com.aloarte.shopwise.presentation.getProductImage
 
 @Composable
 fun SelectedProductList(state: UiState, onEventTriggered: (UiEvent) -> Unit) {
     val cartItems = state.cart.getCartItems().sortedWith(ProductBoComparator)
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(450.dp),
+    ) {
         items(cartItems.size) { itemIndex ->
             val product = cartItems[itemIndex]
             Spacer(modifier = Modifier.height(10.dp))
@@ -76,7 +77,7 @@ fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (I
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        CartProductImage(modifier = Modifier.align(Alignment.CenterStart), product.type)
+        CartProductImage(modifier = Modifier.align(Alignment.CenterStart), product)
         CartProductTitlePrice(
             modifier = Modifier.align(Alignment.Center),
             state = state,
@@ -94,14 +95,14 @@ fun CartProductItem(state: UiState, item: Pair<ProductBo, Int>, onItemsAdded: (I
 
 @Composable
 fun CartProductImage(
-    modifier: Modifier = Modifier, type: ProductType
+    modifier: Modifier = Modifier, product: ProductBo
 ) {
     Card(
         modifier = Modifier
             .height(80.dp)
             .width(80.dp)
             .clickable(onClick = {}, enabled = false),
-        colors = CardDefaults.cardColors(containerColor = type.getProductBackground())
+        colors = CardDefaults.cardColors(containerColor = product.type.getProductBackground())
     ) {
         Box(
             modifier = modifier
@@ -113,7 +114,7 @@ fun CartProductImage(
                 modifier = Modifier
                     .height(40.dp)
                     .width(40.dp),
-                painter = painterResource(id = type.getProductImage()),
+                painter = painterResource(id = product.imageResource/* type.getProductImage()*/),
                 contentDescription = stringResource(id = R.string.img_desc_product)
             )
         }
@@ -128,9 +129,9 @@ fun CartProductTitlePrice(
     product: ProductBo,
     quantity: Int
 ) {
-    val productsDiscounted = state.cart.getDiscountedCountByType(quantity, product.type) > 0
-    val productsPrice = state.cart.getItemsPriceByType(product.type)
-    val productPriceWithoutDiscount = state.cart.getItemsPriceWithoutDiscountByType(product.type)
+    val productsDiscounted = state.cart.areProductsDiscounted(quantity, product.type)
+    val productsPrice = state.cart.getDiscountedItemsPrice(product.type,product.name)
+    val productPriceWithoutDiscount = state.cart.getNotDiscountedItemsPrice(product.type,product.name)
 
     Row(
         modifier
@@ -140,7 +141,9 @@ fun CartProductTitlePrice(
     ) {
         Spacer(modifier = Modifier.width(10.dp))
         Column(
-            Modifier.fillMaxWidth().fillMaxHeight(),
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
             verticalArrangement = Arrangement.Center
         ) {
             Text(

@@ -44,7 +44,6 @@ fun SearchRow(onContentSearched: (String) -> Unit) {
             .padding(horizontal = 10.dp)
     ) {
         OutlinedTextField(
-
             value = searchText,
             onValueChange = {
                 searchText = it

@@ -68,10 +68,10 @@ fun TotalAndCheckoutRow(
     state: UiState,
     onEventTriggered: (UiEvent) -> Unit
 ) {
-    val vouchersPrice = state.cart.getItemsPriceByType(ProductType.Voucher)
-    val tshirtsPrice = state.cart.getItemsPriceByType(ProductType.Tshirt)
-    val mugsPrice = state.cart.getItemsPriceByType(ProductType.Mug)
-    val totalWithoutDiscount = state.cart.checkoutWithoutDiscount()
+    val vouchersPrice = state.cart.getItemsPrice(ProductType.Voucher,true)
+    val tshirtsPrice = state.cart.getItemsPrice(ProductType.Tshirt,true)
+    val mugsPrice = state.cart.getItemsPrice(ProductType.Mug,true)
+    val totalWithoutDiscount = state.cart.checkout(applyDiscounts = false)
     val totalPrice = state.cart.checkout()
 
     Column(

@@ -87,7 +87,7 @@ fun ProductItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
-            onClick = { onItemClicked.invoke(product.code) },
+            onClick = { onItemClicked.invoke(product.id) },
             modifier = Modifier
                 .height(180.dp)
                 .width(150.dp),
@@ -103,7 +103,7 @@ fun ProductItem(
                     modifier = Modifier
                         .height(100.dp)
                         .width(100.dp),
-                    painter = painterResource(id = product.type.getProductImage()),
+                    painter = painterResource(id = product.imageResource/*product.type.getProductImage()*/),
                     contentDescription = stringResource(id = R.string.img_desc_product)
                 )
             }
